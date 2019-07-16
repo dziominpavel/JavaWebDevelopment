@@ -2,6 +2,11 @@ package by.dziomin.task1.entity;
 
 public enum TransportType {
     /**
+     * transport by default.
+     */
+    UNKNOWN,
+
+    /**
      * Land trasport. Bus.
      */
     BUS,

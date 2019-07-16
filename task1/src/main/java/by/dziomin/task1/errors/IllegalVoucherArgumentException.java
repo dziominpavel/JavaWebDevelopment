@@ -1,6 +1,6 @@
-package by.dziomin.task1.exception;
+package by.dziomin.task1.errors;
 
-public class IllegalVoucherArgumentException extends RuntimeException {
+public class IllegalVoucherArgumentException extends Exception {
     /**
      * default constructor for IllegalVoucherArgumentException.
      */
@@ -9,7 +9,7 @@ public class IllegalVoucherArgumentException extends RuntimeException {
 
     /**
      * constructor for IllegalVoucherArgumentException with parameter message.
-     * @param message message for exception.
+     * @param message message for errors.
      */
     public IllegalVoucherArgumentException(final String message) {
         super(message);
@@ -17,7 +17,7 @@ public class IllegalVoucherArgumentException extends RuntimeException {
 
     /**
      * constructor for IllegalVoucherArgumentException with parameter message.
-     * @param message message for exception.
+     * @param message message for errors.
      * @param cause message for cause.
      */
     public IllegalVoucherArgumentException(final String message,

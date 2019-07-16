@@ -6,6 +6,11 @@ package by.dziomin.task1.entity;
 
 public enum VoucherType {
     /**
+     * voucher by default.
+     */
+    UNKNOWN,
+
+    /**
      * event relax.
      */
     RELAX,

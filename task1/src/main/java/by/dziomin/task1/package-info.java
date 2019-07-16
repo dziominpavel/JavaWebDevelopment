@@ -1,4 +1,4 @@
 /**
- * Info about this package doing something for package-info.java file.
+ * task1 package.
  */
 package by.dziomin.task1;

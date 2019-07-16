@@ -1,27 +1,63 @@
 package by.dziomin.task1.entity;
 
-public abstract class Voucher {
+
+import static by.dziomin.task1.service.VoucherValidator.countDaysValidator;
+import static by.dziomin.task1.service.VoucherValidator.departureCountryValidator;
+import static by.dziomin.task1.service.VoucherValidator.destinationCountryValidator;
+import static by.dziomin.task1.service.VoucherValidator.eatingTypeValidator;
+import static by.dziomin.task1.service.VoucherValidator.priceValidator;
+import static by.dziomin.task1.service.VoucherValidator.transportTypeValidator;
+import static by.dziomin.task1.service.VoucherValidator.voucherTypeValidator;
+
+public abstract class Voucher implements BaseEntity {
+    /**
+     * vouchertype.
+     */
+    private VoucherType voucherType = VoucherType.UNKNOWN;
     /**
      * departure country.
      */
-    private String departureCountry;
+    private String departureCountry = "Unknown";
     /**
      * destination country.
      */
-    private String destinationCountry;
+    private String destinationCountry = "Unknown";
     /**
      * price.
      */
-    private long price;
+    private double price = 0;
     /**
      * transport.
      */
-    private TransportType transportType;
+    private TransportType transportType = TransportType.UNKNOWN;
     /**
      * count of days.
      */
-    private int countDays;
+    private int countDays = 0;
+    /**
+     * type of eating.
+     */
+    private EatingType eatingType = EatingType.UNKNOWN;
 
+    /**
+     * getter method for voucherType field.
+     *
+     * @return voucherType.
+     */
+    public VoucherType getVoucherType() {
+        return voucherType;
+    }
+
+    /**
+     * setter method for voucherType field.
+     *
+     * @param newVoucherType newVoucherType.
+     */
+    public void setVoucherType(final VoucherType newVoucherType) {
+        if (voucherTypeValidator(String.valueOf(newVoucherType))) {
+            voucherType = newVoucherType;
+        }
+    }
 
     /**
      * getter method for departureCountry field.
@@ -38,7 +74,9 @@ public abstract class Voucher {
      * @param newDepartureCountry newDepartureCountry.
      */
     public void setDepartureCountry(final String newDepartureCountry) {
-        departureCountry = newDepartureCountry;
+        if (departureCountryValidator(newDepartureCountry)) {
+            departureCountry = newDepartureCountry;
+        }
     }
 
     /**
@@ -56,7 +94,9 @@ public abstract class Voucher {
      * @param newDestinationCountry newDestinationCountry.
      */
     public void setDestinationCountry(final String newDestinationCountry) {
-        destinationCountry = newDestinationCountry;
+        if (destinationCountryValidator(newDestinationCountry)) {
+            destinationCountry = newDestinationCountry;
+        }
     }
 
     /**
@@ -64,7 +104,7 @@ public abstract class Voucher {
      *
      * @return price.
      */
-    public long getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -73,8 +113,10 @@ public abstract class Voucher {
      *
      * @param newPrice newPrice.
      */
-    public void setPrice(final long newPrice) {
-        price = newPrice;
+    public void setPrice(final double newPrice) {
+        if (priceValidator(String.valueOf(newPrice))) {
+            price = newPrice;
+        }
     }
 
     /**
@@ -85,13 +127,16 @@ public abstract class Voucher {
     public TransportType getTransportType() {
         return transportType;
     }
+
     /**
      * setter method for transportType field.
      *
      * @param newTransportType newTransportType.
      */
     public void setTransportType(final TransportType newTransportType) {
-        transportType = newTransportType;
+        if (transportTypeValidator(String.valueOf(newTransportType))) {
+            transportType = newTransportType;
+        }
     }
 
     /**
@@ -109,6 +154,100 @@ public abstract class Voucher {
      * @param newCountDays newCountDays.
      */
     public void setCountDays(final int newCountDays) {
-        countDays = newCountDays;
+        if (countDaysValidator(String.valueOf(newCountDays))) {
+            countDays = newCountDays;
+        }
+    }
+
+    /**
+     * getter method for eatingType field.
+     *
+     * @return eatingType.
+     */
+    public EatingType getEatingType() {
+        return eatingType;
+    }
+
+    /**
+     * setter method for eatingType field.
+     *
+     * @param newEatingType newEatingType.
+     */
+    public void setEatingType(final EatingType newEatingType) {
+        if (eatingTypeValidator(String.valueOf(newEatingType))) {
+            eatingType = newEatingType;
+        }
+    }
+
+    /**
+     * equals method.
+     *
+     * @param obj newEatingType.
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Voucher voucher = (Voucher) obj;
+
+        if (getPrice() != voucher.getPrice()) {
+            return false;
+        }
+        if (getVoucherType() != voucher.getVoucherType()) {
+            return false;
+        }
+        if (getCountDays() != voucher.getCountDays()) {
+            return false;
+        }
+        if (!getDepartureCountry().equals(voucher.getDepartureCountry())) {
+            return false;
+        }
+
+        if (!getDestinationCountry().equals(voucher.getDestinationCountry())) {
+            return false;
+        }
+        if (getTransportType() != voucher.getTransportType()) {
+            return false;
+        }
+        return getEatingType() == voucher.getEatingType();
+    }
+
+    /**
+     * hashCode method.
+     */
+    @Override
+    public int hashCode() {
+        int result = getDepartureCountry().hashCode();
+        result = result + getVoucherType().hashCode();
+        result = result + getDestinationCountry().hashCode();
+        result = result + (int) (getPrice());
+        result = result + getTransportType().hashCode();
+        result = result + getCountDays();
+        result = result + getEatingType().hashCode();
+        return result;
+    }
+
+    /**
+     * vousher to string.
+     *
+     * @return String.
+     */
+
+    @Override
+    public String toString() {
+        return "Voucher{"
+                + "voucherType='" + voucherType + '\''
+                + "departureCountry='" + departureCountry + '\''
+                + ", destinationCountry='" + destinationCountry + '\''
+                + ", price=" + price
+                + ", transportType=" + transportType
+                + ", countDays=" + countDays
+                + ", eatingType=" + eatingType
+                + '}';
     }
 }

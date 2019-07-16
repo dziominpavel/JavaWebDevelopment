@@ -6,9 +6,10 @@ import by.dziomin.task1.entity.ShoppingVoucher;
 import by.dziomin.task1.entity.Voucher;
 import by.dziomin.task1.entity.VoucherType;
 import by.dziomin.task1.entity.WorkingVoucher;
-import by.dziomin.task1.exception.IllegalVoucherArgumentException;
+import by.dziomin.task1.errors.IllegalVoucherArgumentException;
 
 public class VoucherFactory {
+
     /**
      * Factory method creates Voucher with concrete type.
      *
@@ -20,7 +21,7 @@ public class VoucherFactory {
     public Voucher createVoucher(final VoucherType voucherType)
             throws IllegalVoucherArgumentException {
         if (voucherType == null) {
-            throw new IllegalArgumentException();
+            throw new IllegalVoucherArgumentException();
         }
 
         switch (voucherType) {
@@ -34,7 +35,7 @@ public class VoucherFactory {
                 return new WorkingVoucher();
 
             default:
-                throw new IllegalArgumentException();
+                throw new IllegalVoucherArgumentException();
         }
     }
 

@@ -1,11 +1,11 @@
 package by.dziomin.task1.repository;
 
-import by.dziomin.task1.entity.BaseEntity;
+import by.dziomin.task1.entity.Voucher;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public interface Repository<T extends BaseEntity> {
+public interface Repository<T extends Voucher> {
     /**
      * add.
      *
@@ -27,5 +27,5 @@ public interface Repository<T extends BaseEntity> {
      * @param orderBy   orderBy
      * @return List<T>
      */
-    List<T> get(HashMap<String, Object> parametrs, List<String> orderBy);
+    List<T> get(Map<String, Object> parametrs, List<String> orderBy);
 }

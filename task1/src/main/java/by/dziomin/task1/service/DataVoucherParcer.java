@@ -15,9 +15,11 @@ public final class DataVoucherParcer {
      * voucherInfo.
      * @param stringVoucherData stringVoucherData
      * @return String[]
+     * @throws Exception exeption
      */
-    public static String[] voucherInfo(final String stringVoucherData) {
-        Logger logger = Logger.getLogger(DataReader.class);
+    public static String[] voucherInfo(final String stringVoucherData)
+            throws Exception {
+        Logger logger = Logger.getLogger(DataVoucherParcer.class);
         logger.info("parcing voucher data...");
         try {
             if (stringVoucherData != null) {
@@ -27,7 +29,8 @@ public final class DataVoucherParcer {
                 return voucherInfo;
             }
         } catch (Exception e) {
-            logger.error("Error of reading voucher data...");
+            logger.error("Error of parcing file");
+            throw new Exception();
         }
         return null;
     }

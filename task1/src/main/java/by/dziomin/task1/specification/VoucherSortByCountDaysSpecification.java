@@ -4,12 +4,11 @@ import by.dziomin.task1.entity.Voucher;
 
 import java.util.Comparator;
 
-public final class VoucherSortByPriceSpecification
+public final class VoucherSortByCountDaysSpecification
         implements ISortSpecification {
 
     @Override
     public Comparator<Voucher> getComparator() {
-        return Comparator.comparingDouble(Voucher::getPrice);
+        return Comparator.comparingInt(Voucher::getCountDays);
     }
-
 }

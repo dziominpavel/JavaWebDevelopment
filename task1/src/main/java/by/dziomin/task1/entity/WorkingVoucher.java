@@ -13,7 +13,7 @@ public class WorkingVoucher extends Voucher {
      *
      * @return workName.
      */
-    public String getWorkName() {
+    private String getWorkName() {
         return workName;
     }
 
@@ -29,13 +29,51 @@ public class WorkingVoucher extends Voucher {
     }
 
     /**
+     * equals.
+     *
+     * @param newO newObject.
+     * @return boolean
+     */
+    @Override
+    public boolean equals(final Object newO) {
+        if (this == newO) {
+            return true;
+        }
+        if (newO == null || getClass() != newO.getClass()) {
+            return false;
+        }
+        if (!super.equals(newO)) {
+            return false;
+        }
+
+        WorkingVoucher that = (WorkingVoucher) newO;
+
+        return getWorkName() != null ? getWorkName()
+                .equals(that.getWorkName()) : that.getWorkName() == null;
+    }
+
+    /**
+     * hashCode.
+     *
+     * @return int.
+     */
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        final int magicNumber = 31;
+        result = magicNumber * result + (getWorkName() != null
+                ? getWorkName().hashCode() : 0);
+        return result;
+    }
+
+    /**
      * tostring midication voucher.
      *
      * @return String
      */
     @Override
     public String toString() {
-        return "Voucher{"
+        return "\nVoucher{"
                 + "voucherType='" + getVoucherType() + '\''
                 + "departureCountry='" + getDepartureCountry() + '\''
                 + ", destinationCountry='" + getDestinationCountry()

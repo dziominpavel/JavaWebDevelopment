@@ -1,6 +1,6 @@
 package by.dziomin.task1.specification;
 
-import by.dziomin.task1.entity.BaseEntity;
+import by.dziomin.task1.entity.Voucher;
 
 import java.util.Comparator;
 import java.util.List;
@@ -34,16 +34,16 @@ public class QueryExecutor {
      * @param list                   list.
      * @return List
      */
-    public List<BaseEntity> query(
+    public List<Voucher> query(
             final Map<ISpecification, Object> specificationObjectMap,
-            final List<BaseEntity> list) {
+            final List<Voucher> list) {
 
-        Stream<BaseEntity> stream = list.stream();
-        Comparator<BaseEntity> comparator = null;
+        Stream<Voucher> stream = list.stream();
+        Comparator<Voucher> comparator = null;
         for (ISpecification specification : specificationObjectMap.keySet()) {
             if (specification instanceof IFindSpecification) {
                 Object parametr = specificationObjectMap.get(specification);
-                Predicate<BaseEntity> predicate =
+                Predicate<Voucher> predicate =
                         ((IFindSpecification) specification)
                                 .getPredicate(parametr);
                 stream = stream.filter(predicate);

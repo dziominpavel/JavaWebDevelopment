@@ -13,7 +13,7 @@ public class RelaxVoucher extends Voucher {
      *
      * @return relaxType.
      */
-    public RelaxType getRelaxType() {
+    private RelaxType getRelaxType() {
         return relaxType;
     }
 
@@ -29,13 +29,48 @@ public class RelaxVoucher extends Voucher {
     }
 
     /**
+     * equals.
+     *
+     * @param newO newO.
+     * @return boolean.
+     */
+    @Override
+    public boolean equals(final Object newO) {
+        if (this == newO) {
+            return true;
+        }
+        if (newO == null || getClass() != newO.getClass()) {
+            return false;
+        }
+        if (!super.equals(newO)) {
+            return false;
+        }
+
+        RelaxVoucher that = (RelaxVoucher) newO;
+
+        return getRelaxType() == that.getRelaxType();
+    }
+
+    /**
+     * @return int
+     */
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        final int magicNumber = 31;
+        result = magicNumber * result
+                + (getRelaxType() != null ? getRelaxType().hashCode() : 0);
+        return result;
+    }
+
+    /**
      * tostring midication voucher.
      *
      * @return String
      */
     @Override
     public String toString() {
-        return "Voucher{"
+        return "\nVoucher{"
                 + "voucherType='" + getVoucherType() + '\''
                 + "departureCountry='" + getDepartureCountry() + '\''
                 + ", destinationCountry='" + getDestinationCountry()

@@ -13,7 +13,7 @@ public class MedicationVoucher extends Voucher {
      *
      * @return hospitalName.
      */
-    public String getHospitalName() {
+    private String getHospitalName() {
         return hospitalName;
     }
 
@@ -29,13 +29,53 @@ public class MedicationVoucher extends Voucher {
     }
 
     /**
+     * equals.
+     *
+     * @param newO newObject.
+     * @return boolean.
+     */
+    @Override
+    public boolean equals(final Object newO) {
+        if (this == newO) {
+            return true;
+        }
+        if (newO == null || getClass() != newO.getClass()) {
+            return false;
+        }
+        if (!super.equals(newO)) {
+            return false;
+        }
+
+        MedicationVoucher that = (MedicationVoucher) newO;
+
+        return getHospitalName() != null ? getHospitalName()
+                .equals(that.getHospitalName())
+                : that.getHospitalName() == null;
+    }
+
+    /**
+     * hashCode.
+     *
+     * @return int.
+     */
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        final int magicNumber = 31;
+        result = magicNumber * result
+                + (getHospitalName() != null
+                ? getHospitalName().hashCode() : 0);
+        return result;
+    }
+
+    /**
      * tostring midication voucher.
      *
      * @return String
      */
     @Override
     public String toString() {
-        return "Voucher{"
+        return "\nVoucher{"
                 + "voucherType='" + getVoucherType() + '\''
                 + "departureCountry='" + getDepartureCountry() + '\''
                 + ", destinationCountry='" + getDestinationCountry()

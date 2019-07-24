@@ -10,6 +10,7 @@ import by.dziomin.task1.specification.VoucherFindByDestination;
 import by.dziomin.task1.specification.VoucherFindByGreaterThanPrice;
 import by.dziomin.task1.specification.VoucherFindByLowerThanPrice;
 import by.dziomin.task1.specification.VoucherFindByType;
+import by.dziomin.task1.specification.VoucherSortByCountDaysSpecification;
 import by.dziomin.task1.specification.VoucherSortByPriceSpecification;
 import by.dziomin.task1.specification.VoucherSortByTypeSpecification;
 import by.dziomin.task1.werehouse.VoucherWereHouse;
@@ -19,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class VoucherReposiroty implements Repository<Voucher> {
+public final class VoucherRepository implements Repository<Voucher> {
     /**
      * ORDERBY.
      */
@@ -32,18 +33,20 @@ public final class VoucherReposiroty implements Repository<Voucher> {
     /**
      * voucherList.
      */
-    private static VoucherReposiroty instance;
+    private static VoucherRepository instance;
 
     static {
         ORDERBY = new HashMap<>();
         ORDERBY.put("price", new VoucherSortByPriceSpecification());
         ORDERBY.put("voucherType", new VoucherSortByTypeSpecification());
+        ORDERBY.put("countDays", new VoucherSortByCountDaysSpecification());
         FINDBY = new HashMap<>();
         FINDBY.put("voucherType", new VoucherFindByType());
         FINDBY.put("departureCountry", new VoucherFindByDeparture());
         FINDBY.put("destinationCountry", new VoucherFindByDestination());
         FINDBY.put("greaterThanPrice", new VoucherFindByGreaterThanPrice());
         FINDBY.put("lowerThanPrice", new VoucherFindByLowerThanPrice());
+
     }
 
     /**
@@ -56,10 +59,9 @@ public final class VoucherReposiroty implements Repository<Voucher> {
     private VoucherWereHouse voucherWereHouse;
 
 
-    private VoucherReposiroty() {
+    private VoucherRepository() {
         voucherWereHouse = VoucherWereHouse.getInstance();
         queryExecutor = QueryExecutor.getInstance();
-
     }
 
     /**
@@ -67,16 +69,18 @@ public final class VoucherReposiroty implements Repository<Voucher> {
      *
      * @return instance.
      */
-    public static VoucherReposiroty getInstance() {
+    public static VoucherRepository getInstance() {
         if (instance == null) {
-            instance = new VoucherReposiroty();
+            instance = new VoucherRepository();
         }
         return instance;
     }
 
     @Override
     public void add(final Voucher voucher) {
-        voucherWereHouse.getVoucherList().add(voucher);
+        if (voucher != null) {
+            voucherWereHouse.getVoucherList().add(voucher);
+        }
     }
 
     @Override
@@ -85,8 +89,9 @@ public final class VoucherReposiroty implements Repository<Voucher> {
     }
 
     @Override
-    public List<Voucher> get(final HashMap<String, Object> parametrs,
+    public List<Voucher> get(final Map<String, Object> parametrs,
                              final List<String> orderBy) {
+
         Map<ISpecification, Object> specificationObjectMap = new HashMap<>();
         for (String s : parametrs.keySet()) {
             ISpecification specification = FINDBY.get(s);
@@ -102,10 +107,7 @@ public final class VoucherReposiroty implements Repository<Voucher> {
                 specificationObjectMap.put(specification, null);
             }
         }
-
         return queryExecutor.query(specificationObjectMap,
                 new ArrayList(voucherWereHouse.getVoucherList()));
     }
-
-
 }

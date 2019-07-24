@@ -1,6 +1,8 @@
 package by.dziomin.task1.entity;
 
 
+import java.util.Observable;
+
 import static by.dziomin.task1.service.VoucherValidator.countDaysValidator;
 import static by.dziomin.task1.service.VoucherValidator.departureCountryValidator;
 import static by.dziomin.task1.service.VoucherValidator.destinationCountryValidator;
@@ -9,7 +11,7 @@ import static by.dziomin.task1.service.VoucherValidator.priceValidator;
 import static by.dziomin.task1.service.VoucherValidator.transportTypeValidator;
 import static by.dziomin.task1.service.VoucherValidator.voucherTypeValidator;
 
-public abstract class Voucher implements BaseEntity {
+public abstract class Voucher extends Observable {
     /**
      * vouchertype.
      */
@@ -47,6 +49,7 @@ public abstract class Voucher implements BaseEntity {
     public VoucherType getVoucherType() {
         return voucherType;
     }
+
 
     /**
      * setter method for voucherType field.
@@ -115,6 +118,8 @@ public abstract class Voucher implements BaseEntity {
      */
     public void setPrice(final double newPrice) {
         if (priceValidator(String.valueOf(newPrice))) {
+            setChanged();
+            notifyObservers(newPrice);
             price = newPrice;
         }
     }
@@ -124,7 +129,7 @@ public abstract class Voucher implements BaseEntity {
      *
      * @return transportType.
      */
-    public TransportType getTransportType() {
+    TransportType getTransportType() {
         return transportType;
     }
 
@@ -164,7 +169,7 @@ public abstract class Voucher implements BaseEntity {
      *
      * @return eatingType.
      */
-    public EatingType getEatingType() {
+    EatingType getEatingType() {
         return eatingType;
     }
 
@@ -250,4 +255,6 @@ public abstract class Voucher implements BaseEntity {
                 + ", eatingType=" + eatingType
                 + '}';
     }
+
+
 }

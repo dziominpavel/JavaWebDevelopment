@@ -41,44 +41,54 @@ public final class VoucherCreator {
     public static Voucher voucherCreator(final String[] voucherInfo) {
 
         Logger logger = Logger.getLogger(VoucherCreator.class);
-        logger.info("reading data from file...");
+        logger.info("trying to create voucher...");
 
         try {
+            if (!VoucherValidator
+                    .voucherTypeValidator(voucherInfo[POSITION_VOUCHERTYPE]
+                            .toUpperCase())) {
+                logger.info("ERROR of reading data from file...");
+                throw new IllegalVoucherArgumentException("Error creating "
+                        + "voucher");
+            }
+
             Voucher voucher =
                     new VoucherFactory().createVoucher(
                             VoucherType.valueOf(
-                                    voucherInfo[POSITION_VOUCHERTYPE]));
+                                    voucherInfo[POSITION_VOUCHERTYPE]
+                                            .toUpperCase()));
             voucher.setVoucherType(VoucherType.valueOf(
-                    voucherInfo[POSITION_VOUCHERTYPE]));
+                    voucherInfo[POSITION_VOUCHERTYPE].toUpperCase()));
             voucher.setDepartureCountry(voucherInfo[POSITION_DEPARTURE]);
             voucher.setDestinationCountry(voucherInfo[POSITION_DESTINATION]);
             voucher.setPrice(Double.valueOf(voucherInfo[POSITION_PRICE]));
             voucher.setTransportType(TransportType.valueOf(
-                    voucherInfo[POSITION_TRANSPORTTYPE]));
+                    voucherInfo[POSITION_TRANSPORTTYPE].toUpperCase()));
             voucher.setCountDays(Integer.valueOf(
                     voucherInfo[POSITION_COUNTDAYS]));
             voucher.setEatingType(EatingType.valueOf(
-                    voucherInfo[POSITION_EATINGTYPE]));
+                    voucherInfo[POSITION_EATINGTYPE].toUpperCase()));
             if (voucher instanceof RelaxVoucher) {
                 ((RelaxVoucher) voucher).setRelaxType(RelaxType.valueOf(
-                        voucherInfo[POSITION_RELAXTYPE]));
+                        voucherInfo[POSITION_RELAXTYPE].toUpperCase()));
             } else if (voucher instanceof WorkingVoucher) {
                 ((WorkingVoucher) voucher).setWorkName(
-                        voucherInfo[POSITION_WORKNAME]);
+                        voucherInfo[POSITION_WORKNAME].toUpperCase());
             } else if (voucher instanceof ShoppingVoucher) {
                 ((ShoppingVoucher) voucher).setShopName(
-                        voucherInfo[POSITION_SHOPNAME]);
+                        voucherInfo[POSITION_SHOPNAME].toUpperCase());
             } else if (voucher instanceof MedicationVoucher) {
                 ((MedicationVoucher) voucher).setHospitalName(
-                        voucherInfo[POSITION_HOSPITALNAME]);
+                        voucherInfo[POSITION_HOSPITALNAME].toUpperCase());
             }
             logger.info("creating voucher [" + voucher.getVoucherType()
                     + "] success");
             return voucher;
 
         } catch (IllegalVoucherArgumentException e) {
-            logger.error("error of creating track...");
-            return null;
+            logger.error("error of creating voucher...");
         }
+        return null;
     }
+
 }

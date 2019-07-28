@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<div>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"
+              charset="UTF-8">
+        <title>Библиотека</title>
+        <link href="../css/index.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+    <div id="wrapper">
+
+        <div id="header">
+            <h1>Библиотека</h1>
+            <nav>
+                <div id="menu">
+
+                    <a href="Index.html"> Главная</a> |
+                    <a href="Enter.html"> Вход</a> |
+                    <a href="List.html"> Список</a> |
+                    <a href="Edit.html"> Редактирование</a> |
+                    <a href="About.html"> Обратная связь</a>
+
+                </div>
+            </nav>
+        </div>
+
+        <div id="text" align="center">
+            <form class="form-horizontal">
+                <fieldset>
+
+                    <!-- Form Name -->
+                    <legend>Редактирование</legend>
+
+                    <div class="card" style="width:150px">
+                        <img class="card-img-top" src="../img/img_avatar1.png"
+                             alt="Card image">
+                        <div class="card-body">
+                            <h4 class="card-title">Иванов Иван</h4>
+                            <p class="card-text">30 лет</p>
+
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinputSurname">Фамилия*</label>
+                        <div class="col-md-4">
+                            <input id="textinputSurname" name="textinput" type="text"
+                                   placeholder="" class="form-control input-md"
+                                   required="">
+
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinputName">Имя*</label>
+                        <div class="col-md-4">
+                            <input id="textinputName" name="textinput" type="text"
+                                   placeholder="" class="form-control input-md"
+                                   required="">
+
+                        </div>
+                    </div>
+
+                    <!-- Password input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"
+                               for="passwordinputPassword">Пароль*</label>
+                        <div class="col-md-4">
+                            <input id="passwordinputPassword" name="passwordinput"
+                                   type="password" placeholder=""
+                                   class="form-control input-md" required="">
+
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinputAge">Возраст</label>
+                        <div class="col-md-4">
+                            <input id="textinputAge" name="textinput" type="text"
+                                   placeholder="" class="form-control input-md">
+
+                        </div>
+                    </div>
+
+                    <!-- Button Drop Down -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="buttondropdown">Button Drop Down</label>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <input id="buttondropdown" name="buttondropdown" class="form-control" placeholder="placeholder" type="text">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        Action
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a href="#buttondropdown = qwe">Option one</a></li>
+                                        <li><a href="#">Option two</a></li>
+                                        <li><a href="#">Option three</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Button (Double) -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"
+                               for="button1id"></label>
+                        <div class="col-md-8">
+                            <button id="button1id" name="button1id"
+                                    class="btn btn-primary">Save
+                            </button>
+                            <button id="button2id" name="button2id"
+                                    class="btn btn-danger">Cancel
+                            </button>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </form>
+
+
+        </div>
+
+    </div>
+    </body>
+</div>
+</html>

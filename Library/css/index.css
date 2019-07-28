@@ -1,0 +1,35 @@
+#wrapper{
+    width: 99%;
+    height: 96vh; /* Высота страницы */
+    margin: 0; /* Убираем отступы */
+    background: url(../img/main.jpg); /* Параметры фона */
+    background-size: cover; /* Фон занимает всю доступную площадь */
+}
+#header{
+    width: 100%;
+    /*font-family: ;*/
+    font-style: oblique;
+}
+
+#menu{
+    /*float: right;*/
+   /*position: absolute;*/
+    /*right: 20px;*/
+    width: 95%;
+    margin-bottom: 15px;
+    font-size: x-large;
+    text-align: right;
+}
+
+#text{
+    /*height: 80px;*/
+    width: 95%;
+    margin-bottom: 15px;
+    font-size: large;
+}
+
+#footer {
+    /*height: 80px;*/
+
+    margin-bottom: 15px;
+}

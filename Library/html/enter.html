@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<div>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+        <title>Библиотека</title>
+        <link href="../css/index.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+    <div id="wrapper">
+
+        <div id="header">
+            <h1>Библиотека</h1>
+            <nav>
+                <div id="menu">
+
+                    <a href="Index.html"> Главная</a> |
+                    <a href="Enter.html"> Вход</a> |
+                    <a href="List.html"> Список</a> |
+                    <a href="Edit.html"> Редактирование</a> |
+                    <a href="About.html"> Обратная связь</a>
+
+                </div>
+            </nav>
+        </div>
+
+        <div id="text" align="center">
+
+
+            <form class="form-horizontal">
+                <fieldset>
+
+                    <!-- Form Name -->
+                    <legend><h2>Вход в систему</h2></legend>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="textinput">Имя
+                            пользователя</label>
+                        <div class="col-md-4">
+                            <input id="textinput" name="textinput" type="text"
+                                   placeholder="Имя пользователя"
+                                   class="form-control input-md" required="">
+
+                        </div>
+                    </div>
+
+                    <!-- Password input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"
+                               for="passwordinput">Пароль</label>
+                        <div class="col-md-4">
+                            <input id="passwordinput" name="passwordinput"
+                                   type="password" placeholder="Пароль"
+                                   class="form-control input-md" required="">
+
+                        </div>
+                    </div>
+
+                    <!-- Button -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"
+                               for="singlebutton"></label>
+                        <div class="col-md-4">
+                            <button id="singlebutton" name="singlebutton"
+                                    class="btn btn-primary">Войти
+                            </button>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
+
+    </div>
+    </body>
+</div>
+</html>

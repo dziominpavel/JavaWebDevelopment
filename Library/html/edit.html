@@ -11,6 +11,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="../js/edit.js"></script>
+
     </head>
     <body>
     <div id="wrapper">
@@ -49,9 +51,11 @@
 
                     <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="textinputSurname">Фамилия*</label>
+                        <label class="col-md-4 control-label"
+                               for="textinputSurname">Фамилия*</label>
                         <div class="col-md-4">
-                            <input id="textinputSurname" name="textinput" type="text"
+                            <input id="textinputSurname" name="textinput"
+                                   type="text"
                                    placeholder="" class="form-control input-md"
                                    required="">
 
@@ -60,9 +64,11 @@
 
                     <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="textinputName">Имя*</label>
+                        <label class="col-md-4 control-label"
+                               for="textinputName">Имя*</label>
                         <div class="col-md-4">
-                            <input id="textinputName" name="textinput" type="text"
+                            <input id="textinputName" name="textinput"
+                                   type="text"
                                    placeholder="" class="form-control input-md"
                                    required="">
 
@@ -74,7 +80,8 @@
                         <label class="col-md-4 control-label"
                                for="passwordinputPassword">Пароль*</label>
                         <div class="col-md-4">
-                            <input id="passwordinputPassword" name="passwordinput"
+                            <input id="passwordinputPassword"
+                                   name="passwordinput"
                                    type="password" placeholder=""
                                    class="form-control input-md" required="">
 
@@ -83,30 +90,34 @@
 
                     <!-- Text input-->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="textinputAge">Возраст</label>
+                        <label id="temp" class="col-md-4 control-label"
+                               for="textinputAge">Возраст</label>
+                        <p id="result"></p>
                         <div class="col-md-4">
-                            <input id="textinputAge" name="textinput" type="text"
+                            <input id="textinputAge" name="textInput"
+                                   type="text"
                                    placeholder="" class="form-control input-md">
-
                         </div>
                     </div>
 
                     <!-- Button Drop Down -->
                     <div class="form-group">
-                        <label class="col-md-4 control-label" for="buttondropdown">Button Drop Down</label>
+                        <label class="col-md-4 control-label">Роль</label>
                         <div class="col-md-4">
                             <div class="input-group">
-                                <input id="buttondropdown" name="buttondropdown" class="form-control" placeholder="placeholder" type="text">
                                 <div class="input-group-btn">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                        Action
-                                        <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu pull-right">
-                                        <li><a href="#buttondropdown = qwe">Option one</a></li>
-                                        <li><a href="#">Option two</a></li>
-                                        <li><a href="#">Option three</a></li>
-                                    </ul>
+                                    <tr>
+                                        <!--<td>Роль</td>-->
+                                        <td>
+                                            <select required>
+                                                <option></option>
+                                                <option value="1">Сотрудник
+                                                </option>
+                                                <option value="2">Читатель
+                                                </option>
+                                            </select>
+                                        </td>
+                                    </tr>
                                 </div>
                             </div>
                         </div>
@@ -118,9 +129,11 @@
                                for="button1id"></label>
                         <div class="col-md-8">
                             <button id="button1id" name="button1id"
-                                    class="btn btn-primary">Save
+                                    type="submit"
+                                    class="btn btn-primary"
+                                    onclick="checkAge()">Save
                             </button>
-                            <button id="button2id" name="button2id"
+                            <button id="button2id" name="button2id" type="reset"
                                     class="btn btn-danger">Cancel
                             </button>
                         </div>
@@ -128,7 +141,6 @@
 
                 </fieldset>
             </form>
-
 
         </div>
 

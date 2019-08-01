@@ -1,6 +1,13 @@
 function checkAge() {
-    var age = parseInt(document.getElementById('textinputAge').value);
-    if (age > 100 || age < 1 || isNaN(age)) {
-        window.alert("Введите корректный возраст");
+
+    var val = document.getElementById('textinputAge').value;
+    var len = val.toString().length;
+    var valInt = parseInt(val);
+    if (len != 0) {
+        if (valInt > 100 || valInt < 1 || isNaN(valInt)) {
+            window.alert("Введите корректный возраст");
+        }
     }
+
+
 }

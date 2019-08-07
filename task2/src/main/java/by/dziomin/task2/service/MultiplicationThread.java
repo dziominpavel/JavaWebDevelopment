@@ -5,18 +5,21 @@ import org.apache.log4j.Logger;
 
 import java.util.Arrays;
 
-public class MyThread extends Thread {
+/**
+ * thread of calculate multiplication matrix
+ */
+public class MultiplicationThread extends Thread {
 
-    Logger logger = Logger.getLogger(MyThread.class);
+    Logger logger = Logger.getLogger(MultiplicationThread.class);
 
-    ThreadMultiplicator threadMultiplicator = new ThreadMultiplicator();
+    MultiThreadingMultiplicator multiThreadingMultiplicator = new MultiThreadingMultiplicator();
     Matrix matrixOne;
     Matrix matrixTwo;
     private int[][] result;
     private int curThread;
 
-    public MyThread(final Matrix newMatrixOne, final Matrix newMatrixTwo,
-                    final int newCurThread, final int[][] newResult) {
+    public MultiplicationThread(final Matrix newMatrixOne, final Matrix newMatrixTwo,
+                                final int newCurThread, final int[][] newResult) {
 
         matrixOne = newMatrixOne;
         matrixTwo = newMatrixTwo;
@@ -32,7 +35,7 @@ public class MyThread extends Thread {
     public void run() {
         logger.trace("Запущен " + currentThread().getName());
 
-        threadMultiplicator.multiplyMultiThreadMatrix(matrixOne, matrixTwo, curThread,
+        multiThreadingMultiplicator.multiplyMultiThreadMatrix(matrixOne, matrixTwo, curThread,
                 result);
         logger.trace("result= " + Arrays.deepToString(getResult()));
         logger.trace("Остановлен " + currentThread().getName());

@@ -1,13 +1,18 @@
 package by.dziomin.task2.service;
 
 import by.dziomin.task2.entity.Matrix;
-import org.apache.log4j.Logger;
 
+/**
+ * class calculate multiplication of matrix's with one thread
+ */
 public class SimpleMultiplicator {
 
-    Logger logger = Logger.getLogger(SimpleMultiplicator.class);
-
-
+    /**
+     *  calculate multiplication of matrix's with one thread.
+     * @param matrixOne matrixOne
+     * @param matrixTwo matrixTwo
+     * @return Matrix.
+     */
     public Matrix multiplyMatrix(Matrix matrixOne, Matrix matrixTwo) {
 
         int[][] result =

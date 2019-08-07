@@ -19,11 +19,10 @@ public class Matrix {
      */
     private int[][] elements;
 
-    public Matrix() {
-    }
 
     /**
      * Matrix matrix.
+     *
      * @param newElements newElements.
      */
     public Matrix(final int[][] newElements) {
@@ -34,36 +33,39 @@ public class Matrix {
 
     /**
      * getCountRows.
+     *
      * @return int getCountRows.
      */
     public int getCountRows() {
         return countRows;
     }
 
-//    public void setCountRows(final int newCountRows) {
-//        countRows = newCountRows;
-//    }
-//
-public int getCountColumns() {
-    return countColumns;
-}
-//
-//    public void setCountColumns(final int newCountColumns) {
-//        countColumns = newCountColumns;
-//    }
-//
-public int[][] getElements() {
-    return elements;
-}
+    /**
+     * get method of countColumn field.
+     *
+     * @return countColumns
+     */
+    public int getCountColumns() {
+        return countColumns;
+    }
 
+    /**
+     * get method of elements field.
+     *
+     * @return elements
+     */
+    public int[][] getElements() {
+        return elements;
+    }
+
+    /**
+     * toString method.
+     * @return
+     */
     @Override
     public String toString() {
-        return "Matrix{" +
-                "elements=" + Arrays.deepToString(elements) +
-                '}';
+        return "Matrix{"
+                + "elements=" + Arrays.deepToString(elements) + '}';
     }
-//
-//    public void setElements(final String[][] newElements) {
-//        elements = newElements;
-//    }
+
 }

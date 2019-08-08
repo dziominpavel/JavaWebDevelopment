@@ -21,8 +21,13 @@ public final class MatrixSettings {
     /**
      * path to file with matrix information.
      */
-    public static final Path MATRIX_DATA_FILE_PATH = Paths.get("data/matrix" +
-            ".txt");
+    public static final Path MATRIX_DATA_FILE_PATH = Paths.get("data/matrix"
+            + ".txt");
+
+    /**
+     * separator in file for parcing matrix info.
+     */
+    public static final String SEPARATOR = " ";
 
     /**
      * private constructor for utility class.

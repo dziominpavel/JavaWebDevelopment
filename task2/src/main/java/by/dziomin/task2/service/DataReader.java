@@ -51,6 +51,7 @@ public final class DataReader {
         try (Stream<String> stream = Files.lines(path)) {
             stream.forEach(stringList::add);
             logger.info("reading data success.");
+            logger.info(stringList.size() + " lines readed");
         } catch (IOException newE) {
             logger.error("Error of reading data from file");
             newE.printStackTrace();

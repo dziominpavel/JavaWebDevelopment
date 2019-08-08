@@ -44,7 +44,9 @@ public class Runner extends Thread {
                     MATRIX_DATA_FILE_PATH));
             DataValidator dataValidator = DataValidator.getInstance();
             if (dataValidator.isValidElements(info)) {
-                MatrixCreator matrixCreator = new MatrixCreator();
+                MatrixCreator matrixCreator = MatrixCreator.getInstance();
+                Matrix matrix = matrixCreator.createMatrix(info);
+                logger.info(matrix);
             }
         } catch (MatrixException e) {
             e.getCause();

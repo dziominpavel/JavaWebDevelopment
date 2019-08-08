@@ -42,7 +42,7 @@ public final class DataValidator {
      * @return List<String>
      */
     public boolean isValidElements(final List<String[]> matrixInfo) {
-        Logger logger = Logger.getLogger(DataParcer.class);
+        Logger logger = Logger.getLogger(DataValidator.class);
         logger.trace("validate data...");
         if (matrixInfo.size() != MATRIX_SIZE) {
             logger.error("incorrect matrix size in file");
@@ -73,7 +73,7 @@ public final class DataValidator {
      */
     private boolean isValidRow(final String[] rowElements,
                                       final int currentRow) {
-        Logger logger = Logger.getLogger(DataReader.class);
+        Logger logger = Logger.getLogger(DataValidator.class);
         if (rowElements.length != MATRIX_SIZE) {
             logger.trace("line " + currentRow + " is valid");
             return true;
@@ -93,7 +93,7 @@ public final class DataValidator {
      */
     private boolean isValidElement(final String element,
                                           final int currentRow) {
-        Logger logger = Logger.getLogger(DataReader.class);
+        Logger logger = Logger.getLogger(DataValidator.class);
         try {
             Integer.parseInt(element);
             logger.trace("element " + element + " in line " + currentRow

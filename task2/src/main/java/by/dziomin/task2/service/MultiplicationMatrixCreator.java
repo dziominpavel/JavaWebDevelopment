@@ -7,7 +7,7 @@ import static by.dziomin.task2.settings.MultiplicationMatrixSetings.COUNT_ROWS_M
 /**
  * class generate two matrix's for multiplication.
  */
-public class MultiplicationMatrixCreator {
+public class MultiplicationMatrixCreator{
 
     /**
      * matrix One.

@@ -2,7 +2,11 @@ package by.dziomin.task2;
 
 
 import by.dziomin.task2.entity.Matrix;
+import by.dziomin.task2.exception.MatrixException;
+import by.dziomin.task2.service.DataParcer;
 import by.dziomin.task2.service.DataReader;
+import by.dziomin.task2.service.DataValidator;
+import by.dziomin.task2.service.MatrixCreator;
 import by.dziomin.task2.service.MultiThreadingMultiplicator;
 import by.dziomin.task2.service.MultiplicationMatrixCreator;
 import by.dziomin.task2.service.MultiplicationThread;
@@ -33,8 +37,19 @@ public class Runner extends Thread {
 //        runMultiplicationMatrix();
 
 
-        DataReader dataReader = DataReader.getInstance();
-        dataReader.readFile(MATRIX_DATA_FILE_PATH);
+        try {
+            DataReader dataReader = DataReader.getInstance();
+            DataParcer dataParcer = DataParcer.getInstance();
+            List<String[]> info = dataParcer.matrixInfo(dataReader.readFile(
+                    MATRIX_DATA_FILE_PATH));
+            DataValidator dataValidator = DataValidator.getInstance();
+            if (dataValidator.isValidElements(info)) {
+                MatrixCreator matrixCreator = new MatrixCreator();
+            }
+        } catch (MatrixException e) {
+            e.getCause();
+        }
+
 
         logger.info("Остановлен гл. поток "
                 + currentThread().getName());
@@ -43,7 +58,6 @@ public class Runner extends Thread {
     /**
      * method run matrix multiplication program.
      */
-
     private static void runMultiplicationMatrix() {
         Logger logger = Logger.getLogger(Runner.class);
         MultiplicationMatrixCreator creator = new MultiplicationMatrixCreator();

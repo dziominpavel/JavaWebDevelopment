@@ -4,10 +4,10 @@ import by.dziomin.task2.entity.Matrix;
 
 import java.util.List;
 
-import static by.dziomin.task2.settings.MatrixSettings.MATRIX_SIZE;
+import static by.dziomin.task2.settings.MatrixSettings.MIN_MATRIX_SIZE;
 
 
-public class MatrixCreator {
+public final class MatrixCreator {
 
     /**
      * MatrixCreator.
@@ -33,19 +33,24 @@ public class MatrixCreator {
         return instance;
     }
 
-
     /**
      * generate matrix.
+     *
+     * @param info info
+     * @return Matrix
      */
-    public Matrix createMatrix(List<String[]> info) {
-        int[][] result = new int[MATRIX_SIZE][MATRIX_SIZE];
+    public Matrix createMatrix(final List<String[]> info) {
+        int[][] result = new int[MIN_MATRIX_SIZE][MIN_MATRIX_SIZE];
         for (int i = 0; i < info.size(); i++) {
             for (int j = 0; j < info.get(i).length; j++) {
-                result[i][j] = Integer.parseInt(info.get(i)[j]);
+                if (i != j) {
+                    result[i][j] = Integer.parseInt(info.get(i)[j]);
+                } else {
+                    result[i][j] = 0;
+                }
             }
         }
         return new Matrix(result);
     }
-
 
 }

@@ -12,12 +12,28 @@ public final class MatrixSettings {
      * this setting for general task2.
      * size matrix NxN where 8<=N<=12.
      */
-    public static final int MATRIX_SIZE = 10;
+    public static final int MATRIX_SIZE = 8;
+    /**
+     * min of possible matrix size.
+     */
+    public static final int MIN_MATRIX_SIZE = 8;
+    /**
+     * max of possible matrix size.
+     */
+    public static final int MAX_MATRIX_SIZE = 12;
     /**
      * this setting for general task2.
      * count of threads where 4<=count<=6.
      */
-    public static final int COUNT_TREADS = 5;
+    public static final int COUNT_THREADS = 5;
+    /**
+     * min of possible count threads.
+     */
+    public static final int MIN_COUNT_THREADS = 4;
+    /**
+     * max of possible count threads.
+     */
+    public static final int MAX_COUNT_THREADS = 6;
     /**
      * path to file with matrix information.
      */

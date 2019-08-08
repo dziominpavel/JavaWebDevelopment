@@ -36,7 +36,6 @@ public class Runner extends Thread {
                 + currentThread().getName());
 //        runMultiplicationMatrix();
 
-
         try {
             DataReader dataReader = DataReader.getInstance();
             DataParcer dataParcer = DataParcer.getInstance();
@@ -51,7 +50,6 @@ public class Runner extends Thread {
         } catch (MatrixException e) {
             e.getCause();
         }
-
 
         logger.info("Остановлен гл. поток "
                 + currentThread().getName());

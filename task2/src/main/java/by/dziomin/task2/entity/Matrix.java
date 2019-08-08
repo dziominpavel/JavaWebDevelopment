@@ -9,16 +9,15 @@ public class Matrix {
     /**
      * countRows.
      */
-    private int countRows = 0;
+    private int countRows;
     /**
      * countColumns.
      */
-    private int countColumns = 0;
+    private int countColumns;
     /**
      * elements.
      */
     private int[][] elements;
-
 
     /**
      * Matrix matrix.
@@ -60,7 +59,8 @@ public class Matrix {
 
     /**
      * toString method.
-     * @return
+     *
+     * @return String.
      */
     @Override
     public String toString() {

@@ -2,7 +2,7 @@ package by.dziomin.task2.service;
 
 import by.dziomin.task2.entity.Matrix;
 
-import static by.dziomin.task2.service.MatrixSettings.COUNT_ROWS_PER_TREAD;
+import static by.dziomin.task2.settings.MultiplicationMatrixSetings.COUNT_ROWS_PER_TREAD;
 
 /**
  * class calculate multiplication of matrix's with several threads.
@@ -40,10 +40,10 @@ public class MultiThreadingMultiplicator {
      * @param curThread curThread
      * @param newResult newResult
      */
-    public void multiplyMultiThreadMatrix(final Matrix matrixOne,
-                                          final Matrix matrixTwo,
-                                          final int curThread,
-                                          final int[][] newResult) {
+    void multiplyMultiThreadMatrix(final Matrix matrixOne,
+                                   final Matrix matrixTwo,
+                                   final int curThread,
+                                   final int[][] newResult) {
         for (int row = curThread * COUNT_ROWS_PER_TREAD;
              row < COUNT_ROWS_PER_TREAD * (curThread + 1); row++) {
 
@@ -53,8 +53,9 @@ public class MultiThreadingMultiplicator {
                 for (int countTerms = 0; countTerms < matrixTwo.getCountRows();
                      countTerms++) {
                     newResult[row][column] =
-                            matrixOne.getElements()[row][countTerms] *
-                                    matrixTwo.getElements()[countTerms][column]
+                            matrixOne.getElements()[row][countTerms]
+                                    * matrixTwo.getElements()
+                                    [countTerms][column]
                                     + newResult[row][column];
                 }
             }

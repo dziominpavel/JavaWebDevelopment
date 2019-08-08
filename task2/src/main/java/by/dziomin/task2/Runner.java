@@ -2,6 +2,7 @@ package by.dziomin.task2;
 
 
 import by.dziomin.task2.entity.Matrix;
+import by.dziomin.task2.service.DataReader;
 import by.dziomin.task2.service.MultiThreadingMultiplicator;
 import by.dziomin.task2.service.MultiplicationMatrixCreator;
 import by.dziomin.task2.service.MultiplicationThread;
@@ -12,35 +13,39 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static by.dziomin.task2.service.MatrixSettings.COUNT_TREADS;
+import static by.dziomin.task2.settings.MatrixSettings.MATRIX_DATA_FILE_PATH;
+import static by.dziomin.task2.settings.MultiplicationMatrixSetings.COUNT_TREADS_MUL;
 
 /**
  * main class.
  */
 public class Runner extends Thread {
-    /**
-     * Logger.
-     */
-    private final static Logger logger = Logger.getLogger(Runner.class);
 
     /**
      * main method.
      *
      * @param args args.
      */
-    public static void main(String[] args) {
-        logger.info("Запущен гл поток " + currentThread().getName());
-        runnerMultiplicationMatrix();
+    public static void main(final String[] args) {
+        Logger logger = Logger.getLogger(Runner.class);
+        logger.info("Запущен гл. поток "
+                + currentThread().getName());
+//        runMultiplicationMatrix();
 
-        logger.info("Остановлен гл поток " + currentThread().getName());
 
+        DataReader dataReader = DataReader.getInstance();
+        dataReader.readFile(MATRIX_DATA_FILE_PATH);
+
+        logger.info("Остановлен гл. поток "
+                + currentThread().getName());
     }
 
     /**
-     * method run matrix multiplication program
+     * method run matrix multiplication program.
      */
 
-    public static void runnerMultiplicationMatrix() {
+    private static void runMultiplicationMatrix() {
+        Logger logger = Logger.getLogger(Runner.class);
         MultiplicationMatrixCreator creator = new MultiplicationMatrixCreator();
         logger.trace("matrixOne=" + creator.getMatrixOne());
         logger.trace("matrixtwo=" + creator.getMatrixTwo());
@@ -50,11 +55,12 @@ public class Runner extends Thread {
         SimpleMultiplicator simpleMatrixMultiplicator =
                 new SimpleMultiplicator();
         long startTime = System.currentTimeMillis();
-        Matrix result = simpleMatrixMultiplicator.multiplyMatrix
-                (creator.getMatrixOne(), creator.getMatrixTwo());
+        Matrix result = simpleMatrixMultiplicator.multiplyMatrix(
+                creator.getMatrixOne(), creator.getMatrixTwo());
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;
-        logger.info("Конец работы SimpleMultiplicator. Время: " + elapsedTime);
+        logger.info("Конец работы SimpleMultiplicator. Время: "
+                + elapsedTime);
         logger.trace("result=" + result);
 
         // code for calc multiplication with several thread.
@@ -65,10 +71,10 @@ public class Runner extends Thread {
         multiThreadingMultiplicator.initMatrix(creator.getMatrixOne(),
                 creator.getMatrixTwo());
         List<MultiplicationThread> multiplicationThreadList
-                = new ArrayList<MultiplicationThread>();
+                = new ArrayList<>();
 
 
-        for (int curThread = 0; curThread < COUNT_TREADS; curThread++) {
+        for (int curThread = 0; curThread < COUNT_TREADS_MUL; curThread++) {
             MultiplicationThread multiplicationThread
                     = new MultiplicationThread(creator.getMatrixOne(),
                     creator.getMatrixTwo(), curThread,
@@ -92,7 +98,10 @@ public class Runner extends Thread {
 
         stopTime = System.currentTimeMillis();
         long elapsedTime1 = stopTime - startTime;
-        logger.info("Конец работы MultiThreadingMultiplicator. Время: " + elapsedTime1);
+        logger.info("Конец работы MultiThreadingMultiplicator."
+                +
+                " Время: "
+                + elapsedTime1);
         logger.trace("result=" + Arrays.deepToString(result1));
     }
 

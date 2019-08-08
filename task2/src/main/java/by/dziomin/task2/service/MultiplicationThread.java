@@ -6,20 +6,40 @@ import org.apache.log4j.Logger;
 import java.util.Arrays;
 
 /**
- * thread of calculate multiplication matrix
+ * thread of calculate multiplication matrix.
  */
 public class MultiplicationThread extends Thread {
 
-    Logger logger = Logger.getLogger(MultiplicationThread.class);
 
-    MultiThreadingMultiplicator multiThreadingMultiplicator = new MultiThreadingMultiplicator();
-    Matrix matrixOne;
-    Matrix matrixTwo;
+    /**
+     * matrix One.
+     */
+    private Matrix matrixOne;
+    /**
+     * matrix Two.
+     */
+    private Matrix matrixTwo;
+    /**
+     * elements of result matrix.
+     */
     private int[][] result;
+    /**
+     * current thread.
+     */
     private int curThread;
 
-    public MultiplicationThread(final Matrix newMatrixOne, final Matrix newMatrixTwo,
-                                final int newCurThread, final int[][] newResult) {
+    /**
+     * constructor.
+     *
+     * @param newMatrixOne newMatrixOne.
+     * @param newMatrixTwo newMatrixTwo.
+     * @param newCurThread newCurThread.
+     * @param newResult    newResult.
+     */
+    public MultiplicationThread(final Matrix newMatrixOne,
+                                final Matrix newMatrixTwo,
+                                final int newCurThread,
+                                final int[][] newResult) {
 
         matrixOne = newMatrixOne;
         matrixTwo = newMatrixTwo;
@@ -27,16 +47,23 @@ public class MultiplicationThread extends Thread {
         result = newResult;
     }
 
-    public int[][] getResult() {
+    private int[][] getResult() {
         return result;
     }
 
+    /**
+     * run method.
+     */
     @Override
     public void run() {
+
+        Logger logger = Logger.getLogger(MultiplicationThread.class);
         logger.trace("Запущен " + currentThread().getName());
 
-        multiThreadingMultiplicator.multiplyMultiThreadMatrix(matrixOne, matrixTwo, curThread,
-                result);
+        MultiThreadingMultiplicator multiThreadingMultiplicator
+                = new MultiThreadingMultiplicator();
+        multiThreadingMultiplicator.multiplyMultiThreadMatrix(matrixOne,
+                matrixTwo, curThread, result);
         logger.trace("result= " + Arrays.deepToString(getResult()));
         logger.trace("Остановлен " + currentThread().getName());
     }

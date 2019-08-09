@@ -13,9 +13,7 @@ public class Main extends Thread {
 }
 
 
-//4.	 threadManagement
-//5.	threadThreadToDisable
-//6.	threadCommonResource, synchronized
+
 //7.	синхронизация записи информации в файл, стр. 302
 //8.	потокобезопасность класса StringBuffer, стр. 304
 //9.	threadProducer-Consumer

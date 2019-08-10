@@ -41,6 +41,11 @@ public final class MatrixSettings {
             + ".txt");
 
     /**
+     * path to file with matrix information.
+     */
+    public static final Path THREADS_DATA_FILE_PATH = Paths.get("data/thread"
+            + ".txt");
+    /**
      * separator in file for parcing matrix info.
      */
     public static final String SEPARATOR = " ";

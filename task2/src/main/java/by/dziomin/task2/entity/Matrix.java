@@ -7,7 +7,6 @@ import java.util.Arrays;
  */
 public class Matrix {
 
-    private boolean isFull = false;
     /**
      * countRows.
      */
@@ -30,14 +29,6 @@ public class Matrix {
         countRows = newElements.length;
         countColumns = newElements[0].length;
         elements = newElements;
-    }
-
-    public boolean isFull() {
-        return isFull;
-    }
-
-    public void setFull(final boolean newFull) {
-        isFull = newFull;
     }
 
     /**

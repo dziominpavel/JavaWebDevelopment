@@ -12,24 +12,66 @@ import static by.dziomin.task2.settings.MatrixSettings.COUNT_THREADS;
  * creator matirx threads.
  */
 public final class MatrixThreadCreator {
+    /**
+     * MatrixCreator.
+     */
+    private static MatrixThreadCreator instance;
 
-    private ArrayList<Integer> countElementsPerThread = new ArrayList();
+    /**
+     * countElementsPerThread.
+     */
+    private ArrayList<Integer> countElementsPerThread;
 
-    public List<Thread> createTreads(Matrix newMatrix) {
+    /**
+     * default constructor.
+     */
+    private MatrixThreadCreator() {
+    }
+
+    /**
+     * getInstance MatrixCreator.
+     *
+     * @return instance.
+     */
+    public static MatrixThreadCreator getInstance() {
+
+        if (instance == null) {
+            instance = new MatrixThreadCreator();
+        }
+        return instance;
+    }
+
+    /**
+     * method creates and initializes threads.
+     *
+     * @param newMatrix newMatrix
+     * @return List<Thread>
+     */
+    public List<Thread> createTreads(final Matrix newMatrix,
+                                     final String[] threadInfo) {
         ArrayList<Thread> threadList = new ArrayList<>();
-        calcCountElementPerThread(newMatrix);
+        countElementsPerThread = calcCountElementPerThread(newMatrix);
 
         for (int i = 0; i < COUNT_THREADS; i++) {
-            Thread myThread = new MatrixThread(newMatrix, i + 1,
+            int value = Integer.parseInt(threadInfo[i]);
+            Thread myThread = new MatrixThread(newMatrix, value,
                     countElementsPerThread.get(i));
             threadList.add(myThread);
         }
         Logger logger = Logger.getLogger(MatrixThreadCreator.class);
         logger.trace(threadList);
         return threadList;
+
+
     }
 
-    public void calcCountElementPerThread(Matrix newMatrix) {
+    /**
+     * method calculates count elements per thread and set to
+     * countElementsPerThread field.
+     *
+     * @param newMatrix newMatrix
+     */
+    private ArrayList<Integer> calcCountElementPerThread(final Matrix newMatrix) {
         ArrayList<Integer> result = new ArrayList();
         int allCount = newMatrix.getCountRows();
         int countFullThreads = allCount / COUNT_THREADS;
@@ -45,7 +87,7 @@ public final class MatrixThreadCreator {
             result.set(i, temp + 1);
         }
         logger.debug("countElementsPerThread " + result);
-        countElementsPerThread = result;
+        return result;
     }
 
 }

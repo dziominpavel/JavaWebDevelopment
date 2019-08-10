@@ -10,6 +10,7 @@ import static by.dziomin.task2.settings.MatrixSettings.MAX_COUNT_THREADS;
 import static by.dziomin.task2.settings.MatrixSettings.MAX_MATRIX_SIZE;
 import static by.dziomin.task2.settings.MatrixSettings.MIN_COUNT_THREADS;
 import static by.dziomin.task2.settings.MatrixSettings.MIN_MATRIX_SIZE;
+import static by.dziomin.task2.settings.MatrixSettings.SEPARATOR;
 
 /**
  * DataParcer.
@@ -49,11 +50,11 @@ public final class DataValidator {
     public boolean isValidElements(final List<String[]> matrixInfo) {
         Logger logger = Logger.getLogger(DataValidator.class);
         logger.trace("validate data...");
-        if (!isValidProgrammSettings()) {
+        if (!isValidProgramSettings()) {
             return false;
         }
 
-        if (matrixInfo.size() != MIN_MATRIX_SIZE) {
+        if (matrixInfo.size() != MATRIX_SIZE) {
             logger.error("incorrect matrix size in file");
             return false;
         }
@@ -74,11 +75,11 @@ public final class DataValidator {
     }
 
     /**
-     * isValidProgrammSettings.
+     * isValidProgramSettings.
      *
      * @return boolean
      */
-    private boolean isValidProgrammSettings() {
+    private boolean isValidProgramSettings() {
         Logger logger = Logger.getLogger(DataValidator.class);
 
         if (MATRIX_SIZE < MIN_MATRIX_SIZE
@@ -106,7 +107,7 @@ public final class DataValidator {
     private boolean isValidRow(final String[] rowElements,
                                final int currentRow) {
         Logger logger = Logger.getLogger(DataValidator.class);
-        if (rowElements.length == MIN_MATRIX_SIZE) {
+        if (rowElements.length == MATRIX_SIZE) {
             logger.trace("line " + currentRow + " is valid");
             return true;
         } else {
@@ -136,5 +137,30 @@ public final class DataValidator {
                     + " is not valid");
             return false;
         }
+    }
+
+    public boolean isValidThread(final String[] newThreadInfo) {
+        Logger logger = Logger.getLogger(DataValidator.class);
+
+        logger.trace("validate thread data...");
+        if (!isValidProgramSettings()) {
+            return false;
+        }
+
+        int numberLine = 1;
+        if (newThreadInfo.length == COUNT_THREADS) {
+            logger.trace("line " + numberLine + " is valid");
+            for (String element : newThreadInfo) {
+                if (!isValidElement(element, numberLine)) {
+                    return false;
+                }
+            }
+            return true;
+        } else {
+            logger.error("line " + numberLine + " is not valid");
+            return false;
+        }
+
+
     }
 }

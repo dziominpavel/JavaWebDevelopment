@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static by.dziomin.task2.settings.MatrixSettings.MATRIX_DATA_FILE_PATH;
+import static by.dziomin.task2.settings.MatrixSettings.THREADS_DATA_FILE_PATH;
 import static by.dziomin.task2.settings.MultiplicationMatrixSetings.COUNT_TREADS_MUL;
 
 /**
@@ -41,18 +42,23 @@ public class Runner extends Thread {
         try {
             DataReader dataReader = DataReader.getInstance();
             DataParcer dataParcer = DataParcer.getInstance();
-            List<String[]> info = dataParcer.matrixInfo(dataReader.readFile(
+            List<String[]> matrixInfo = dataParcer.matrixInfo(dataReader.readFile(
                     MATRIX_DATA_FILE_PATH));
             DataValidator dataValidator = DataValidator.getInstance();
-            if (dataValidator.isValidElements(info)) {
+            String[] threadInfo = dataParcer.threadInfo(dataReader.readFile(
+                    THREADS_DATA_FILE_PATH));
+
+            if (dataValidator.isValidElements(matrixInfo)
+                    && dataValidator.isValidThread(threadInfo)) {
                 MatrixCreator matrixCreator = MatrixCreator.getInstance();
-                Matrix matrix = matrixCreator.createMatrix(info);
+                Matrix matrix = matrixCreator.createMatrix(matrixInfo);
                 logger.info(matrix);
 
+
                 MatrixThreadCreator matrixThreadCreator =
-                        new MatrixThreadCreator();
+                        MatrixThreadCreator.getInstance();
                 List<Thread> threadList =
-                        matrixThreadCreator.createTreads(matrix);
+                        matrixThreadCreator.createTreads(matrix, threadInfo);
 
                 logger.trace(threadList);
                 for (Thread thread : threadList) {

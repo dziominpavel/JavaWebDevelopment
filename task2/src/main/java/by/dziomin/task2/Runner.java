@@ -53,7 +53,7 @@ public class Runner extends Thread {
                     && dataValidator.isValidThread(threadInfo)) {
                 MatrixCreator matrixCreator = MatrixCreator.getInstance();
 
-                MatrixStorage matrixStorage=MatrixStorage.getInstance();
+                MatrixStorage matrixStorage = MatrixStorage.getInstance();
                 matrixStorage.setMatrix(matrixCreator.createMatrix(matrixInfo));
                 logger.info(matrixStorage.getMatrix());
 

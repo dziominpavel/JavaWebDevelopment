@@ -4,7 +4,6 @@ import by.dziomin.task2.storage.MatrixStorage;
 import org.apache.log4j.Logger;
 
 import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * thread for matrix fill.
@@ -29,13 +28,14 @@ public class MatrixThread extends Thread {
      *
      * @param newValue                        newValue
      * @param newCountElementsForReplaceValue newCountElementsForReplaceValue
+     * @param newLocker newLocker
      */
     MatrixThread(final int newValue,
                  final int newCountElementsForReplaceValue,
                  final Lock newLocker) {
         value = newValue;
         countElementsForInsertValue = newCountElementsForReplaceValue;
-        locker=newLocker;
+        locker = newLocker;
     }
 
     /**

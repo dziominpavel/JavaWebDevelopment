@@ -2,7 +2,7 @@ package by.dziomin.task2.storage;
 
 import by.dziomin.task2.entity.Matrix;
 
-public class MatrixStorage {
+public final class MatrixStorage {
     /**
      * instance.
      */
@@ -24,15 +24,24 @@ public class MatrixStorage {
      *
      * @return holder.
      */
-
     public static MatrixStorage getInstance() {
         return MatrixStorageHolder.singletonInstance;
     }
 
+    /**
+     * get method for matrix field.
+     *
+     * @return Matrix
+     */
     public Matrix getMatrix() {
         return matrix;
     }
 
+    /**
+     * set method for matrix field.
+     *
+     * @param newMatrix newMatrix
+     */
     public void setMatrix(final Matrix newMatrix) {
         matrix = newMatrix;
     }
@@ -43,6 +52,9 @@ public class MatrixStorage {
      */
 
     private static class MatrixStorageHolder {
-        public static MatrixStorage singletonInstance = new MatrixStorage();
+        /**
+         * singletonInstance.
+         */
+        private static MatrixStorage singletonInstance = new MatrixStorage();
     }
 }

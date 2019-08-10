@@ -1,4 +1,4 @@
-package by.dziomin.demoThreads.consumer;
+package by.dziomin.demoThreads.task_09_threadProducerConsumer;
 
 class Consumer extends Thread {
     final int N = 5; // максимально допустимое число
@@ -10,6 +10,8 @@ class Consumer extends Thread {
     }
 
     public void run() {
+
+
         try {
             while (product < N) {// пока количество товаров не будет равно 5
                 product = product + store.get(); // берем по одному товару со склада

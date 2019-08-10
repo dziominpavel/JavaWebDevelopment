@@ -1,4 +1,4 @@
-package by.dziomin.demoThreads.consumer;
+package by.dziomin.demoThreads.task_09_threadProducerConsumer;
 
 class Store {
     final int N = 5; // максимально допустимое число

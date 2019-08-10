@@ -1,4 +1,4 @@
-package by.dziomin.demoThreads.consumer;
+package by.dziomin.demoThreads.task_10_threadProducerConsumerWaitNotify;
 
 public class ProducerConsumerApp {
     public static void main(String[] args) {

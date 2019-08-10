@@ -16,8 +16,6 @@ public class Main extends Thread {
 
 //7.	синхронизация записи информации в файл, стр. 302
 //8.	потокобезопасность класса StringBuffer, стр. 304
-//9.	threadProducer-Consumer
-//10.	threadProducer-Consumer_wait_notify
 //11.	threadCommonResourceReentrantLock
 //12.	threadProducerConsumerReentrantLock
 //13.	threadCommonResourceSemaphore

@@ -1,4 +1,4 @@
-package by.dziomin.demoThreads.consumer;
+package by.dziomin.demoThreads.task_09_threadProducerConsumer;
 
 class Producer extends Thread {
     Store store; // объект склада, куда кладем товар

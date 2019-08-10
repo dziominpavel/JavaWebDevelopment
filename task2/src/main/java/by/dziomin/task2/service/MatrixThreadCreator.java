@@ -44,7 +44,8 @@ public final class MatrixThreadCreator {
     /**
      * method creates and initializes threads.
      *
-     * @param newMatrix newMatrix
+     * @param newMatrix  newMatrix
+     * @param threadInfo threadInfo
      * @return List<Thread>
      */
     public List<Thread> createTreads(final Matrix newMatrix,
@@ -70,8 +71,10 @@ public final class MatrixThreadCreator {
      * countElementsPerThread field.
      *
      * @param newMatrix newMatrix
+     * @return ArrayList<Integer>
      */
-    private ArrayList<Integer> calcCountElementPerThread(final Matrix newMatrix) {
+    private ArrayList<Integer> calcCountElementPerThread(
+            final Matrix newMatrix) {
         ArrayList<Integer> result = new ArrayList();
         int allCount = newMatrix.getCountRows();
         int countFullThreads = allCount / COUNT_THREADS;

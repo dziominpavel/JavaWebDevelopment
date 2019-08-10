@@ -42,8 +42,8 @@ public class Runner extends Thread {
         try {
             DataReader dataReader = DataReader.getInstance();
             DataParcer dataParcer = DataParcer.getInstance();
-            List<String[]> matrixInfo = dataParcer.matrixInfo(dataReader.readFile(
-                    MATRIX_DATA_FILE_PATH));
+            List<String[]> matrixInfo = dataParcer.matrixInfo(
+                    dataReader.readFile(MATRIX_DATA_FILE_PATH));
             DataValidator dataValidator = DataValidator.getInstance();
             String[] threadInfo = dataParcer.threadInfo(dataReader.readFile(
                     THREADS_DATA_FILE_PATH));

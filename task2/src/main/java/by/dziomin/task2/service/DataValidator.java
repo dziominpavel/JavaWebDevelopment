@@ -10,7 +10,6 @@ import static by.dziomin.task2.settings.MatrixSettings.MAX_COUNT_THREADS;
 import static by.dziomin.task2.settings.MatrixSettings.MAX_MATRIX_SIZE;
 import static by.dziomin.task2.settings.MatrixSettings.MIN_COUNT_THREADS;
 import static by.dziomin.task2.settings.MatrixSettings.MIN_MATRIX_SIZE;
-import static by.dziomin.task2.settings.MatrixSettings.SEPARATOR;
 
 /**
  * DataParcer.
@@ -139,6 +138,11 @@ public final class DataValidator {
         }
     }
 
+    /**
+     * isValidThread.
+     * @param newThreadInfo newThreadInfo
+     * @return boolean
+     */
     public boolean isValidThread(final String[] newThreadInfo) {
         Logger logger = Logger.getLogger(DataValidator.class);
 

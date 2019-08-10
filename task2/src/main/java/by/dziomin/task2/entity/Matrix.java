@@ -65,8 +65,11 @@ public class Matrix {
      */
     @Override
     public String toString() {
-        return "Matrix{"
-                + "elements=" + Arrays.deepToString(elements) + '}';
+        String string = "Matrix is: ";
+        for (int[] row : elements) {
+            string = string + "\n" + Arrays.toString(row);
+        }
+        return string;
     }
 
 }

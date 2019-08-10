@@ -1,10 +1,13 @@
 package by.dziomin.task2.service;
 
 import by.dziomin.task2.entity.Matrix;
+import by.dziomin.task2.storage.MatrixStorage;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import static by.dziomin.task2.settings.MatrixSettings.COUNT_THREADS;
 
@@ -16,7 +19,6 @@ public final class MatrixThreadCreator {
      * MatrixCreator.
      */
     private static MatrixThreadCreator instance;
-
     /**
      * countElementsPerThread.
      */
@@ -44,19 +46,20 @@ public final class MatrixThreadCreator {
     /**
      * method creates and initializes threads.
      *
-     * @param newMatrix  newMatrix
      * @param threadInfo threadInfo
      * @return List<Thread>
      */
-    public List<Thread> createTreads(final Matrix newMatrix,
-                                     final String[] threadInfo) {
+    public List<Thread> createTreads(final String[] threadInfo) {
+        MatrixStorage matrixStorage = MatrixStorage.getInstance();
+        countElementsPerThread = calcCountElementPerThread(
+                matrixStorage.getMatrix());
+        Lock locker = new ReentrantLock();
         ArrayList<Thread> threadList = new ArrayList<>();
-        countElementsPerThread = calcCountElementPerThread(newMatrix);
 
         for (int i = 0; i < COUNT_THREADS; i++) {
             int value = Integer.parseInt(threadInfo[i]);
-            Thread myThread = new MatrixThread(newMatrix, value,
-                    countElementsPerThread.get(i));
+            Thread myThread = new MatrixThread(value,
+                    countElementsPerThread.get(i), locker);
             threadList.add(myThread);
         }
         Logger logger = Logger.getLogger(MatrixThreadCreator.class);

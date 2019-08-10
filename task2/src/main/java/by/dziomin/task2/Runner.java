@@ -12,6 +12,7 @@ import by.dziomin.task2.service.MultiThreadingMultiplicator;
 import by.dziomin.task2.service.MultiplicationMatrixCreator;
 import by.dziomin.task2.service.MultiplicationThread;
 import by.dziomin.task2.service.SimpleMultiplicator;
+import by.dziomin.task2.storage.MatrixStorage;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
@@ -51,16 +52,17 @@ public class Runner extends Thread {
             if (dataValidator.isValidElements(matrixInfo)
                     && dataValidator.isValidThread(threadInfo)) {
                 MatrixCreator matrixCreator = MatrixCreator.getInstance();
-                Matrix matrix = matrixCreator.createMatrix(matrixInfo);
-                logger.info(matrix);
+
+                MatrixStorage matrixStorage=MatrixStorage.getInstance();
+                matrixStorage.setMatrix(matrixCreator.createMatrix(matrixInfo));
+                logger.info(matrixStorage.getMatrix());
 
 
                 MatrixThreadCreator matrixThreadCreator =
                         MatrixThreadCreator.getInstance();
                 List<Thread> threadList =
-                        matrixThreadCreator.createTreads(matrix, threadInfo);
+                        matrixThreadCreator.createTreads(threadInfo);
 
-                logger.trace(threadList);
                 for (Thread thread : threadList) {
                     thread.start();
 
@@ -73,11 +75,11 @@ public class Runner extends Thread {
                 }
 
                 try {
-                    TimeUnit.SECONDS.sleep(5);
+                    TimeUnit.SECONDS.sleep(1);
                 } catch (InterruptedException newE) {
                     newE.printStackTrace();
                 }
-                logger.info(matrix);
+                logger.info(matrixStorage.getMatrix());
             }
         } catch (MatrixException e) {
             e.getCause();

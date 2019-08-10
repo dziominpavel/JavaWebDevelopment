@@ -1,16 +1,16 @@
 package by.dziomin.task2.service;
 
-import by.dziomin.task2.entity.Matrix;
+import by.dziomin.task2.storage.MatrixStorage;
 import org.apache.log4j.Logger;
+
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * thread for matrix fill.
  */
 public class MatrixThread extends Thread {
-    /**
-     * matrix.
-     */
-    private Matrix matrix;
+
     /**
      * value.
      */
@@ -19,28 +19,23 @@ public class MatrixThread extends Thread {
      * countElementsForInsertValue.
      */
     private int countElementsForInsertValue;
+    /**
+     * locker.
+     */
+    private Lock locker;
 
     /**
      * MatrixThread.
      *
-     * @param newMatrix                       newMatrix
      * @param newValue                        newValue
      * @param newCountElementsForReplaceValue newCountElementsForReplaceValue
      */
-    public MatrixThread(final Matrix newMatrix, final int newValue,
-                        final int newCountElementsForReplaceValue) {
-        matrix = newMatrix;
+    MatrixThread(final int newValue,
+                 final int newCountElementsForReplaceValue,
+                 final Lock newLocker) {
         value = newValue;
         countElementsForInsertValue = newCountElementsForReplaceValue;
-    }
-
-    /**
-     * set method for matrix field.
-     *
-     * @param newMatrix newMatrix
-     */
-    public void setMatrix(final Matrix newMatrix) {
-        matrix = newMatrix;
+        locker=newLocker;
     }
 
     /**
@@ -49,15 +44,16 @@ public class MatrixThread extends Thread {
     @Override
     public void run() {
         Logger logger = Logger.getLogger(MatrixThread.class);
-        logger.debug("current thread " + getName());
-        logger.debug(matrix);
+        MatrixStorage matrixStorage = MatrixStorage.getInstance();
         for (int i = 0; i < countElementsForInsertValue; i++) {
+            locker.lock();
+            logger.debug("current thread " + getName());
             insertValueInMatrix();
+            logger.debug(matrixStorage.getMatrix());
+            locker.unlock();
         }
 
-//        Lock locker = new ReentrantLock();
-//        locker.lock();
-//        locker.unlock();
+//
     }
 
     /**
@@ -66,7 +62,8 @@ public class MatrixThread extends Thread {
      * @return boolean
      */
     private boolean insertValueInMatrix() {
-        int[][] elements = matrix.getElements();
+        MatrixStorage matrixStorage = MatrixStorage.getInstance();
+        int[][] elements = matrixStorage.getMatrix().getElements();
         for (int i = 0; i < elements.length; i++) {
             if (elements[i][i] == 0) {
                 elements[i][i] = value;
@@ -78,6 +75,7 @@ public class MatrixThread extends Thread {
 
     /**
      * to string method.
+     *
      * @return String
      */
     @Override

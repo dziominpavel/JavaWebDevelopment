@@ -7,6 +7,7 @@ import by.dziomin.task2.service.DataParcer;
 import by.dziomin.task2.service.DataReader;
 import by.dziomin.task2.service.DataValidator;
 import by.dziomin.task2.service.MatrixCreator;
+import by.dziomin.task2.service.MatrixThreadCreator;
 import by.dziomin.task2.service.MultiThreadingMultiplicator;
 import by.dziomin.task2.service.MultiplicationMatrixCreator;
 import by.dziomin.task2.service.MultiplicationThread;
@@ -16,6 +17,7 @@ import org.apache.log4j.Logger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static by.dziomin.task2.settings.MatrixSettings.MATRIX_DATA_FILE_PATH;
 import static by.dziomin.task2.settings.MultiplicationMatrixSetings.COUNT_TREADS_MUL;
@@ -46,14 +48,40 @@ public class Runner extends Thread {
                 MatrixCreator matrixCreator = MatrixCreator.getInstance();
                 Matrix matrix = matrixCreator.createMatrix(info);
                 logger.info(matrix);
+
+                MatrixThreadCreator matrixThreadCreator =
+                        new MatrixThreadCreator();
+                List<Thread> threadList =
+                        matrixThreadCreator.createTreads(matrix);
+
+                logger.trace(threadList);
+                for (Thread thread : threadList) {
+                    thread.start();
+
+//                    try {
+//                        thread.join();
+//                    } catch (InterruptedException newE) {
+//                        newE.printStackTrace();
+//                    }
+
+                }
+
+                try {
+                    TimeUnit.SECONDS.sleep(5);
+                } catch (InterruptedException newE) {
+                    newE.printStackTrace();
+                }
+                logger.info(matrix);
             }
         } catch (MatrixException e) {
             e.getCause();
         }
 
+
         logger.info("Остановлен гл. поток "
                 + currentThread().getName());
     }
+
 
     /**
      * method run matrix multiplication program.

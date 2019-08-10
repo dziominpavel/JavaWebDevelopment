@@ -7,6 +7,7 @@ import java.util.List;
 import static by.dziomin.task2.settings.MatrixSettings.COUNT_THREADS;
 import static by.dziomin.task2.settings.MatrixSettings.MATRIX_SIZE;
 import static by.dziomin.task2.settings.MatrixSettings.MAX_COUNT_THREADS;
+import static by.dziomin.task2.settings.MatrixSettings.MAX_MATRIX_SIZE;
 import static by.dziomin.task2.settings.MatrixSettings.MIN_COUNT_THREADS;
 import static by.dziomin.task2.settings.MatrixSettings.MIN_MATRIX_SIZE;
 
@@ -80,9 +81,8 @@ public final class DataValidator {
     private boolean isValidProgrammSettings() {
         Logger logger = Logger.getLogger(DataValidator.class);
 
-
-        if (MIN_MATRIX_SIZE < MIN_MATRIX_SIZE
-                || MIN_MATRIX_SIZE > MATRIX_SIZE) {
+        if (MATRIX_SIZE < MIN_MATRIX_SIZE
+                || MATRIX_SIZE > MAX_MATRIX_SIZE) {
             logger.error("Incorrect size of matrix. Change "
                     + "program settings");
             return false;

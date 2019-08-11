@@ -18,7 +18,6 @@ import org.apache.log4j.Logger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static by.dziomin.task2.settings.MatrixSettings.MATRIX_DATA_FILE_PATH;
 import static by.dziomin.task2.settings.MatrixSettings.THREADS_DATA_FILE_PATH;
@@ -65,20 +64,17 @@ public class Runner extends Thread {
 
                 for (Thread thread : threadList) {
                     thread.start();
-
-//                    try {
-//                        thread.join();
-//                    } catch (InterruptedException newE) {
-//                        newE.printStackTrace();
-//                    }
-
                 }
 
-                try {
-                    TimeUnit.SECONDS.sleep(1);
-                } catch (InterruptedException newE) {
-                    newE.printStackTrace();
+                for (Thread thread : threadList) {
+                    try {
+                        thread.join();
+                    } catch (InterruptedException newE) {
+                        throw new MatrixException("Error of trying to join "
+                                + "thread");
+                    }
                 }
+
                 logger.info(matrixStorage.getMatrix());
             }
         } catch (MatrixException e) {

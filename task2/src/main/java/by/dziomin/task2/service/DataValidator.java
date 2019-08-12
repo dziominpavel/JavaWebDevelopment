@@ -16,6 +16,22 @@ import static by.dziomin.task2.settings.MatrixSettings.MIN_MATRIX_SIZE;
  */
 public final class DataValidator {
     /**
+     * constant string "line".
+     */
+    private static final String LINE = "line";
+    /**
+     * constant string "is VALID".
+     */
+    private static final String VALID = "is valid";
+    /**
+     * constant string "is not VALID".
+     */
+    private static final String NOT_VALID = "is not valid";
+    /**
+     * constant string "EL".
+     */
+    private static final String EL = "element";
+    /**
      * DataValidator.
      */
     private static DataValidator instance;
@@ -106,11 +122,12 @@ public final class DataValidator {
     private boolean isValidRow(final String[] rowElements,
                                final int currentRow) {
         Logger logger = Logger.getLogger(DataValidator.class);
+
         if (rowElements.length == MATRIX_SIZE) {
-            logger.trace("line " + currentRow + " is valid");
+            logger.trace(LINE + currentRow + VALID);
             return true;
         } else {
-            logger.error("line " + currentRow + " is not valid");
+            logger.error(LINE + currentRow + NOT_VALID);
             return false;
         }
 
@@ -126,26 +143,28 @@ public final class DataValidator {
     private boolean isValidElement(final String element,
                                    final int currentRow) {
         Logger logger = Logger.getLogger(DataValidator.class);
+
+
         try {
             Integer.parseInt(element);
-            logger.trace("element " + element + " in line " + currentRow
-                    + " is valid");
+            logger.trace(EL + element + LINE + currentRow
+                    + VALID);
             return true;
         } catch (NumberFormatException e) {
-            logger.error("element " + element + " in line " + currentRow
-                    + " is not valid");
+            logger.error(EL + element + LINE + currentRow
+                    + NOT_VALID);
             return false;
         }
     }
 
     /**
      * isValidThread.
+     *
      * @param newThreadInfo newThreadInfo
      * @return boolean
      */
     public boolean isValidThread(final String[] newThreadInfo) {
         Logger logger = Logger.getLogger(DataValidator.class);
-
         logger.trace("validate thread data...");
         if (!isValidProgramSettings()) {
             return false;
@@ -153,7 +172,7 @@ public final class DataValidator {
 
         int numberLine = 1;
         if (newThreadInfo.length == COUNT_THREADS) {
-            logger.trace("line " + numberLine + " is valid");
+            logger.trace(LINE + numberLine + VALID);
             for (String element : newThreadInfo) {
                 if (!isValidElement(element, numberLine)) {
                     return false;
@@ -161,7 +180,7 @@ public final class DataValidator {
             }
             return true;
         } else {
-            logger.error("line " + numberLine + " is not valid");
+            logger.error(LINE + numberLine + NOT_VALID);
             return false;
         }
 

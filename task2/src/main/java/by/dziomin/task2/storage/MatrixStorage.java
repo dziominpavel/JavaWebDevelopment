@@ -2,11 +2,10 @@ package by.dziomin.task2.storage;
 
 import by.dziomin.task2.entity.Matrix;
 
+/**
+ * matrix storage class.
+ */
 public final class MatrixStorage {
-    /**
-     * instance.
-     */
-    private static MatrixStorage instance;
     /**
      * Matix field.
      */

@@ -21,6 +21,9 @@ public final class MultiplicationMatrixSetings {
     public static final int COUNT_ROWS_PER_TREAD
             = COUNT_ROWS_MUL / COUNT_TREADS_MUL;
 
+    /**
+     * default constructor.
+     */
     private MultiplicationMatrixSetings() {
     }
 }

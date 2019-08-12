@@ -6,7 +6,9 @@ import java.util.List;
 
 import static by.dziomin.task2.settings.MatrixSettings.MIN_MATRIX_SIZE;
 
-
+/**
+ * Matrix creator class.
+ */
 public final class MatrixCreator {
 
     /**

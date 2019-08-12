@@ -12,8 +12,14 @@ import java.util.List;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;
 
+/**
+ * test of data reader class.
+ */
 public class DataReaderTest {
-
+    /**
+     * Positive file information dataProvider.
+     * @return Object[]
+     */
     @DataProvider(name = "fileInformationPositive")
     public Object[] fileInformationPositive() {
         Path fileMatrix = Paths.get("datatest/matrix.txt");
@@ -30,6 +36,10 @@ public class DataReaderTest {
         };
     }
 
+    /**
+     * Negative file information dataProvider.
+     * @return Object[]
+     */
     @DataProvider(name = "fileInformationNegative")
     public Object[] fileInformationNegative() {
         Path fileMatrix = Paths.get("datatest/matri.txt");
@@ -46,9 +56,16 @@ public class DataReaderTest {
         };
     }
 
+    /**
+     * Positive read file test.
+     * @param file file.
+     * @param listInfo listInfo.
+     * @throws MatrixException MatrixException.
+     */
     @Test(description = "reading information from file",
             dataProvider = "fileInformationPositive")
-    public void testReadFilePositive(Path file, List<String> listInfo)
+    public void testReadFilePositive(final Path file,
+                                     final List<String> listInfo)
             throws MatrixException {
 
         List<String> result = DataReader.getInstance().readFile(file);
@@ -56,9 +73,15 @@ public class DataReaderTest {
 
     }
 
+    /**
+     * Negative read file test.
+     * @param file file
+     * @param listInfo listInfo
+     */
     @Test(description = "reading information from file",
             dataProvider = "fileInformationNegative")
-    public void testReadFileNegative(Path file, List<String> listInfo) {
+    public void testReadFileNegative(final Path file,
+                                     final List<String> listInfo) {
 
         List<String> result = null;
         try {

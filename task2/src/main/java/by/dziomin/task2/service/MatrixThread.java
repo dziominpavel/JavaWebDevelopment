@@ -28,7 +28,7 @@ public class MatrixThread extends Thread {
      *
      * @param newValue                        newValue
      * @param newCountElementsForReplaceValue newCountElementsForReplaceValue
-     * @param newLocker newLocker
+     * @param newLocker                       newLocker
      */
     MatrixThread(final int newValue,
                  final int newCountElementsForReplaceValue,

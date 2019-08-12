@@ -59,17 +59,26 @@ public class Matrix {
     }
 
     /**
+     * set method for elements field.
+     *
+     * @param newElements newElements
+     */
+    public void setElements(final int[][] newElements) {
+        elements = newElements;
+    }
+
+    /**
      * toString method.
      *
      * @return String.
      */
     @Override
     public String toString() {
-        String string = "Matrix is: ";
+        StringBuilder stringBuilder = new StringBuilder("Matrix is: ");
         for (int[] row : elements) {
-            string = string + "\n" + Arrays.toString(row);
+            stringBuilder.append("\n").append(Arrays.toString(row));
         }
-        return string;
+        return stringBuilder.toString();
     }
 
 }

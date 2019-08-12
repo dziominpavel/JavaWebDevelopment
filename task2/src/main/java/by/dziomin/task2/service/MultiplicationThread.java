@@ -47,6 +47,10 @@ public class MultiplicationThread extends Thread {
         result = newResult;
     }
 
+    /**
+     * get method for result field.
+     * @return int[][]
+     */
     private int[][] getResult() {
         return result;
     }

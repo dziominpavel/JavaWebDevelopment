@@ -26,17 +26,22 @@ import static by.dziomin.task2.settings.MultiplicationMatrixSetings.COUNT_TREADS
 /**
  * main class.
  */
-public class Runner extends Thread {
+public final class Runner {
+    /**
+     * default constructor.
+     */
+    private Runner() {
+    }
 
     /**
      * main method.
      *
      * @param args args.
+     * @throws MatrixException MatrixException
      */
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws MatrixException {
         Logger logger = Logger.getLogger(Runner.class);
-        logger.info("Запущен гл. поток "
-                + currentThread().getName());
+        logger.info("main thread is started");
 //        runMultiplicationMatrix();
 
         try {
@@ -67,12 +72,7 @@ public class Runner extends Thread {
                 }
 
                 for (Thread thread : threadList) {
-                    try {
-                        thread.join();
-                    } catch (InterruptedException newE) {
-                        throw new MatrixException("Error of trying to join "
-                                + "thread");
-                    }
+                    join(thread);
                 }
 
                 logger.info(matrixStorage.getMatrix());
@@ -82,8 +82,22 @@ public class Runner extends Thread {
         }
 
 
-        logger.info("Остановлен гл. поток "
-                + currentThread().getName());
+        logger.info("main thread is stopped");
+    }
+
+    /**
+     * method for hoin threads.
+     *
+     * @param thread thread
+     */
+    public static void join(final Thread thread) {
+        try {
+            thread.join();
+        } catch (InterruptedException newE) {
+            Logger logger = Logger.getLogger(Runner.class);
+            logger.info("Error of trying to join thread");
+            Thread.currentThread().interrupt();
+        }
     }
 
 
@@ -131,12 +145,7 @@ public class Runner extends Thread {
         for (MultiplicationThread multiplicationThread
                 : multiplicationThreadList) {
             multiplicationThread.start();
-
-            try {
-                multiplicationThread.join();
-            } catch (InterruptedException newE) {
-                newE.printStackTrace();
-            }
+            join(multiplicationThread);
         }
 
 

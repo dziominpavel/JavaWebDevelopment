@@ -49,6 +49,9 @@ public final class DataParcer {
             throws MatrixException {
         Logger logger = Logger.getLogger(DataParcer.class);
         logger.info("parcing matrix data...");
+        if (stringInfo == null) {
+            throw new MatrixException("Error of parcing matrix file");
+        }
         if (stringInfo.isEmpty()) {
             throw new MatrixException("Error of parcing matrix file");
         }

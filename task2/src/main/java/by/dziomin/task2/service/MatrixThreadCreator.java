@@ -19,10 +19,6 @@ public final class MatrixThreadCreator {
      * MatrixCreator.
      */
     private static MatrixThreadCreator instance;
-    /**
-     * countElementsPerThread.
-     */
-    private ArrayList<Integer> countElementsPerThread;
 
     /**
      * default constructor.
@@ -51,7 +47,7 @@ public final class MatrixThreadCreator {
      */
     public List<Thread> createTreads(final String[] threadInfo) {
         MatrixStorage matrixStorage = MatrixStorage.getInstance();
-        countElementsPerThread = calcCountElementPerThread(
+        ArrayList<Integer> countElementsPerThread = calcCountElementPerThread(
                 matrixStorage.getMatrix());
         Lock locker = new ReentrantLock();
         ArrayList<Thread> threadList = new ArrayList<>();

@@ -1,11 +1,37 @@
 package by.dziomin.task3;
 
+import by.dziomin.task3.exception.ServiceException;
+import by.dziomin.task3.service.DataReader;
+import by.dziomin.task3.service.TextCreator;
+import org.apache.log4j.Logger;
+
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-public class Runner {
-    public static void main(String[] args) {
+import static by.dziomin.task3.settings.ProgramSettings.TEXT_FILE_PATH;
 
+/**
+ * Main class.
+ */
+public class Runner {
+    /**
+     * main method.
+     * @param args
+     * @throws ServiceException
+     */
+    public static void main(String[] args) throws ServiceException {
+        List<String> textLines =
+                DataReader.getInstance().readFile(TEXT_FILE_PATH);
+
+        Logger loger = Logger.getLogger(Runner.class);
+
+        loger.info(textLines);
+        String text = new TextCreator().concatLines(textLines);
+        loger.info(text);
+    }
+
+    private static void Localize() {
         int number = 2;
         String country = "";
         String language = "";

@@ -19,4 +19,5 @@ public abstract class BaseComponent implements Component {
     public int getChildComponentSize() {
         return components.size();
     }
+
 }

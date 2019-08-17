@@ -29,19 +29,19 @@ public class TaskController {
 
     public Object handleRequest(RequestType requestType, Object... parameters) {
         switch (requestType) {
-            case CHANGE_LOCALE -> {
+            case CHANGE_LOCALE : {
                 return changeLocale(parameters);
             }
-            case READ_TEXT_FROM_FILE -> {
+            case READ_TEXT_FROM_FILE : {
                 return readTextFromFile(parameters);
             }
-            case SORT -> {
+            case SORT : {
                 return sortComponents(parameters);
             }
-            case CONCATENATE_TO_STRING -> {
+            case CONCATENATE_TO_STRING : {
                 return concatenateText(parameters);
             }
-            default -> throw new ServiceException("UNSUPPORTED_REQUEST");
+            default : throw new ServiceException("UNSUPPORTED_REQUEST");
         }
     }
 

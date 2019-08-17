@@ -5,11 +5,18 @@ import by.dziomin.task3.service.LocalizationService;
 import by.dziomin.task3.service.impl.LocalizationServiceImpl;
 import org.apache.log4j.Logger;
 
+import java.util.Scanner;
+
 
 /**
  * Main class.
  */
-public class Runner {
+public final class Runner {
+    /**
+     * default constructor.
+     */
+    private Runner() {
+    }
 
     /**
      * main method.
@@ -17,14 +24,20 @@ public class Runner {
      * @param args args.
      * @throws ServiceException ServiceException
      */
-    public static void main(String[] args) throws ServiceException {
-        Logger loger = Logger.getLogger(Runner.class);
+    public static void main(final String[] args) {
+        Logger logger = Logger.getLogger(Runner.class);
 
         TaskController controller = TaskController.getInstance();
         LocalizationService localizationService =
                 LocalizationServiceImpl.getInstance();
+        String[] localeParam = localizeParamFromDialog();
         try {
-            Object text = controller.handleRequest(RequestType.READ_TEXT_FROM_FILE);
+            controller.handleRequest(RequestType.CHANGE_LOCALE, localeParam[0],
+                    localeParam[1]);
+            logger.debug(localizationService.getLocalizedMessage("str1"));
+
+            Object text = controller.handleRequest(RequestType
+                    .READ_TEXT_FROM_FILE);
             text = controller.handleRequest(RequestType.SORT,
                     "PARAGRAPHS_BY_SENTENCES_COUNT", text);
             text = controller.handleRequest(RequestType.SORT,
@@ -36,13 +49,54 @@ public class Runner {
 
             text = controller.handleRequest(RequestType.CONCATENATE_TO_STRING,
                     text);
-
-            System.out.println(text);
+            logger.debug(text);
         } catch (ServiceException e) {
-            System.out.println(localizationService.getLocalizedMessage(e.getMessage()));
+            logger.error(localizationService.getLocalizedMessage(
+                    e.getMessage()));
         } catch (Exception e) {
-            System.out.println(localizationService.getLocalizedMessage("INTERNAL_ERROR"));
+            logger.error(localizationService.getLocalizedMessage(
+                    "INTERNAL_ERROR"));
         }
     }
+
+    /**
+     * dialog with user for choose locale.
+     *
+     * @return String[] parametrs (language,country)
+     */
+    private static String[] localizeParamFromDialog() {
+
+        Logger logger = Logger.getLogger(Runner.class);
+        logger.info("choose Locale:");
+        logger.info("1 -> English");
+        logger.info("2 -> Russian");
+        logger.info("3 -> Belorussian");
+        logger.info("other -> default");
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        String language;
+        String country;
+        switch (str) {
+            case "1":
+                language = "en";
+                country = "US";
+                break;
+            case "2":
+                language = "ru";
+                country = "RU";
+                break;
+            case "3":
+                language = "be";
+                country = "BY";
+                break;
+            default:
+                language = "";
+                country = "";
+                break;
+        }
+        return new String[]{language, country};
+
+    }
 }
+
 

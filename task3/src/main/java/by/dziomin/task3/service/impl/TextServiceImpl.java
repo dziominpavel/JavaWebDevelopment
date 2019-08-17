@@ -1,12 +1,12 @@
 package by.dziomin.task3.service.impl;
 
 import by.dziomin.task3.exception.ServiceException;
+import by.dziomin.task3.logic.DataReader;
 import by.dziomin.task3.logic.SortType;
 import by.dziomin.task3.logic.concatenater.Concatenator;
+import by.dziomin.task3.logic.parser.ChainParser;
 import by.dziomin.task3.logic.sorter.ComponentSorter;
 import by.dziomin.task3.pojo.Component;
-import by.dziomin.task3.logic.parser.ChainParser;
-import by.dziomin.task3.logic.DataReader;
 import by.dziomin.task3.pojo.impl.LeksemaComponent;
 import by.dziomin.task3.pojo.impl.ParagraphComponent;
 import by.dziomin.task3.pojo.impl.SentenceComponent;
@@ -51,8 +51,7 @@ public class TextServiceImpl implements TextService {
         }
 
         String text = dataReader.readFile(path);
-        Component component = chainParser.makeParse(text);
-        return component;
+        return chainParser.makeParse(text);
     }
 
     @Override
@@ -66,22 +65,22 @@ public class TextServiceImpl implements TextService {
         SortType type = SortType.valueOf(sortType);
 
         switch (type) {
-            case PARAGRAPHS_BY_SENTENCES_COUNT -> {
+            case PARAGRAPHS_BY_SENTENCES_COUNT: {
                 Comparator<ParagraphComponent> comparator =
                         Comparator.comparingInt(ParagraphComponent::getSentenceCount);
                 return componentSorter.sortComponent(text, TEXT, comparator);
             }
-            case WORDS_BY_WORD_LENGTH -> {
+            case WORDS_BY_WORD_LENGTH: {
                 Comparator<LeksemaComponent> comparator =
                         Comparator.comparingInt(LeksemaComponent::getWordLength);
                 return componentSorter.sortComponent(text, SENTENCE, comparator);
             }
-            case SENTENCES_BY_WORD_COUNT -> {
+            case SENTENCES_BY_WORD_COUNT: {
                 Comparator<SentenceComponent> comparator =
                         Comparator.comparingInt(SentenceComponent::getWordCount);
                 return componentSorter.sortComponent(text, PARAGRAPH, comparator);
             }
-            case LEKSEMS_BY_SYMBOL_COUNT_DESC -> {
+            case LEKSEMS_BY_SYMBOL_COUNT_DESC: {
                 String compareSymbol = params[0];
                 if (compareSymbol == null || compareSymbol.isEmpty()) {
                     throw new ServiceException("COMPARE_SYMBOL IS EMPTY");
@@ -98,7 +97,8 @@ public class TextServiceImpl implements TextService {
                 return componentSorter.sortComponent(text, SENTENCE,
                         firstComparator.reversed().thenComparing(secondComparator));
             }
-            default -> throw new ServiceException("UNSUPPORTED_SORT_TYPE");
+            default:
+                throw new ServiceException("UNSUPPORTED_SORT_TYPE");
         }
     }
 

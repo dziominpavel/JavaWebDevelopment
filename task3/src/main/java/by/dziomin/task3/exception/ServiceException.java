@@ -1,11 +1,16 @@
 package by.dziomin.task3.exception;
 
-import java.io.FileNotFoundException;
-
 /**
  * service exception class.
  */
-public class ServiceException extends Throwable {
-    public ServiceException(final String s, final FileNotFoundException e) {
+public class ServiceException extends RuntimeException {
+    public ServiceException() {
+    }
+
+    public ServiceException(final String message) {
+        super(message);
+    }
+
+    public ServiceException(final String s, final Exception e) {
     }
 }

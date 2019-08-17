@@ -1,11 +1,12 @@
 package by.dziomin.task3.service;
 
+import by.dziomin.task3.pojo.Component;
+
 public interface TextService {
-    void sortParagraphsByCountSentences();
 
-    void sortSentenceByWordLenght();
+    Component readTextFromFile(String pathString);
 
-    void sortSentenceByCountWords();
+    Component sort(String sortType, Component newComponent, String... params);
 
-    void sortLeksemsByCountLetter();
+    String concatenateText(Component newComponent);
 }

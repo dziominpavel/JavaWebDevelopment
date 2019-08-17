@@ -1,4 +1,4 @@
-package by.dziomin.task3.settings;
+package by.dziomin.task3.constant;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -11,7 +11,7 @@ public final class ProgramSettings {
     /**
      * path to file with matrix information.
      */
-    public static final Path TEXT_FILE_PATH = Paths.get("data/textTemp"
+    public static final Path DEFAULT_TEXT_FILE_PATH = Paths.get("data/text"
             + ".txt");
 
 

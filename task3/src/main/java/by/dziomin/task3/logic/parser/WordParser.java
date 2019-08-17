@@ -2,16 +2,17 @@ package by.dziomin.task3.logic.parser;
 
 import by.dziomin.task3.pojo.impl.Symbol;
 
+import static by.dziomin.task3.constant.Regex.REGEX_SYMBOL;
+
 public class WordParser extends BaseComponentParser {
-    private static final String REGEX = "abc";
 
     WordParser(final Parser newNextParser) {
         super(newNextParser);
     }
 
     @Override
-    public String getRegex() {
-        return REGEX;
+    public String getChildRegex() {
+        return REGEX_SYMBOL;
     }
 
     @Override

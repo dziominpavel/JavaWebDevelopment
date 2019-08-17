@@ -34,7 +34,6 @@ public final class Runner {
         try {
             controller.handleRequest(RequestType.CHANGE_LOCALE, localeParam[0],
                     localeParam[1]);
-            logger.debug(localizationService.getLocalizedMessage("str1"));
 
             Object text = controller.handleRequest(RequestType
                     .READ_TEXT_FROM_FILE);

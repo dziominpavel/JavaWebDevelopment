@@ -1,10 +1,11 @@
 package by.dziomin.task3.logic.parser;
 
 import by.dziomin.task3.pojo.Component;
-import by.dziomin.task3.pojo.impl.BaseComponent;
 import by.dziomin.task3.pojo.impl.LeksemaComponent;
 import by.dziomin.task3.pojo.impl.Symbol;
 import by.dziomin.task3.pojo.impl.WordComponent;
+
+import static by.dziomin.task3.constant.Regex.REGEX_WORD;
 
 public class LeksemaParser extends BaseComponentParser {
 
@@ -15,8 +16,8 @@ public class LeksemaParser extends BaseComponentParser {
     }
 
     @Override
-    public String getRegex() {
-        return REGEX;
+    public String getChildRegex() {
+        return REGEX_WORD;
     }
 
     @Override

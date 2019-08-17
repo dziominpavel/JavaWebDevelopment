@@ -1,7 +1,6 @@
 package by.dziomin.task3.logic.parser;
 
 import by.dziomin.task3.pojo.Component;
-import by.dziomin.task3.pojo.impl.BaseComponent;
 import by.dziomin.task3.pojo.impl.TextComponent;
 
 public class ChainParser {

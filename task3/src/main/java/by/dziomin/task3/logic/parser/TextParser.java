@@ -1,23 +1,29 @@
 package by.dziomin.task3.logic.parser;
 
-import by.dziomin.task3.pojo.impl.BaseComponent;
 import by.dziomin.task3.pojo.impl.ParagraphComponent;
 
+import static by.dziomin.task3.constant.Regex.REGEX_PARAGRAPH;
+
+/**
+ * Text parcer class.
+ */
 public class TextParser extends BaseComponentParser {
 
-    private static final String REGEX ="\\u0009";
+    /**
+     * constructor.
+     * @param newNextParser newNextParser
+     */
+    TextParser(final Parser newNextParser) {
+        super(newNextParser);
+    }
 
     @Override
-    public String getRegex() {
-        return REGEX;
+    public String getChildRegex() {
+        return REGEX_PARAGRAPH;
     }
 
     @Override
     public Class getChildClass() {
         return ParagraphComponent.class;
-    }
-
-    TextParser(final Parser newNextParser) {
-        super(newNextParser);
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class BaseComponentParser<T extends Component> extends Parser {
 
-    public abstract String getRegex();
+    public abstract String getChildRegex();
 
     public abstract Class<T> getChildClass();
 
@@ -17,7 +17,7 @@ public abstract class BaseComponentParser<T extends Component> extends Parser {
 
     @Override
     public void parse(final String text, final Component component) {
-        String regex = getRegex();
+        String regex = getChildRegex();
         String[] parseResult = text.split(regex);
         Class<T> childClass = getChildClass();
         List<Component> components = new ArrayList<>();

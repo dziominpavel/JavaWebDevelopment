@@ -2,17 +2,17 @@ package by.dziomin.task3.logic.parser;
 
 import by.dziomin.task3.pojo.impl.LeksemaComponent;
 
-public class SentenceParser extends BaseComponentParser {
+import static by.dziomin.task3.constant.Regex.REGEX_LEKSEM;
 
-    private static final String REGEX = "[\\.,!\\?:;@]{1})|([^\\.,!\\?:;@]*";
+public class SentenceParser extends BaseComponentParser {
 
     SentenceParser(final Parser newNextParser) {
         super(newNextParser);
     }
 
     @Override
-    public String getRegex() {
-        return REGEX;
+    public String getChildRegex() {
+        return REGEX_LEKSEM;
     }
 
     @Override

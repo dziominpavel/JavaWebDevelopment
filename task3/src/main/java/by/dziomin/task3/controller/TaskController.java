@@ -1,5 +1,6 @@
 package by.dziomin.task3.controller;
 
+import by.dziomin.task3.exception.ControllerException;
 import by.dziomin.task3.exception.ServiceException;
 import by.dziomin.task3.pojo.Component;
 import by.dziomin.task3.service.LocalizationService;
@@ -9,10 +10,21 @@ import by.dziomin.task3.service.impl.TextServiceImpl;
 
 import java.util.Locale;
 
-
-public class TaskController {
+/**
+ * class for handle program requests.
+ */
+public final class TaskController {
+    /**
+     * TaskController instance field.
+     */
     private static TaskController instance;
+    /**
+     * TextService instance field.
+     */
     private TextService textService;
+    /**
+     * localizationService instance field.
+     */
     private LocalizationService localizationService;
 
     private TaskController() {
@@ -20,54 +32,77 @@ public class TaskController {
         this.localizationService = LocalizationServiceImpl.getInstance();
     }
 
-    public static TaskController getInstance(){
+    /**
+     * get current instance method.
+     * @return TaskController instance
+     */
+    public static TaskController getInstance() {
         if (instance == null) {
             instance = new TaskController();
         }
         return instance;
     }
 
-    public Object handleRequest(RequestType requestType, Object... parameters) {
-        switch (requestType) {
-            case CHANGE_LOCALE : {
-                return changeLocale(parameters);
+    /**
+     * method of handle program requests.
+     * @param requestType type of request
+     * @param parameters parametrs for request
+     * @return request
+     */
+    Object handleRequest(final RequestType requestType,
+                         final Object... parameters) {
+        try {
+            switch (requestType) {
+                case CHANGE_LOCALE:
+                    return changeLocale(parameters);
+                case READ_TEXT_FROM_FILE:
+                    return readTextFromFile(parameters);
+                case SORT:
+                    return sortComponents(parameters);
+
+                case CONCATENATE_TO_STRING:
+                    return concatenateText(parameters);
+                default:
+                    throw new ControllerException("UNSUPPORTED_REQUEST");
             }
-            case READ_TEXT_FROM_FILE : {
-                return readTextFromFile(parameters);
-            }
-            case SORT : {
-                return sortComponents(parameters);
-            }
-            case CONCATENATE_TO_STRING : {
-                return concatenateText(parameters);
-            }
-            default : throw new ServiceException("UNSUPPORTED_REQUEST");
+        } catch (ServiceException e) {
+            throw new ControllerException(e.getMessage(), e);
         }
     }
 
     private String concatenateText(final Object[] newParameters) {
         if (newParameters == null || newParameters.length == 0) {
-            throw new ServiceException("CONCATENATING_TEXT_NOT_DEFINED");
+            throw new ControllerException("CONCATENATING_TEXT_NOT_DEFINED");
         }
         Component component = (Component) newParameters[0];
         return textService.concatenateText(component);
     }
 
+    /**
+     * read text from file controller method.
+     *
+     * @param newParameters file reading parametrs
+     * @return Component from text service
+     */
     private Component readTextFromFile(final Object[] newParameters) {
         String pathParam = null;
-        if (newParameters != null && newParameters.length > 0) {
-            pathParam = (String) newParameters[0];
+        try {
+            if (newParameters != null && newParameters.length > 0) {
+                pathParam = newParameters[0].toString();
+            }
+            return textService.readTextFromFile(pathParam);
+        } catch (Exception e) {
+            throw new ControllerException("READ_FROM_FILE_ERROR", e);
         }
-        return textService.readTextFromFile(pathParam);
     }
 
     private Locale changeLocale(final Object[] newParameters) {
         if (newParameters == null || newParameters.length == 0) {
-            throw new ServiceException("LANGUAGE_IS_EMPTY");
+            throw new ControllerException("LANGUAGE_IS_EMPTY");
         }
         String language = (String) newParameters[0];
         if (newParameters.length == 1) {
-            throw new ServiceException("LOCALE_COUNTRY_IS_EMPTY");
+            throw new ControllerException("LOCALE_COUNTRY_IS_EMPTY");
         }
         String country = (String) newParameters[1];
         return localizationService.changeLocale(language, country);
@@ -75,11 +110,11 @@ public class TaskController {
 
     private Component sortComponents(final Object[] newParameters) {
         if (newParameters == null || newParameters.length == 0) {
-            throw new ServiceException("SORT_PARAMETER_IS_EMPTY");
+            throw new ControllerException("SORT_PARAMETER_IS_EMPTY");
         }
         String param = (String) newParameters[0];
         if (newParameters.length == 1) {
-            throw new ServiceException("SORTING_TEXT_NOT_DEFINED");
+            throw new ControllerException("SORTING_TEXT_NOT_DEFINED");
         }
         Component component = (Component) newParameters[1];
         if (newParameters.length > 2) {

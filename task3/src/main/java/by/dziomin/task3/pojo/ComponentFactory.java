@@ -10,7 +10,6 @@ public class ComponentFactory {
     private static ComponentFactory instance;
 
     private ComponentFactory() {
-        //todo real singletone
     }
 
     public static ComponentFactory getInstance() {
@@ -20,12 +19,13 @@ public class ComponentFactory {
         return instance;
     }
 
-    public <T> T getNewComponent(Class<T> componentClass) {
+    public <T> T createNewComponent(Class<T> componentClass) {
         try {
             Constructor<T> constructor =
                     componentClass.getDeclaredConstructor();
             return constructor.newInstance();
-        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+        } catch (NoSuchMethodException | InstantiationException |
+                IllegalAccessException | InvocationTargetException e) {
             throw new ServiceException("Internal error", e);
         }
     }

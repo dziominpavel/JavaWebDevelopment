@@ -5,11 +5,13 @@ import by.dziomin.task3.pojo.impl.LeksemaComponent;
 import by.dziomin.task3.pojo.impl.Symbol;
 import by.dziomin.task3.pojo.impl.WordComponent;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static by.dziomin.task3.constant.Regex.REGEX_PUNCTUATION;
 import static by.dziomin.task3.constant.Regex.REGEX_WORD;
 
 public class LeksemaParser extends BaseComponentParser {
-
-    private static final String REGEX = ",.:";
 
     LeksemaParser(final Parser newNextParser) {
         super(newNextParser);
@@ -31,7 +33,10 @@ public class LeksemaParser extends BaseComponentParser {
         if (component instanceof LeksemaComponent) {
             String punctuation = getPunctuation(text);
             if (punctuation != null) {
-                Symbol symbol = new Symbol(punctuation);
+                Symbol symbol =
+                        getComponentFactory().createNewComponent(Symbol.class);
+                symbol.setSymbol(punctuation);
+
                 processedString = text.replace(punctuation, "");
                 ((LeksemaComponent) component).setPunctuation(symbol);
             }
@@ -40,10 +45,13 @@ public class LeksemaParser extends BaseComponentParser {
         super.parse(processedString, component);
     }
 
-    private String getPunctuation(final String text) { //todo
-        if (text.endsWith(",")) {
-            return ",";
+    private String getPunctuation(final String text) {
+        Pattern p = Pattern.compile(REGEX_PUNCTUATION);
+        Matcher m = p.matcher(text);
+        if (m.find()) {
+            return m.group();
+        } else {
+            return null;
         }
-        return null;
     }
 }

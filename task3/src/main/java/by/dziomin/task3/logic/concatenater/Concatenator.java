@@ -1,6 +1,7 @@
 package by.dziomin.task3.logic.concatenater;
 
 import by.dziomin.task3.pojo.Component;
+import by.dziomin.task3.pojo.impl.BaseComponent;
 import by.dziomin.task3.pojo.impl.LeksemaComponent;
 import by.dziomin.task3.pojo.impl.Symbol;
 
@@ -35,16 +36,21 @@ public class Concatenator {
             return;
         }
 
+        String delimiter = "";
         for (Component childComponent : childComponents) {
+            if (childComponent instanceof BaseComponent) {
+                newResult.append(delimiter);
+                delimiter = " ";
+            }
             concatenate(newResult, childComponent);
-            newResult.append(" ");
         }
 
         if (newComponent instanceof LeksemaComponent) {
-            //todo remove space before punctuation
             Symbol punktuation =
                     ((LeksemaComponent) newComponent).getPunctuation();
-            newResult.append(punktuation.getSymbol());
+            if (punktuation != null) {
+                newResult.append(punktuation.getSymbol());
+            }
         }
     }
 }

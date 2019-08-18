@@ -21,7 +21,15 @@ public class LeksemaComponent extends BaseComponent {
     }
 
     public int getWordLength() {
-        return this.getChildComponentSize();
+        if (this.getComponents() == null || this.getComponents().isEmpty()) {
+            return 0;
+        } else {
+            WordComponent wordComponent = (WordComponent) this.getComponents().get(0);
+            if (wordComponent == null || wordComponent.getComponents().isEmpty()) {
+                return 0;
+            }
+            return wordComponent.getChildComponentSize();
+        }
     }
 
     public int getSymbolCount(final String symbol) {

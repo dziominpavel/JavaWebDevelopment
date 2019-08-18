@@ -81,10 +81,10 @@ public class TextServiceImpl implements TextService {
                 return componentSorter.sortComponent(text, PARAGRAPH, comparator);
             }
             case LEKSEMS_BY_SYMBOL_COUNT_DESC: {
-                String compareSymbol = params[0];
-                if (compareSymbol == null || compareSymbol.isEmpty()) {
-                    throw new ServiceException("COMPARE_SYMBOL IS EMPTY");
+                if (params == null || params.length == 0 || params[0].isEmpty()) {
+                    throw new ServiceException("COMPARE_SYMBOL_IS_EMPTY");
                 }
+                String compareSymbol = params[0];
                 Comparator<LeksemaComponent> firstComparator =
                         Comparator.comparingInt(c -> c.getSymbolCount(compareSymbol));
 

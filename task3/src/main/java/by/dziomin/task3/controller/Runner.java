@@ -1,11 +1,13 @@
 package by.dziomin.task3.controller;
 
-import by.dziomin.task3.exception.ServiceException;
+import by.dziomin.task3.exception.ControllerException;
 import by.dziomin.task3.service.LocalizationService;
 import by.dziomin.task3.service.impl.LocalizationServiceImpl;
 import org.apache.log4j.Logger;
 
 import java.util.Scanner;
+
+import static by.dziomin.task3.constant.ProgramSettings.DEFAULT_TEXT_FILE_PATH;
 
 
 /**
@@ -22,7 +24,6 @@ public final class Runner {
      * main method.
      *
      * @param args args.
-     * @throws ServiceException ServiceException
      */
     public static void main(final String[] args) {
         Logger logger = Logger.getLogger(Runner.class);
@@ -30,31 +31,53 @@ public final class Runner {
         TaskController controller = TaskController.getInstance();
         LocalizationService localizationService =
                 LocalizationServiceImpl.getInstance();
-        String[] localeParam = localizeParamFromDialog();
+        String[] localeParam = userDialog();
         try {
             controller.handleRequest(RequestType.CHANGE_LOCALE, localeParam[0],
                     localeParam[1]);
 
+            //read from file
             Object text = controller.handleRequest(RequestType
-                    .READ_TEXT_FROM_FILE);
-            text = controller.handleRequest(RequestType.SORT,
-                    "PARAGRAPHS_BY_SENTENCES_COUNT", text);
+                    .READ_TEXT_FROM_FILE, DEFAULT_TEXT_FILE_PATH);
+            Object resultText =
+                    controller.handleRequest(RequestType.CONCATENATE_TO_STRING,
+                            text);
+            logger.debug(resultText);
+
+            //sort by sentence count
+            text = controller.handleRequest(
+                    RequestType.SORT, "PARAGRAPHS_BY_SENTENCES_COUNT", text);
+            resultText =
+                    controller.handleRequest(
+                            RequestType.CONCATENATE_TO_STRING, text);
+            logger.debug(resultText);
+
+            //sort by word length
             text = controller.handleRequest(RequestType.SORT,
                     "WORDS_BY_WORD_LENGTH", text);
+            resultText = controller.handleRequest(
+                    RequestType.CONCATENATE_TO_STRING, text);
+            logger.debug(resultText);
+
+            //sort by word count
             text = controller.handleRequest(RequestType.SORT,
                     "SENTENCES_BY_WORD_COUNT", text);
+            resultText = controller.handleRequest(
+                    RequestType.CONCATENATE_TO_STRING, text);
+            logger.debug(resultText);
+
+            //sort by symbol count desc
             text = controller.handleRequest(RequestType.SORT,
                     "LEKSEMS_BY_SYMBOL_COUNT_DESC", text, "a");
+            resultText = controller.handleRequest(
+                    RequestType.CONCATENATE_TO_STRING, text);
+            logger.debug(resultText);
 
-            text = controller.handleRequest(RequestType.CONCATENATE_TO_STRING,
-                    text);
-            logger.debug(text);
-        } catch (ServiceException e) {
-            logger.error(localizationService.getLocalizedMessage(
-                    e.getMessage()));
+        } catch (ControllerException e) {
+            logger.error(e.getLocalizedMessage(), e.getCause());
         } catch (Exception e) {
             logger.error(localizationService.getLocalizedMessage(
-                    "INTERNAL_ERROR"));
+                    "INTERNAL_ERROR"), e);
         }
     }
 
@@ -63,7 +86,7 @@ public final class Runner {
      *
      * @return String[] parametrs (language,country)
      */
-    private static String[] localizeParamFromDialog() {
+    private static String[] userDialog() {
 
         Logger logger = Logger.getLogger(Runner.class);
         logger.info("choose Locale:");

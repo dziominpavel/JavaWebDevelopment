@@ -7,13 +7,13 @@ import java.util.List;
 
 public abstract class BaseComponentParser<T extends Component> extends Parser {
 
-    public abstract String getChildRegex();
-
-    public abstract Class<T> getChildClass();
-
     BaseComponentParser(final Parser newNextParser) {
         super(newNextParser);
     }
+
+    public abstract String getChildRegex();
+
+    public abstract Class<T> getChildClass();
 
     @Override
     public void parse(final String text, final Component component) {
@@ -22,10 +22,12 @@ public abstract class BaseComponentParser<T extends Component> extends Parser {
         Class<T> childClass = getChildClass();
         List<Component> components = new ArrayList<>();
         for (String str : parseResult) {
-            Component newComponent =
-                    getComponentFactory().getNewComponent(childClass);
-            components.add(newComponent);
-            super.parse(str, newComponent);
+            if (childClass != null) {
+                Component newComponent =
+                        getComponentFactory().createNewComponent(childClass);
+                components.add(newComponent);
+                super.parse(str, newComponent);
+            }
         }
         component.setComponents(components);
     }

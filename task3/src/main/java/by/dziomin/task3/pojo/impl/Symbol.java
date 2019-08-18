@@ -3,15 +3,12 @@ package by.dziomin.task3.pojo.impl;
 import by.dziomin.task3.pojo.Component;
 import by.dziomin.task3.pojo.ComponentType;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Symbol implements Component {
 
     private String symbol;
-
-    public Symbol(final String symbol) {
-        this.symbol = symbol;
-    }
 
     public String getSymbol() {
         return symbol;
@@ -28,12 +25,12 @@ public class Symbol implements Component {
 
     @Override
     public void setComponents(final List<Component> components) {
-        //not supported
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<Component> getComponents() {
-        return null;
+        return Collections.emptyList();
     }
 
 }

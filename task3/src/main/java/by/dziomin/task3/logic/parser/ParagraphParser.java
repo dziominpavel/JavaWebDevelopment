@@ -1,6 +1,5 @@
 package by.dziomin.task3.logic.parser;
 
-import by.dziomin.task3.pojo.impl.BaseComponent;
 import by.dziomin.task3.pojo.impl.SentenceComponent;
 
 import static by.dziomin.task3.constant.Regex.REGEX_SENTENCE;
@@ -14,6 +13,7 @@ public class ParagraphParser extends BaseComponentParser {
 
     /**
      * get regex for child component.
+     *
      * @return String.
      */
     @Override

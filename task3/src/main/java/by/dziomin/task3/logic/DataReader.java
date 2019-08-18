@@ -3,7 +3,6 @@ package by.dziomin.task3.logic;
 import by.dziomin.task3.exception.ServiceException;
 import org.apache.log4j.Logger;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -55,8 +54,7 @@ public final class DataReader {
             logger.debug("Reading Succesful");
             return stream.collect(Collectors.joining());
         } catch (IOException e) {
-            throw new ServiceException("Error of reading data from file",
-                    new FileNotFoundException());
+            throw new ServiceException("READ_FROM_FILE_ERROR", e);
         }
     }
 }

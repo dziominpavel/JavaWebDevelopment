@@ -4,31 +4,38 @@ import by.dziomin.task3.service.LocalizationService;
 import by.dziomin.task3.service.impl.LocalizationServiceImpl;
 
 /**
- * service exception class.
+ * controller exception class.
  */
-public class ServiceException extends RuntimeException {
+public class ControllerException extends RuntimeException {
     /**
      * localization service instance.
      */
     private final LocalizationService localizationService =
             LocalizationServiceImpl.getInstance();
 
+    public ControllerException() {
+    }
+
+    public ControllerException(final Throwable cause) {
+        super(cause);
+    }
+
     /**
-     * constructor service exception.
+     * constructor controller exception.
      *
      * @param keyMessage keyMessage
      */
-    public ServiceException(final String keyMessage) {
+    public ControllerException(final String keyMessage) {
         super(keyMessage);
     }
 
     /**
-     * constructor service exception.
+     * constructor controller exception.
      *
      * @param keyMessage keyMessage
      * @param cause      cause
      */
-    public ServiceException(final String keyMessage, final Throwable cause) {
+    public ControllerException(final String keyMessage, final Throwable cause) {
         super(keyMessage, cause);
     }
 

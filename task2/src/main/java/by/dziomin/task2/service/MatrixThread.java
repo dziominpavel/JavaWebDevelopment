@@ -13,7 +13,7 @@ public class MatrixThread extends Thread {
     /**
      * value.
      */
-    private int value;
+    private final int value;
     /**
      * countElementsForInsertValue.
      */

@@ -2,7 +2,7 @@ package by.dziomin.task3.controller;
 
 import by.dziomin.task3.exception.ControllerException;
 import by.dziomin.task3.exception.ServiceException;
-import by.dziomin.task3.pojo.Component;
+import by.dziomin.task3.entity.Component;
 import by.dziomin.task3.service.LocalizationService;
 import by.dziomin.task3.service.TextService;
 import by.dziomin.task3.service.impl.LocalizationServiceImpl;
@@ -70,11 +70,16 @@ public final class TaskController {
         }
     }
 
-    private String concatenateText(final Object[] newParameters) {
-        if (newParameters == null || newParameters.length == 0) {
+    /**
+     * method concatenating text.
+     * @param parameters text for concatenating
+     * @return String text
+     */
+    private String concatenateText(final Object[] parameters) {
+        if (parameters == null || parameters.length == 0) {
             throw new ControllerException("CONCATENATING_TEXT_NOT_DEFINED");
         }
-        Component component = (Component) newParameters[0];
+        Component component = (Component) parameters[0];
         return textService.concatenateText(component);
     }
 
@@ -92,17 +97,17 @@ public final class TaskController {
             }
             return textService.readTextFromFile(pathParam);
         } catch (Exception e) {
-            throw new ControllerException("READ_FROM_FILE_ERROR", e);
+            throw new ControllerException("READING.READ_FROM_FILE_ERROR", e);
         }
     }
 
     private Locale changeLocale(final Object[] newParameters) {
         if (newParameters == null || newParameters.length == 0) {
-            throw new ControllerException("LANGUAGE_IS_EMPTY");
+            throw new ControllerException("LOCALIZATION.LANGUAGE_IS_EMPTY");
         }
         String language = (String) newParameters[0];
         if (newParameters.length == 1) {
-            throw new ControllerException("LOCALE_COUNTRY_IS_EMPTY");
+            throw new ControllerException("LOCALIZATION.LOCALE_COUNTRY_IS_EMPTY");
         }
         String country = (String) newParameters[1];
         return localizationService.changeLocale(language, country);
@@ -110,11 +115,11 @@ public final class TaskController {
 
     private Component sortComponents(final Object[] newParameters) {
         if (newParameters == null || newParameters.length == 0) {
-            throw new ControllerException("SORT_PARAMETER_IS_EMPTY");
+            throw new ControllerException("SORT.PARAMETER_IS_EMPTY");
         }
         String param = (String) newParameters[0];
         if (newParameters.length == 1) {
-            throw new ControllerException("SORTING_TEXT_NOT_DEFINED");
+            throw new ControllerException("SORT.TEXT_NOT_DEFINED");
         }
         Component component = (Component) newParameters[1];
         if (newParameters.length > 2) {

@@ -1,6 +1,6 @@
 package by.dziomin.task3.service;
 
-import by.dziomin.task3.pojo.Component;
+import by.dziomin.task3.entity.Component;
 
 public interface TextService {
 

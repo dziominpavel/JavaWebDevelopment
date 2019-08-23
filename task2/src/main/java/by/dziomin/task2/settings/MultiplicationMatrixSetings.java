@@ -13,7 +13,7 @@ public final class MultiplicationMatrixSetings {
      * this setting for additional task2(multiplication)
      * * count of size of matrix for multiplication task.
      */
-    public static final int COUNT_ROWS_MUL = 500;
+    public static final int COUNT_ROWS_MUL = 10;
     /**
      * this setting for additional task2(multiplication)
      * coef. rows per treads.

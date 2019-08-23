@@ -24,7 +24,9 @@ public final class Regex {
      * Regex for parsing word to symbols.
      */
     public static final String REGEX_SYMBOL = "";
-
+    /**
+     * Regex for parsing leksem to word without punctuation.
+     */
     public static final String REGEX_PUNCTUATION = "[.!?;:,]+";
 
     /**

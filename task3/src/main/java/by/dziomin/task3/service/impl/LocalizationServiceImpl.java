@@ -1,6 +1,5 @@
 package by.dziomin.task3.service.impl;
 
-import by.dziomin.task3.controller.Runner;
 import by.dziomin.task3.service.LocalizationService;
 import org.apache.log4j.Logger;
 
@@ -10,11 +9,14 @@ import java.util.ResourceBundle;
 
 public final class LocalizationServiceImpl implements LocalizationService {
 
-    Logger logger = Logger.getLogger(LocalizationServiceImpl.class);
     /**
      * instance field.
      */
     private static LocalizationService instance;
+    /**
+     * logger object.
+     */
+    private Logger logger = Logger.getLogger(LocalizationServiceImpl.class);
     /**
      * currentlocale field.
      */
@@ -41,7 +43,7 @@ public final class LocalizationServiceImpl implements LocalizationService {
         ResourceBundle rb = ResourceBundle.getBundle("text", currentLocale);
         try {
             return rb.getString(key);
-        } catch (MissingResourceException e){
+        } catch (MissingResourceException e) {
             logger.warn("Message key not found: " + key, e);
             return key;
         } catch (Exception e) {
@@ -63,8 +65,9 @@ public final class LocalizationServiceImpl implements LocalizationService {
 
         if (!newLanguage.isEmpty() && !newCountry.isEmpty()) {
             currentLocale = new Locale(newLanguage, newCountry);
-            logger.info(getLocalizedMessage("CHANGED_LOCALE"));
-            logger.info(getLocalizedMessage("NEW_LOCALE_IS") + currentLocale);
+            logger.info(getLocalizedMessage("LOCALIZATION.CHANGED_LOCALE"));
+            logger.info(getLocalizedMessage("LOCALIZATION.NEW_LOCALE_IS")
+                    + currentLocale);
         }
         return currentLocale;
     }

@@ -1,25 +1,24 @@
 package by.dziomin.task3.service.impl;
 
+import by.dziomin.task3.entity.Component;
+import by.dziomin.task3.entity.impl.LeksemaComponent;
+import by.dziomin.task3.entity.impl.ParagraphComponent;
+import by.dziomin.task3.entity.impl.SentenceComponent;
 import by.dziomin.task3.exception.ServiceException;
-import by.dziomin.task3.logic.DataReader;
-import by.dziomin.task3.logic.SortType;
 import by.dziomin.task3.logic.concatenater.Concatenator;
 import by.dziomin.task3.logic.parser.ChainParser;
 import by.dziomin.task3.logic.sorter.ComponentSorter;
-import by.dziomin.task3.pojo.Component;
-import by.dziomin.task3.pojo.impl.LeksemaComponent;
-import by.dziomin.task3.pojo.impl.ParagraphComponent;
-import by.dziomin.task3.pojo.impl.SentenceComponent;
+import by.dziomin.task3.service.DataReader;
+import by.dziomin.task3.service.SortType;
 import by.dziomin.task3.service.TextService;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Comparator;
 
-import static by.dziomin.task3.constant.ProgramSettings.DEFAULT_TEXT_FILE_PATH;
-import static by.dziomin.task3.pojo.ComponentType.PARAGRAPH;
-import static by.dziomin.task3.pojo.ComponentType.SENTENCE;
-import static by.dziomin.task3.pojo.ComponentType.TEXT;
+import static by.dziomin.task3.entity.ComponentType.PARAGRAPH;
+import static by.dziomin.task3.entity.ComponentType.SENTENCE;
+import static by.dziomin.task3.entity.ComponentType.TEXT;
 
 public class TextServiceImpl implements TextService {
     private static TextService instance;
@@ -45,12 +44,7 @@ public class TextServiceImpl implements TextService {
 
     @Override
     public Component readTextFromFile(final String pathString) {
-        Path path = DEFAULT_TEXT_FILE_PATH;
-        if (pathString != null && !pathString.isEmpty()) {
-            path = Paths.get(pathString);
-        }
-
-        String text = dataReader.readFile(path);
+        String text = dataReader.readFile();
         return chainParser.makeParse(text);
     }
 

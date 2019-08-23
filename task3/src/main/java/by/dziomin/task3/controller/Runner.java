@@ -7,8 +7,6 @@ import org.apache.log4j.Logger;
 
 import java.util.Scanner;
 
-import static by.dziomin.task3.constant.ProgramSettings.DEFAULT_TEXT_FILE_PATH;
-
 
 /**
  * Main class.
@@ -26,8 +24,8 @@ public final class Runner {
      * @param args args.
      */
     public static void main(final String[] args) {
+        userDialog();
         Logger logger = Logger.getLogger(Runner.class);
-
         TaskController controller = TaskController.getInstance();
         LocalizationService localizationService =
                 LocalizationServiceImpl.getInstance();
@@ -38,7 +36,7 @@ public final class Runner {
 
             //read from file
             Object text = controller.handleRequest(RequestType
-                    .READ_TEXT_FROM_FILE, DEFAULT_TEXT_FILE_PATH);
+                    .READ_TEXT_FROM_FILE);
             Object resultText =
                     controller.handleRequest(RequestType.CONCATENATE_TO_STRING,
                             text);
@@ -87,13 +85,11 @@ public final class Runner {
      * @return String[] parametrs (language,country)
      */
     private static String[] userDialog() {
-
-        Logger logger = Logger.getLogger(Runner.class);
-        logger.info("choose Locale:");
-        logger.info("1 -> English");
-        logger.info("2 -> Russian");
-        logger.info("3 -> Belorussian");
-        logger.info("other -> default");
+        System.out.println("choose Locale:");
+        System.out.println("1 -> English");
+        System.out.println("2 -> Russian");
+        System.out.println("3 -> Belorussian");
+        System.out.println("other -> default");
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
         String language;

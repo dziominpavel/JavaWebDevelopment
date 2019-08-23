@@ -4,7 +4,7 @@ import by.dziomin.task2.entity.Matrix;
 
 import java.util.List;
 
-import static by.dziomin.task2.settings.MatrixSettings.MIN_MATRIX_SIZE;
+import static by.dziomin.task2.settings.MatrixSettings.MATRIX_SIZE;
 
 /**
  * Matrix creator class.
@@ -42,7 +42,7 @@ public final class MatrixCreator {
      * @return Matrix
      */
     public Matrix createMatrix(final List<String[]> info) {
-        int[][] result = new int[MIN_MATRIX_SIZE][MIN_MATRIX_SIZE];
+        int[][] result = new int[MATRIX_SIZE][MATRIX_SIZE];
         for (int i = 0; i < info.size(); i++) {
             for (int j = 0; j < info.get(i).length; j++) {
                 if (i != j) {

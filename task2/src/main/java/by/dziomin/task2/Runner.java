@@ -42,7 +42,7 @@ public final class Runner {
     public static void main(final String[] args) throws MatrixException {
         Logger logger = Logger.getLogger(Runner.class);
         logger.info("main thread is started");
-//        runMultiplicationMatrix();
+        runMultiplicationMatrix();
 
         try {
             DataReader dataReader = DataReader.getInstance();

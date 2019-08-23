@@ -16,7 +16,7 @@ public final class MatrixSettings {
     /**
      * min of possible matrix size.
      */
-    public static final int MIN_MATRIX_SIZE = 8;
+    public static final int MIN_MATRIX_SIZE = 7;
     /**
      * max of possible matrix size.
      */
@@ -25,7 +25,7 @@ public final class MatrixSettings {
      * this setting for general task2.
      * count of threads where 4<=count<=6.
      */
-    public static final int COUNT_THREADS = 5;
+    public static final int COUNT_THREADS = 6;
     /**
      * min of possible count threads.
      */

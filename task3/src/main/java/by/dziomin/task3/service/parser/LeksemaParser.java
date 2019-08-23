@@ -11,17 +11,29 @@ import java.util.regex.Pattern;
 import static by.dziomin.task3.constant.Regex.REGEX_PUNCTUATION;
 import static by.dziomin.task3.constant.Regex.REGEX_WORD;
 
+/**
+ * leksema parser.
+ */
 public class LeksemaParser extends BaseComponentParser {
-
+    /**
+     * constructor.
+     * @param newNextParser newNextParser
+     */
     LeksemaParser(final Parser newNextParser) {
         super(newNextParser);
     }
-
+    /**
+     * get child component regex method.
+     * @return child component regex
+     */
     @Override
     public String getChildRegex() {
         return REGEX_WORD;
     }
-
+    /**
+     * get child component class method.
+     * @return child component class
+     */
     @Override
     public Class getChildClass() {
         return WordComponent.class;

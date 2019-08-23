@@ -20,7 +20,10 @@ public class ParagraphParser extends BaseComponentParser {
     public String getChildRegex() {
         return REGEX_SENTENCE;
     }
-
+    /**
+     * get child component class method.
+     * @return child component class
+     */
     @Override
     public Class getChildClass() {
         return SentenceComponent.class;

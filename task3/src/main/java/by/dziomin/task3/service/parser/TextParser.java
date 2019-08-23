@@ -18,11 +18,18 @@ public class TextParser extends BaseComponentParser {
         super(newNextParser);
     }
 
+    /**
+     * get child component regex method.
+     * @return child component regex
+     */
     @Override
     public String getChildRegex() {
         return REGEX_PARAGRAPH;
     }
-
+    /**
+     * get child class method.
+     * @return child component class.
+     */
     @Override
     public Class getChildClass() {
         return ParagraphComponent.class;

@@ -7,12 +7,26 @@ import by.dziomin.task3.entity.impl.Symbol;
 
 import java.util.List;
 
-public class Concatenator {
+/**
+ * concatenator service class.
+ */
+public final class Concatenator {
+    /**
+     * instance field.
+     */
     private static Concatenator instance;
 
+    /**
+     * private constructor.
+     */
     private Concatenator() {
     }
 
+    /**
+     * get instance method.
+     *
+     * @return instance.
+     */
     public static Concatenator getInstance() {
         if (instance == null) {
             instance = new Concatenator();
@@ -20,18 +34,31 @@ public class Concatenator {
         return instance;
     }
 
-    public String concatenateToString(Component component) {
+    /**
+     * method run concatenate method and return string.
+     *
+     * @param component component.
+     * @return string.
+     */
+    public String concatenateToString(final Component component) {
         StringBuilder result = new StringBuilder();
         concatenate(result, component);
         return result.toString();
     }
 
-    private void concatenate(final StringBuilder newResult, final Component newComponent) {
-        if (newComponent instanceof Symbol) {
-            newResult.append(((Symbol) newComponent).operation());
+    /**
+     * method concatenates child components.
+     *
+     * @param newResult concatenated components
+     * @param component component
+     */
+    private void concatenate(final StringBuilder newResult,
+                             final Component component) {
+        if (component instanceof Symbol) {
+            newResult.append(((Symbol) component).operation());
         }
 
-        List<Component> childComponents = newComponent.getComponents();
+        List<Component> childComponents = component.getComponents();
         if (childComponents == null) {
             return;
         }
@@ -45,9 +72,9 @@ public class Concatenator {
             concatenate(newResult, childComponent);
         }
 
-        if (newComponent instanceof LeksemaComponent) {
+        if (component instanceof LeksemaComponent) {
             Symbol punktuation =
-                    ((LeksemaComponent) newComponent).getPunctuation();
+                    ((LeksemaComponent) component).getPunctuation();
             if (punktuation != null) {
                 newResult.append(punktuation.operation());
             }

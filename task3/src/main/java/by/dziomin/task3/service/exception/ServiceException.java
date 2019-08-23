@@ -32,6 +32,10 @@ public class ServiceException extends RuntimeException {
         super(keyMessage, cause);
     }
 
+    /**
+     * method gets localized message.
+     * @return localized message.
+     */
     @Override
     public String getLocalizedMessage() {
         return localizationService.getLocalizedMessage(getMessage());

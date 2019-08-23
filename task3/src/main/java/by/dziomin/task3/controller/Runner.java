@@ -24,7 +24,6 @@ public final class Runner {
      * @param args args.
      */
     public static void main(final String[] args) {
-        userDialog();
         Logger logger = Logger.getLogger(Runner.class);
         TaskController controller = TaskController.getInstance();
         LocalizationService localizationService =
@@ -37,6 +36,9 @@ public final class Runner {
             //read from file
             Object text = controller.handleRequest(RequestType
                     .READ_TEXT_FROM_FILE);
+            String logStr = localizationService
+                    .getLocalizedMessage("READING.SOURCE_TEXT");
+            logger.info(logStr);
             Object resultText =
                     controller.handleRequest(RequestType.CONCATENATE_TO_STRING,
                             text);
@@ -44,13 +46,20 @@ public final class Runner {
 
             //sort by sentence count
             text = controller.handleRequest(
-                    RequestType.SORT, "PARAGRAPHS_BY_SENTENCES_COUNT", text);
+                    RequestType.SORT,
+                    "PARAGRAPHS_BY_SENTENCES_COUNT", text);
+            logStr = localizationService
+                    .getLocalizedMessage("SORT.BY_SENTENCES_COUNT");
+            logger.info(logStr);
             resultText =
                     controller.handleRequest(
                             RequestType.CONCATENATE_TO_STRING, text);
             logger.debug(resultText);
 
             //sort by word length
+            logStr = localizationService
+                    .getLocalizedMessage("SORT.BY_WORDS_LENGTH");
+            logger.info(logStr);
             text = controller.handleRequest(RequestType.SORT,
                     "WORDS_BY_WORD_LENGTH", text);
             resultText = controller.handleRequest(
@@ -60,6 +69,9 @@ public final class Runner {
             //sort by word count
             text = controller.handleRequest(RequestType.SORT,
                     "SENTENCES_BY_WORD_COUNT", text);
+            logStr = localizationService
+                    .getLocalizedMessage("SORT.BY_WORDS_COUNT");
+            logger.info(logStr);
             resultText = controller.handleRequest(
                     RequestType.CONCATENATE_TO_STRING, text);
             logger.debug(resultText);
@@ -67,6 +79,9 @@ public final class Runner {
             //sort by symbol count desc
             text = controller.handleRequest(RequestType.SORT,
                     "LEKSEMS_BY_SYMBOL_COUNT_DESC", text, "a");
+            logStr = localizationService
+                    .getLocalizedMessage("SORT.BY_SYMBOL_COUNT");
+            logger.info(logStr);
             resultText = controller.handleRequest(
                     RequestType.CONCATENATE_TO_STRING, text);
             logger.debug(resultText);

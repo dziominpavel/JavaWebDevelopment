@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<cards xmlns="http://www.w3.org/2001/XMLSchema">
+    <card>
+        <theme>Nature</theme>
+        <type></type>
+        <isSent>true</isSent>
+        <country>Belarus</country>
+        <year>1990</year>
+        <autorList>
+            <autor>Ivanov</autor>
+            <autor>Petrov</autor>
+        </autorList>
+        <valuable></valuable>
+    </card>
+</cards>

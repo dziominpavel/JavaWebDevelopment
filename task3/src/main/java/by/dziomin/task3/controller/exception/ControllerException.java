@@ -1,4 +1,4 @@
-package by.dziomin.task3.exception;
+package by.dziomin.task3.controller.exception;
 
 import by.dziomin.task3.service.LocalizationService;
 import by.dziomin.task3.service.impl.LocalizationServiceImpl;

@@ -4,30 +4,48 @@ import by.dziomin.task3.entity.Component;
 import by.dziomin.task3.entity.impl.LeksemaComponent;
 import by.dziomin.task3.entity.impl.ParagraphComponent;
 import by.dziomin.task3.entity.impl.SentenceComponent;
-import by.dziomin.task3.exception.ServiceException;
-import by.dziomin.task3.logic.concatenater.Concatenator;
-import by.dziomin.task3.logic.parser.ChainParser;
-import by.dziomin.task3.logic.sorter.ComponentSorter;
+import by.dziomin.task3.service.exception.ServiceException;
 import by.dziomin.task3.service.DataReader;
 import by.dziomin.task3.service.SortType;
 import by.dziomin.task3.service.TextService;
+import by.dziomin.task3.service.concatenater.Concatenator;
+import by.dziomin.task3.service.parser.ChainParser;
+import by.dziomin.task3.service.sorter.ComponentSorter;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Comparator;
 
 import static by.dziomin.task3.entity.ComponentType.PARAGRAPH;
 import static by.dziomin.task3.entity.ComponentType.SENTENCE;
 import static by.dziomin.task3.entity.ComponentType.TEXT;
 
-public class TextServiceImpl implements TextService {
+/**
+ * text service implementation class.
+ */
+public final class TextServiceImpl implements TextService {
+    /**
+     * instance field.
+     */
     private static TextService instance;
-
+    /**
+     * dataReader field.
+     */
     private DataReader dataReader;
+    /**
+     * chain parcer field.
+     */
     private ChainParser chainParser;
+    /**
+     * component sorter field.
+     */
     private ComponentSorter componentSorter;
+    /**
+     * concatenator field.
+     */
     private Concatenator concatenator;
 
+    /**
+     * constructor.
+     */
     private TextServiceImpl() {
         this.dataReader = DataReader.getInstance();
         this.chainParser = ChainParser.getInstance();
@@ -35,6 +53,10 @@ public class TextServiceImpl implements TextService {
         this.concatenator = Concatenator.getInstance();
     }
 
+    /**
+     * get instance method.
+     * @return instance.
+     */
     public static TextService getInstance() {
         if (instance == null) {
             instance = new TextServiceImpl();
@@ -42,6 +64,11 @@ public class TextServiceImpl implements TextService {
         return instance;
     }
 
+    /**
+     * method run chain for parsing text.
+     * @param pathString
+     * @return
+     */
     @Override
     public Component readTextFromFile(final String pathString) {
         String text = dataReader.readFile();

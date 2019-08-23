@@ -1,8 +1,8 @@
 package by.dziomin.task3.controller;
 
-import by.dziomin.task3.exception.ControllerException;
-import by.dziomin.task3.exception.ServiceException;
 import by.dziomin.task3.entity.Component;
+import by.dziomin.task3.controller.exception.ControllerException;
+import by.dziomin.task3.service.exception.ServiceException;
 import by.dziomin.task3.service.LocalizationService;
 import by.dziomin.task3.service.TextService;
 import by.dziomin.task3.service.impl.LocalizationServiceImpl;
@@ -27,6 +27,9 @@ public final class TaskController {
      */
     private LocalizationService localizationService;
 
+    /**
+     * constructor of taskController.
+     */
     private TaskController() {
         this.textService = TextServiceImpl.getInstance();
         this.localizationService = LocalizationServiceImpl.getInstance();
@@ -34,6 +37,7 @@ public final class TaskController {
 
     /**
      * get current instance method.
+     *
      * @return TaskController instance
      */
     public static TaskController getInstance() {
@@ -45,8 +49,9 @@ public final class TaskController {
 
     /**
      * method of handle program requests.
+     *
      * @param requestType type of request
-     * @param parameters parametrs for request
+     * @param parameters  parametrs for request
      * @return request
      */
     Object handleRequest(final RequestType requestType,
@@ -72,6 +77,7 @@ public final class TaskController {
 
     /**
      * method concatenating text.
+     *
      * @param parameters text for concatenating
      * @return String text
      */
@@ -86,14 +92,14 @@ public final class TaskController {
     /**
      * read text from file controller method.
      *
-     * @param newParameters file reading parametrs
+     * @param parameters file reading parametrs
      * @return Component from text service
      */
-    private Component readTextFromFile(final Object[] newParameters) {
+    private Component readTextFromFile(final Object[] parameters) {
         String pathParam = null;
         try {
-            if (newParameters != null && newParameters.length > 0) {
-                pathParam = newParameters[0].toString();
+            if (parameters != null && parameters.length > 0) {
+                pathParam = parameters[0].toString();
             }
             return textService.readTextFromFile(pathParam);
         } catch (Exception e) {
@@ -101,29 +107,40 @@ public final class TaskController {
         }
     }
 
-    private Locale changeLocale(final Object[] newParameters) {
-        if (newParameters == null || newParameters.length == 0) {
+    /**
+     * controller method for change locale.
+     * @param parameters for change locale service.
+     * @return result of localization service.
+     */
+    private Locale changeLocale(final Object[] parameters) {
+        if (parameters == null || parameters.length == 0) {
             throw new ControllerException("LOCALIZATION.LANGUAGE_IS_EMPTY");
         }
-        String language = (String) newParameters[0];
-        if (newParameters.length == 1) {
-            throw new ControllerException("LOCALIZATION.LOCALE_COUNTRY_IS_EMPTY");
+        String language = (String) parameters[0];
+        if (parameters.length == 1) {
+            throw new ControllerException(
+                    "LOCALIZATION.LOCALE_COUNTRY_IS_EMPTY");
         }
-        String country = (String) newParameters[1];
+        String country = (String) parameters[1];
         return localizationService.changeLocale(language, country);
     }
 
-    private Component sortComponents(final Object[] newParameters) {
-        if (newParameters == null || newParameters.length == 0) {
+    /**
+     * controler method for sorting components.
+     * @param parameters for sorting.
+     * @return result of sort service method.
+     */
+    private Component sortComponents(final Object[] parameters) {
+        if (parameters == null || parameters.length == 0) {
             throw new ControllerException("SORT.PARAMETER_IS_EMPTY");
         }
-        String param = (String) newParameters[0];
-        if (newParameters.length == 1) {
+        String param = (String) parameters[0];
+        if (parameters.length == 1) {
             throw new ControllerException("SORT.TEXT_NOT_DEFINED");
         }
-        Component component = (Component) newParameters[1];
-        if (newParameters.length > 2) {
-            String compareSymbol = (String) newParameters[2];
+        Component component = (Component) parameters[1];
+        if (parameters.length > 2) {
+            String compareSymbol = (String) parameters[2];
             return textService.sort(param, component, compareSymbol);
         }
         return textService.sort(param, component);

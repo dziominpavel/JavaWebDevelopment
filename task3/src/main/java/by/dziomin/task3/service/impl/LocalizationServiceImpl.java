@@ -7,6 +7,9 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+/**
+ * localization service implementation.
+ */
 public final class LocalizationServiceImpl implements LocalizationService {
 
     /**
@@ -18,16 +21,19 @@ public final class LocalizationServiceImpl implements LocalizationService {
      */
     private Logger logger = Logger.getLogger(LocalizationServiceImpl.class);
     /**
-     * currentlocale field.
+     * currentLocale field.
      */
     private Locale currentLocale;
 
+    /**
+     * constructor for localization service impl.
+     */
     private LocalizationServiceImpl() {
         this.currentLocale = Locale.getDefault();
     }
 
     /**
-     * getincstance method.
+     * getInstance method.
      *
      * @return LocalizationService instance
      */

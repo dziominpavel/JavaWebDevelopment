@@ -1,6 +1,6 @@
 package by.dziomin.task3.service;
 
-import by.dziomin.task3.exception.ServiceException;
+import by.dziomin.task3.service.exception.ServiceException;
 import by.dziomin.task3.service.impl.LocalizationServiceImpl;
 import org.apache.log4j.Logger;
 
@@ -45,14 +45,14 @@ public final class DataReader {
     /**
      * method for reading data from file.
      *
+     * @return text
      */
     public String readFile() {
 
         Properties properties = new Properties();
-        System.out.println("123");
         try {
-            properties.load(DataReader.class.getClassLoader().getResourceAsStream(
-                    "app.properties"));
+            properties.load(DataReader.class.getClassLoader()
+                    .getResourceAsStream("app.properties"));
         } catch (IOException e) {
             throw new ServiceException("READING.PROPERTY_FILE_NOT_FOUND", e);
         }

@@ -1,4 +1,4 @@
-package by.dziomin.task3.logic.sorter;
+package by.dziomin.task3.service.sorter;
 
 import by.dziomin.task3.entity.Component;
 import by.dziomin.task3.entity.ComponentType;

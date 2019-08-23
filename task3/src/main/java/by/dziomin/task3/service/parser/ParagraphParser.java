@@ -1,4 +1,4 @@
-package by.dziomin.task3.logic.parser;
+package by.dziomin.task3.service.parser;
 
 import by.dziomin.task3.entity.impl.SentenceComponent;
 

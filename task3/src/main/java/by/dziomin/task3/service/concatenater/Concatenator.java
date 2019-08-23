@@ -1,4 +1,4 @@
-package by.dziomin.task3.logic.concatenater;
+package by.dziomin.task3.service.concatenater;
 
 import by.dziomin.task3.entity.Component;
 import by.dziomin.task3.entity.impl.BaseComponent;

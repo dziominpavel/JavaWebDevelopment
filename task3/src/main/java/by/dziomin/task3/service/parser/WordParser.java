@@ -4,8 +4,14 @@ import by.dziomin.task3.entity.impl.Symbol;
 
 import static by.dziomin.task3.constant.Regex.REGEX_SYMBOL;
 
+/**
+ * word parser class.
+ */
 public class WordParser extends BaseComponentParser {
-
+    /**
+     * constructor.
+     * @param newNextParser newNextParser
+     */
     WordParser(final Parser newNextParser) {
         super(newNextParser);
     }

@@ -4,9 +4,15 @@ import by.dziomin.task3.entity.impl.SentenceComponent;
 
 import static by.dziomin.task3.constant.Regex.REGEX_SENTENCE;
 
+/**
+ * paragraph parcer class.
+ */
 public class ParagraphParser extends BaseComponentParser {
 
-
+    /**
+     * constructor.
+     * @param newNextParser newNextParser
+     */
     ParagraphParser(final Parser newNextParser) {
         super(newNextParser);
     }

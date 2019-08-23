@@ -39,6 +39,11 @@ public class LeksemaParser extends BaseComponentParser {
         return WordComponent.class;
     }
 
+    /**
+     * method parse leksema.
+     * @param text text
+     * @param component component
+     */
     @Override
     public void parse(final String text, final Component component) {
         String processedString = text;
@@ -57,6 +62,11 @@ public class LeksemaParser extends BaseComponentParser {
         super.parse(processedString, component);
     }
 
+    /**
+     * method return punctuation.
+     * @param text text.
+     * @return punctuation.
+     */
     private String getPunctuation(final String text) {
         Pattern p = Pattern.compile(REGEX_PUNCTUATION);
         Matcher m = p.matcher(text);

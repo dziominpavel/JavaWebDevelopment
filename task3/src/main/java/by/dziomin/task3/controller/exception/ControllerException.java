@@ -39,6 +39,11 @@ public class ControllerException extends RuntimeException {
         super(keyMessage, cause);
     }
 
+    /**
+     * method return localizedMethod.
+     *
+     * @return localized message.
+     */
     @Override
     public String getLocalizedMessage() {
         return localizationService.getLocalizedMessage(getMessage());

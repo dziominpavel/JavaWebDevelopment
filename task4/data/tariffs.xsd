@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.epam.training.by/tariffs"
+        xmlns:tns="http://www.epam.training.by/tariffs"
+        elementFormDefault="qualified">
+
+    <element name="tariffs">
+        <complexType>
+            <sequence>
+                <element name="tariff" type="tns:Tarif" minOccurs="1"
+                         maxOccurs="unbounded"/>
+            </sequence>
+        </complexType>
+    </element>
+
+    <complexType name="Tarif">
+        <all>
+            <element name="name" type="string"/>
+            <element name="startDate" type="date"/>
+            <element name="operatorName" type="tns:OperatorName"/>
+            <element name="payRoll" type="double"/>
+            <element name="callPrices" type="tns:CallPrices"/>
+            <element name="smsPrice" type="double"/>
+            <element name="parameters" type="tns:Parameters"/>
+        </all>
+        <attribute name="id" type="ID" use="required"/>
+        <attribute name="isActive" type="boolean" use="optional"
+                   default="true"/>
+    </complexType>
+
+    <simpleType name="OperatorName">
+        <restriction base="string">
+            <enumeration value="МТС"/>
+            <enumeration value="А1"/>
+            <enumeration value="Билайн"/>
+            <enumeration value="Мегафон"/>
+        </restriction>
+    </simpleType>
+
+    <complexType name="CallPrices">
+        <all>
+            <element name="inCallPrice" type="double"/>
+            <element name="outCallPrice" type="double"/>
+            <element name="cityCallPrice" type="double"/>
+        </all>
+    </complexType>
+
+    <complexType name="Parameters">
+        <all>
+            <element name="favouriteNumber" type="tns:FavouriteNumber"  default="0"/>
+            <element name="tarification" type="tns:Tarification" default="60"/>
+            <element name="startPrice" type="double"/>
+        </all>
+    </complexType>
+
+    <simpleType name="FavouriteNumber">
+        <restriction base="int">
+            <minInclusive value="0"/>
+            <maxInclusive value="20"/>
+        </restriction>
+    </simpleType>
+
+
+    <simpleType name="Tarification">
+        <restriction base="int">
+            <enumeration value="1"/>
+            <enumeration value="2"/>
+            <enumeration value="3"/>
+            <enumeration value="4"/>
+            <enumeration value="5"/>
+            <enumeration value="6"/>
+            <enumeration value="10"/>
+            <enumeration value="12"/>
+            <enumeration value="15"/>
+            <enumeration value="20"/>
+            <enumeration value="30"/>
+            <enumeration value="60"/>
+        </restriction>
+    </simpleType>
+</schema>
+

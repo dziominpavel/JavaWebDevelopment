@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<tariffs xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://www.epam.training.by/tariffs"
+         xsi:schemaLocation="http://www.epam.training.by/tariffs tariffs.xsd">
+
+    <tariff id="id_1">
+        <name>Ясно 10</name>
+        <startDate>2011-01-01</startDate>
+        <operatorName>Билайн</operatorName>
+        <payRoll>20.12</payRoll>
+        <callPrices>
+            <inCallPrice>10.15</inCallPrice>
+            <outCallPrice>20.18</outCallPrice>
+            <cityCallPrice>20.01</cityCallPrice>
+        </callPrices>
+        <smsPrice>0.15</smsPrice>
+        <parameters>
+            <favouriteNumber>2</favouriteNumber>
+            <tarification>12</tarification>
+            <startPrice>10.20</startPrice>
+        </parameters>
+    </tariff>
+
+    <tariff id="id_2">
+        <name>Ясно 20</name>
+        <startDate>2011-01-15</startDate>
+        <operatorName>МТС</operatorName>
+        <payRoll>20.20</payRoll>
+        <callPrices>
+            <inCallPrice>10.15</inCallPrice>
+            <outCallPrice>20.18</outCallPrice>
+            <cityCallPrice>20.01</cityCallPrice>
+        </callPrices>
+        <smsPrice>0.15</smsPrice>
+        <parameters>
+            <favouriteNumber>1</favouriteNumber>
+            <tarification>12</tarification>
+            <startPrice>10.20</startPrice>
+        </parameters>
+    </tariff>
+
+    <tariff id="id_3">
+        <name>Ясно 30</name>
+        <startDate>2011-02-15</startDate>
+        <operatorName>Билайн</operatorName>
+        <payRoll>20.50</payRoll>
+        <callPrices>
+            <inCallPrice>10.20</inCallPrice>
+            <outCallPrice>19.20</outCallPrice>
+            <cityCallPrice>30.01</cityCallPrice>
+        </callPrices>
+        <smsPrice>0.15</smsPrice>
+        <parameters>
+            <favouriteNumber>5</favouriteNumber>
+            <tarification>60</tarification>
+            <startPrice>10.20</startPrice>
+        </parameters>
+    </tariff>
+
+    <tariff id="id_4">
+        <name>Ясно 40</name>
+        <startDate>2011-02-28</startDate>
+        <operatorName>А1</operatorName>
+        <payRoll>20.50</payRoll>
+        <callPrices>
+            <inCallPrice>10.20</inCallPrice>
+            <outCallPrice>15.50</outCallPrice>
+            <cityCallPrice>30.01</cityCallPrice>
+        </callPrices>
+        <smsPrice>0.10</smsPrice>
+        <parameters>
+            <favouriteNumber>1</favouriteNumber>
+            <tarification>60</tarification>
+            <startPrice>10.20</startPrice>
+        </parameters>
+    </tariff>
+
+    <tariff id="id_5">
+        <name>Ясно 50</name>
+        <startDate>2011-03-01</startDate>
+        <operatorName>А1</operatorName>
+        <payRoll>25.00</payRoll>
+        <callPrices>
+            <inCallPrice>3.30</inCallPrice>
+            <outCallPrice>15.20</outCallPrice>
+            <cityCallPrice>20.50</cityCallPrice>
+        </callPrices>
+        <smsPrice>0.05</smsPrice>
+        <parameters>
+            <favouriteNumber>1</favouriteNumber>
+            <tarification>30</tarification>
+            <startPrice>10.20</startPrice>
+        </parameters>
+    </tariff>
+
+    <tariff id="id_6">
+        <name>Ясно 60</name>
+        <startDate>2012-01-01</startDate>
+        <operatorName>Мегафон</operatorName>
+        <payRoll>28.00</payRoll>
+        <callPrices>
+            <inCallPrice>3.30</inCallPrice>
+            <outCallPrice>15.20</outCallPrice>
+            <cityCallPrice>20.50</cityCallPrice>
+        </callPrices>
+        <smsPrice>0.50</smsPrice>
+        <parameters>
+            <favouriteNumber>1</favouriteNumber>
+            <tarification>15</tarification>
+            <startPrice>10.00</startPrice>
+        </parameters>
+    </tariff>
+
+    <tariff id="id_7">
+        <name>Ясно 70</name>
+        <startDate>2013-01-01</startDate>
+        <operatorName>МТС</operatorName>
+        <payRoll>25.00</payRoll>
+        <callPrices>
+            <inCallPrice>5.30</inCallPrice>
+            <outCallPrice>20.99</outCallPrice>
+            <cityCallPrice>9.99</cityCallPrice>
+        </callPrices>
+        <smsPrice>0.50</smsPrice>
+        <parameters>
+            <favouriteNumber>5</favouriteNumber>
+            <tarification>30</tarification>
+            <startPrice>8.20</startPrice>
+        </parameters>
+    </tariff>
+
+    <tariff id="id_8">
+        <name>Ясно 80</name>
+        <startDate>2013-05-01</startDate>
+        <operatorName>Мегафон</operatorName>
+        <payRoll>20.00</payRoll>
+        <callPrices>
+            <inCallPrice>0.01</inCallPrice>
+            <outCallPrice>30.20</outCallPrice>
+            <cityCallPrice>40.50</cityCallPrice>
+        </callPrices>
+        <smsPrice>0.50</smsPrice>
+        <parameters>
+            <favouriteNumber>10</favouriteNumber>
+            <tarification>30</tarification>
+            <startPrice>10.20</startPrice>
+        </parameters>
+    </tariff>
+
+    <tariff id="id_9">
+        <name>Ясно 90</name>
+        <startDate>2013-07-01</startDate>
+        <operatorName>Билайн</operatorName>
+        <payRoll>25.00</payRoll>
+        <callPrices>
+            <inCallPrice>0.10</inCallPrice>
+            <outCallPrice>10.20</outCallPrice>
+            <cityCallPrice>15.50</cityCallPrice>
+        </callPrices>
+        <smsPrice>1.50</smsPrice>
+        <parameters>
+            <favouriteNumber>5</favouriteNumber>
+            <tarification>4</tarification>
+            <startPrice>9.99</startPrice>
+        </parameters>
+    </tariff>
+
+    <tariff id="id_10">
+        <name>Ясно 100</name>
+        <startDate>2013-08-01</startDate>
+        <operatorName>МТС</operatorName>
+        <payRoll>20.00</payRoll>
+        <callPrices>
+            <inCallPrice>0.01</inCallPrice>
+            <outCallPrice>30.20</outCallPrice>
+            <cityCallPrice>25.50</cityCallPrice>
+        </callPrices>
+        <smsPrice>0.50</smsPrice>
+        <parameters>
+            <favouriteNumber>5</favouriteNumber>
+            <tarification>6</tarification>
+            <startPrice>10.20</startPrice>
+        </parameters>
+    </tariff>
+
+    <tariff id="id_11">
+        <name>Ясно 110</name>
+        <startDate>2014-01-15</startDate>
+        <operatorName>А1</operatorName>
+        <payRoll>20.20</payRoll>
+        <callPrices>
+            <inCallPrice>10.15</inCallPrice>
+            <outCallPrice>20.18</outCallPrice>
+            <cityCallPrice>20.01</cityCallPrice>
+        </callPrices>
+        <smsPrice>0.15</smsPrice>
+        <parameters>
+            <favouriteNumber>3</favouriteNumber>
+            <tarification>1</tarification>
+            <startPrice>15.20</startPrice>
+        </parameters>
+    </tariff>
+
+    <tariff id="id_12">
+        <name>Ясно 120</name>
+        <startDate>2014-01-15</startDate>
+        <operatorName>МТС</operatorName>
+        <payRoll>20.80</payRoll>
+        <callPrices>
+            <inCallPrice>10.15</inCallPrice>
+            <outCallPrice>20.18</outCallPrice>
+            <cityCallPrice>20.01</cityCallPrice>
+        </callPrices>
+        <smsPrice>0.15</smsPrice>
+        <parameters>
+            <favouriteNumber>5</favouriteNumber>
+            <tarification>1</tarification>
+            <startPrice>15.20</startPrice>
+        </parameters>
+    </tariff>
+
+    <tariff id="id_13">
+        <name>Ясно 130</name>
+        <startDate>2014-01-15</startDate>
+        <operatorName>МТС</operatorName>
+        <payRoll>20.80</payRoll>
+        <callPrices>
+            <inCallPrice>10.15</inCallPrice>
+            <outCallPrice>20.18</outCallPrice>
+            <cityCallPrice>20.01</cityCallPrice>
+        </callPrices>
+        <smsPrice>0.15</smsPrice>
+        <parameters>
+            <favouriteNumber>5</favouriteNumber>
+            <tarification>1</tarification>
+            <startPrice>15.20</startPrice>
+        </parameters>
+    </tariff>
+
+    <tariff id="id_14">
+        <name>Ясно 140</name>
+        <startDate>2014-01-15</startDate>
+        <operatorName>МТС</operatorName>
+        <payRoll>20.80</payRoll>
+        <callPrices>
+            <inCallPrice>10.15</inCallPrice>
+            <outCallPrice>20.18</outCallPrice>
+            <cityCallPrice>20.01</cityCallPrice>
+        </callPrices>
+        <smsPrice>0.15</smsPrice>
+        <parameters>
+            <favouriteNumber>5</favouriteNumber>
+            <tarification>1</tarification>
+            <startPrice>15.20</startPrice>
+        </parameters>
+    </tariff>
+
+    <tariff id="id_15">
+        <name>Ясно 150</name>
+        <startDate>2014-01-15</startDate>
+        <operatorName>МТС</operatorName>
+        <payRoll>20.80</payRoll>
+        <callPrices>
+            <inCallPrice>10.15</inCallPrice>
+            <outCallPrice>20.18</outCallPrice>
+            <cityCallPrice>20.01</cityCallPrice>
+        </callPrices>
+        <smsPrice>0.15</smsPrice>
+        <parameters>
+            <favouriteNumber>5</favouriteNumber>
+            <tarification>1</tarification>
+            <startPrice>15.20</startPrice>
+        </parameters>
+    </tariff>
+
+    <tariff id="id_16">
+        <name>Ясно 160</name>
+        <startDate>2014-01-15</startDate>
+        <operatorName>МТС</operatorName>
+        <payRoll>20.80</payRoll>
+        <callPrices>
+            <inCallPrice>10.15</inCallPrice>
+            <outCallPrice>20.18</outCallPrice>
+            <cityCallPrice>20.01</cityCallPrice>
+        </callPrices>
+        <smsPrice>0.15</smsPrice>
+        <parameters>
+            <favouriteNumber>20</favouriteNumber>
+            <tarification>1</tarification>
+            <startPrice>15.20</startPrice>
+        </parameters>
+    </tariff>
+
+</tariffs>

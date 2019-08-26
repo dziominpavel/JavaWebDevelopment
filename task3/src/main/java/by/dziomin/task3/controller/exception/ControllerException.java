@@ -13,9 +13,16 @@ public class ControllerException extends RuntimeException {
     private final LocalizationService localizationService =
             LocalizationServiceImpl.getInstance();
 
+    /**
+     * default constructor.
+     */
     public ControllerException() {
     }
 
+    /**
+     * constructor with cause.
+     * @param cause throwable.
+     */
     public ControllerException(final Throwable cause) {
         super(cause);
     }

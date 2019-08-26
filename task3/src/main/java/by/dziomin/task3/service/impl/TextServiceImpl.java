@@ -78,8 +78,8 @@ public final class TextServiceImpl implements TextService {
     }
 
     @Override
-    public String concatenateText(final Component newComponent) {
-        return concatenator.concatenateToString(newComponent);
+    public String concatenateText(final Component component) {
+        return concatenator.concatenateToString(component);
     }
 
     @Override

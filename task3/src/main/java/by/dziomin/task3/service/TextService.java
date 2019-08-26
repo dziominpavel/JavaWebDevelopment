@@ -22,5 +22,10 @@ public interface TextService {
      */
     Component sort(String sortType, Component newComponent, String... params);
 
-    String concatenateText(Component newComponent);
+    /**
+     * method concatenates text.
+     * @param component component
+     * @return concatenated text
+     */
+    String concatenateText(Component component);
 }

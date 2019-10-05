@@ -1,0 +1,7 @@
+CREATE DATABASE IF NOT EXISTS `trade` DEFAULT CHARACTER SET utf8 ;
+
+CREATE USER IF NOT EXISTS 'pavel'@'localhost' IDENTIFIED BY 'password';
+
+GRANT SELECT,INSERT,UPDATE,DELETE
+ON `trade`.*
+TO 'pavel'@'localhost';

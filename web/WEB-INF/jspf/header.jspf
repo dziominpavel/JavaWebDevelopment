@@ -1,0 +1,89 @@
+<%@ page isELIgnored="false" contentType="text/html;charset=UTF-8"
+         language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale scope="session" value="${sessionScope.locale}"/>
+<fmt:setBundle basename="pagecontent"/>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trade</title>
+    <link rel="stylesheet"
+          href="${pageContext.request.contextPath}/css/style.css"/>
+    <%--    <link rel="stylesheet"--%>
+    <%--          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">--%>
+
+
+    <fmt:message key="label.lang.english" var="en"/>
+    <fmt:message key="label.lang.russian" var="ru"/>
+    <fmt:message key="label.signin" var="signin"/>
+    <fmt:message key="label.signout" var="signout"/>
+    <fmt:message key="label.products" var="products"/>
+    <fmt:message key="label.receipts" var="receipts"/>
+    <fmt:message key="label.users" var="users"/>
+
+
+
+</head>
+<body>
+<div class="header">
+    <form action="home">
+        <div class="logo-container">
+            <input type="image" src="../../img/logo.png" alt="Home">
+        </div>
+    </form>
+
+    <div class="lang-button-container">
+        <c:if test="${not empty sessionScope.currentUser}">
+            <form action="app">
+                <input type="hidden" name="command" value="products">
+                <input class="lang-button" type="submit" value="${products}">
+            </form>
+            <form action="app">
+                <input type="hidden" name="command" value="receipts">
+                <input class="lang-button" type="submit" value="${receipts}">
+            </form>
+            <form action="app">
+                <input type="hidden" name="command" value="users">
+                <input class="lang-button" type="submit" value="${users}">
+            </form>
+        </c:if>
+    </div>
+
+    <div class="lang-button-container">
+        <form action="locale">
+            <input class="lang-button" type="submit" name="lang"
+                   value=${en}>
+        </form>
+        <form action="locale">
+            <input class="lang-button" type="submit" name="lang"
+                   value=${ru}>
+        </form>
+
+        <c:choose>
+            <c:when test="${not empty sessionScope.currentUser}">
+                <form action="app">
+                    <input type="hidden" name="command" value="userinfo">
+                    <input class="lang-button" type="submit"
+                           value="${sessionScope.currentUser.name}">
+                </form>
+                <form action="app">
+                    <input type="hidden" name="command" value="logout">
+                    <input class="lang-button" type="submit"
+                           value="${signout}">
+                </form>
+            </c:when>
+            <c:otherwise>
+                <form action="signin">
+                    <input class="lang-button" type="submit"
+                           value="${signin}">
+                </form>
+            </c:otherwise>
+        </c:choose>
+    </div>
+</div>
+</body>
+</html>
+
+

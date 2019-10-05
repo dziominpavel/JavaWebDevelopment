@@ -1,0 +1,29 @@
+<%@ page isELIgnored="false" contentType="text/html;charset=UTF-8"
+         language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customtags" %>
+<%@ taglib prefix="ctgmy" tagdir="/WEB-INF/tags" %>
+<fmt:setLocale scope="session" value="${sessionScope.locale}"/>
+<fmt:setBundle basename="pagecontent"/>
+
+<html>
+<head>
+    <title>Footer</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../css/style.css">
+
+    <fmt:message key="info.email" var="email"/>
+
+</head>
+<body>
+<div class="footer">
+    <div class="info-footer-container">
+        <div class="info-line">
+            <ctg:info-time/>
+            ${email}
+        </div>
+    </div>
+</div>
+</body>
+</html>

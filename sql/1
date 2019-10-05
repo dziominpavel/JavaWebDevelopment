@@ -1,0 +1,36 @@
+[2019-10-05 17:08:30] Connected
+sql> use trade
+[2019-10-05 17:08:30] completed in 24 ms
+sql> SELECT t.* FROM trade.products t
+     LIMIT 501
+[2019-10-05 17:08:31] 4 rows retrieved starting from 1 in 177 ms (execution: 29 ms, fetching: 148 ms)
+sql> SELECT t.* FROM trade.products t
+     LIMIT 501
+[2019-10-05 17:12:50] 4 rows retrieved starting from 1 in 96 ms (execution: 16 ms, fetching: 80 ms)
+sql> UPDATE `trade`.`products` t SET t.`name` = 'Шптлевка Ceresit', t.`barcode` = 1111, t.`measure_id` = 1 WHERE t.`id` = 1
+[2019-10-05 17:22:07] 1 row affected in 25 ms
+sql> UPDATE `trade`.`products` t SET t.`name` = 'Шптлевка Ceresit', t.`barcode` = 1112, t.`price` = 25.99, t.`measure_id` = 2 WHERE t.`id` = 2
+[2019-10-05 17:22:07] 1 row affected in 12 ms
+sql> UPDATE `trade`.`products` t SET t.`name` = 'Цемент Тайфун Мастер', t.`barcode` = 2222, t.`measure_id` = 2 WHERE t.`id` = 3
+[2019-10-05 17:22:07] 1 row affected in 8 ms
+sql> UPDATE `trade`.`products` t SET t.`name` = 'Цемент Тайфун Мастер', t.`barcode` = 2223, t.`price` = 95.55, t.`count` = 50, t.`measure_id` = 3 WHERE t.`id` = 4
+[2019-10-05 17:22:07] 1 row affected in 7 ms
+sql> INSERT INTO `trade`.`products` (`id`, `name`, `barcode`, `price`, `count`, `measure_id`) VALUES (5, 'Краска Лидская', 3333, 5.65, 25, 4)
+[2019-10-05 17:22:07] 1 row affected in 12 ms
+sql> INSERT INTO `trade`.`products` (`id`, `name`, `barcode`, `price`, `count`, `measure_id`) VALUES (6, 'Краска Лидская', 3334, 20.25, 12, 5)
+[2019-10-05 17:22:07] 1 row affected in 8 ms
+sql> INSERT INTO `trade`.`products` (`id`, `name`, `barcode`, `price`, `count`, `measure_id`) VALUES (7, 'Гвозди 5х50', 4444, 4.50, 100, 6)
+[2019-10-05 17:22:07] 1 row affected in 8 ms
+sql> INSERT INTO `trade`.`products` (`id`, `name`, `barcode`, `price`, `count`, `measure_id`) VALUES (8, 'Гвозди 5х50', 4445, 5.50, 100, 7)
+[2019-10-05 17:22:07] 1 row affected in 8 ms
+sql> INSERT INTO `trade`.`products` (`id`, `name`, `barcode`, `price`, `count`, `measure_id`) VALUES (9, 'Молоток Fiksar', 5555, 30.00, 10, 8)
+[2019-10-05 17:22:07] 1 row affected in 8 ms
+sql> INSERT INTO `trade`.`products` (`id`, `name`, `barcode`, `price`, `count`, `measure_id`) VALUES (10, 'Отвертка Fiksar', 5556, 12.40, 10, 8)
+[2019-10-05 17:22:07] 1 row affected in 8 ms
+sql> INSERT INTO `trade`.`products` (`id`, `name`, `barcode`, `price`, `count`, `measure_id`) VALUES (11, 'Шуруповерт Bosh', 6666, 256.00, 5, 8)
+[2019-10-05 17:22:07] 1 row affected in 8 ms
+sql> INSERT INTO `trade`.`products` (`id`, `name`, `barcode`, `price`, `count`, `measure_id`) VALUES (12, 'Дрель Bosh', 6667, 235.00, 5, 8)
+[2019-10-05 17:22:07] 1 row affected in 8 ms
+sql> SELECT t.* FROM trade.products t
+     LIMIT 501
+[2019-10-05 17:22:07] 12 rows retrieved starting from 1 in 66 ms (execution: 40 ms, fetching: 26 ms)

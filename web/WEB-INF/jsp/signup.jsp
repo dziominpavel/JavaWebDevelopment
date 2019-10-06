@@ -9,16 +9,16 @@
 <head>
     <script src="../../js/main.js"></script>
     <meta charset="UTF-8">
-    <fmt:message key="title.login" var="pageTitle"/>
-    <fmt:message key="label.login" var="loginLabel"/>
-    <fmt:message key="label.password" var="passwordLabel"/>
-    <fmt:message key="label.confirmPassword" var="confirmPasswordLabel"/>
-    <fmt:message key="label.name" var="nameLabel"/>
-    <fmt:message key="label.registration" var="registration"/>
-    <fmt:message key="format.login" var="loginFormat"/>
-    <fmt:message key="format.password" var="passwordFormat"/>
-    <fmt:message key="format.authFailMessage" var="authFailMesage"/>
-    <fmt:message key="format.name" var="nameFormat"/>
+    <fmt:message key="title.signup" var="pageTitle"/>
+    <fmt:message key="label.user.login" var="loginLabel"/>
+    <fmt:message key="label.user.password" var="passwordLabel"/>
+    <fmt:message key="label.user.confirmPassword" var="confirmPasswordLabel"/>
+    <fmt:message key="label.user.name" var="nameLabel"/>
+    <fmt:message key="button.user.save" var="save"/>
+    <fmt:message key="format.user.login" var="loginFormat"/>
+    <fmt:message key="format.user.password" var="passwordFormat"/>
+    <fmt:message key="format.user.name" var="nameFormat"/>
+    <fmt:message key="message.user.wrongData" var="userWrongData"/>
 
 
     <title>${pageTitle}</title>
@@ -31,7 +31,8 @@
             <span>${loginLabel}</span>
             <input type="text" name="login" maxlength="16"
                    pattern="[A-Za-z0-9._]{4,}" title="${loginFormat}" required>
-            <span>${passwordLabel}</span>
+            <input type="text" name="name" maxlength="32"
+                   pattern="[^<>]{8,}" title="${nameFormat}" required>  <span>${passwordLabel}</span>
             <input type="password" name="password" maxlength="32" id="pass1"
                    pattern="[^<>]{8,}" title="${passwordFormat}" required>
             <span>${confirmPasswordLabel}</span>
@@ -41,15 +42,13 @@
             <input type="text" name="name" maxlength="32"
                    pattern="[^<>]{8,}" title="${nameFormat}" required>
 
-            <input class="button button-gray" type="submit" value="${registration}">
-            <c:choose>
-                <c:when test="${not empty requestScope.dataExists}">
-                    ${registerFailMessage}
-                </c:when>
-                <c:when test="${not empty requestScope.wrongData}">
-                    ${passwordsDoNotMatch}
-                </c:when>
-            </c:choose>
+            <input class="button button-gray" type="submit" value="${save}">
+
+            <c:if test="${not empty requestScope.wrongData}">
+            <span class="errorMsg">
+                ${userWrongData}: ${requestScope.wrongData}
+            </span>
+            </c:if>
 
         </form>
     </div>

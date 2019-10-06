@@ -17,8 +17,8 @@
 
     <fmt:message key="label.lang.english" var="en"/>
     <fmt:message key="label.lang.russian" var="ru"/>
-    <fmt:message key="label.signin" var="signin"/>
-    <fmt:message key="label.signout" var="signout"/>
+    <fmt:message key="button.signin" var="signin"/>
+    <fmt:message key="button.signout" var="signout"/>
     <fmt:message key="label.products" var="products"/>
     <fmt:message key="label.receipts" var="receipts"/>
     <fmt:message key="label.users" var="users"/>

@@ -21,8 +21,10 @@ public class ProductDaoImpl extends AbstractDao implements ProductDao {
             "count, measure_id FROM PRODUCTS";
     private final static String SQL_SELECT_BY_ID = "SELECT id,name,barcode,price," +
             "count, measure_id FROM PRODUCTS WHERE id = ?";
-    private final static String SQL_INSERT = "INSERT INTO PRODUCTS (`id`, `name`, " +
-            "`barcode`, `price`, `count`,`measure_id`) VALUES (?, ?, ?, ?, ?," +
+    private final static String SQL_SELECT_BY_BARCODE = "SELECT id,name," +
+            "barcode,price,count, measure_id FROM PRODUCTS WHERE barcode = ?";
+    private final static String SQL_INSERT = "INSERT INTO PRODUCTS (`name`, " +
+            "`barcode`, `price`, `count`,`measure_id`) VALUES (?, ?, ?, ?," +
             "?)";
     private final static String SQL_DELETE = "DELETE FROM PRODUCTS WHERE id = ?";
     private final static String SQL_UPDATE = "UPDATE PRODUCTS SET name = ?, barcode " +
@@ -61,8 +63,22 @@ public class ProductDaoImpl extends AbstractDao implements ProductDao {
     }
 
     @Override
+    public Product getByBarcode(String barcode) throws DaoException {
+        try (PreparedStatement statement =
+                     createPreparedStatement(SQL_SELECT_BY_BARCODE, barcode);
+             ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                return mapQueryResult(resultSet);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return null;
+    }
+
+    @Override
     public boolean create(final Product product) throws DaoException {
-        Object[] params = new Object[]{product.getId(), product.getName(),
+        Object[] params = new Object[]{product.getName(),
                 product.getBarcode(), product.getPrice(), product.getCount(),
                 product.getMeasure().getId()};
         try (PreparedStatement statement = createPreparedStatement(SQL_INSERT, params)) {

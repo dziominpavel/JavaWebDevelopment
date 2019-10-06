@@ -1,6 +1,6 @@
 package by.dziomin.trade.controller;
 
-import by.dziomin.trade.dto.UserDTO;
+import by.dziomin.trade.dto.user.SessionUserDTO;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -50,7 +50,7 @@ public class SecurityFilter implements Filter {
             req.getRequestDispatcher(SIGNIN_PAGE).forward(request, response);
             return;
         }
-        String role = ((UserDTO) userObject).getRole();
+        String role = ((SessionUserDTO) userObject).getRole();
 
         // Check if the user has a valid role
         boolean hasPermission = SecurityConfig.checkAccess(role, servletPath);

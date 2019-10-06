@@ -1,7 +1,7 @@
 package by.dziomin.trade.converter.impl;
 
 import by.dziomin.trade.converter.BaseConverter;
-import by.dziomin.trade.dto.ProductDTO;
+import by.dziomin.trade.dto.product.ProductDTO;
 import by.dziomin.trade.entity.Measure;
 import by.dziomin.trade.entity.Product;
 

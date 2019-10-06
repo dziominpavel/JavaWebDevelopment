@@ -19,7 +19,9 @@
     <fmt:message key="label.product.count" var="count"/>
     <fmt:message key="label.product.price" var="price"/>
     <fmt:message key="label.product.empty" var="emptyProductList"/>
-    <fmt:message key="label.product.open" var="open"/>
+    <fmt:message key="button.product.open" var="open"/>
+    <fmt:message key="button.product.create" var="create"/>
+
 
     <title>${pageTitle}</title>
 </head>
@@ -27,8 +29,15 @@
 
 <jsp:include page="/WEB-INF/jspf/pagination.jsp"/>
 <div class="info-table-container">
+    <span>
+        <p class="title">
+            ${pageTitle}:
+        </p>
+        <form action="productinfo">
+            <input type="submit" value="${create}">
+        </form>
+    </span>
     <div class="info-table">
-        <p>${pageTitle}:</p>
         <c:choose>
             <c:when test="${not empty requestScope.products}">
                 <table style="font-style: normal; color:white">

@@ -1,4 +1,6 @@
-package by.dziomin.trade.dto;
+package by.dziomin.trade.dto.user;
+
+import by.dziomin.trade.dto.BaseDTO;
 
 public class UserCreateDTO extends BaseDTO {
     private String name;

@@ -1,4 +1,6 @@
-package by.dziomin.trade.dto;
+package by.dziomin.trade.dto.product;
+
+import by.dziomin.trade.dto.BaseDTO;
 
 import java.math.BigDecimal;
 

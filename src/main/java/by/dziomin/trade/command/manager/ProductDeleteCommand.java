@@ -1,4 +1,4 @@
-package by.dziomin.trade.command.cashier;
+package by.dziomin.trade.command.manager;
 
 import by.dziomin.trade.command.Command;
 import by.dziomin.trade.command.PaginationCommand;
@@ -14,21 +14,25 @@ import java.util.List;
 import static by.dziomin.trade.command.AppUrls.ERROR_PAGE;
 import static by.dziomin.trade.command.AppUrls.PRODUCTS_PAGE;
 
-public class ProductsCommand extends PaginationCommand implements Command {
-    private Logger logger = Logger.getLogger(ProductsCommand.class);
+public class ProductDeleteCommand extends PaginationCommand implements Command {
+    private Logger logger = Logger.getLogger(ProductDeleteCommand.class);
 
     @Override
     public String execute(final HttpServletRequest request) {
         try {
-            ProductManager manager = ManagerFactory.getManager(ProductManager.class);
-            List<ProductDTO> productList = manager.getProducts();
-            List<ProductDTO> productsOnPage = executePagination(request, productList);
+            String productId = request.getParameter("productId");
+            ProductManager manager =
+                    ManagerFactory.getManager(ProductManager.class);
+            manager.deleteProduct(Integer.parseInt(productId));
+
+            List<ProductDTO> productDTOList = manager.getProducts();
+            List<ProductDTO> productsOnPage = executePagination(request,
+                    productDTOList);
             request.setAttribute("products", productsOnPage);
+            return PRODUCTS_PAGE;
         } catch (ServiceException e) {
             logger.error(e.getMessage(), e);
             return ERROR_PAGE;
         }
-
-        return PRODUCTS_PAGE;
     }
 }

@@ -16,7 +16,9 @@ public class MeasureDaoImpl extends AbstractDao implements MeasureDao {
 
     private final static String SQL_SELECT_All = "SELECT id,name FROM MEASURE";
     private final static String SQL_SELECT_BY_ID = "SELECT id,name FROM MEASURE WHERE id = ?";
-    private final static String SQL_INSERT = "INSERT INTO MEASURE (`id`, `name`) VALUES (?, ?)";
+    private final static String SQL_SELECT_BY_NAME = "SELECT id,name FROM " +
+            "MEASURE WHERE name = ?";
+    private final static String SQL_INSERT = "INSERT INTO MEASURE (`name`) VALUES (?)";
     private final static String SQL_DELETE = "DELETE FROM MEASURE WHERE id = ?";
     private final static String SQL_UPDATE = "UPDATE MEASURE SET name = ? WHERE id = ?";
 
@@ -53,8 +55,22 @@ public class MeasureDaoImpl extends AbstractDao implements MeasureDao {
     }
 
     @Override
+    public Measure getByName(String name) throws DaoException {
+        try (PreparedStatement statement =
+                     createPreparedStatement(SQL_SELECT_BY_NAME, name);
+             ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                return mapQueryResult(resultSet);
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return null;
+    }
+
+    @Override
     public boolean create(final Measure measure) throws DaoException {
-        Object[] params = new Object[]{measure.getId(), measure.getName()};
+        Object[] params = new Object[]{measure.getName()};
         try (PreparedStatement statement = createPreparedStatement(SQL_INSERT, params)) {
             return statement.executeUpdate() > 0;
         } catch (SQLException e) {

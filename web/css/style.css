@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
+.errorMsg {
+    color: rgb(251, 68, 62);
+    font-size: x-large;
+    font-weight: bold
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -461,7 +467,7 @@ body {
 }
 
 .order-card_info-container .all-info span.info-line {
-    display: block;
+    display: flex;
     margin: 1em 0;
 }
 
@@ -470,13 +476,21 @@ body {
     text-transform: uppercase;
     margin: 1em;
     display: inline-flex;
+    width: 40%;
 }
 
 .order-card_info-container .all-info span span.key:after {
     content: ':';
 }
 
-.order-card_info-container form input[type=submit] {
+.order-card_info-container input[type=text] {
+    width: 60%;
+    height: 35px;
+    flex: 1;
+    font-size: larger;
+}
+
+.order-card_info-container input[type=submit] {
     width: 100%;
     padding: 2em;
     text-transform: uppercase;
@@ -488,16 +502,24 @@ body {
     cursor: pointer;
 }
 
-.order-card_info-container form input[type=submit]:hover {
+.order-card_info-container input[type=submit]:hover {
     background-color: rgba(5, 202, 255, 1);
 }
 
-.order-card_info-container form input[type=submit].gray {
+.order-card_info-container input[type=submit].gray {
     background-color: rgba(179, 179, 179, 0.7);
 }
 
-.order-card_info-container form input[type=submit].gray:hover {
+.order-card_info-container input[type=submit].gray:hover {
     background-color: rgba(179, 179, 179, 1);
+}
+
+.order-card_info-container input[type=submit].red {
+    background-color: rgba(179, 32, 26, 0.7);
+}
+
+.order-card_info-container input[type=submit].red:hover {
+    background-color: rgb(179, 42, 37);
 }
 
 .order-card_info-container .rating {
@@ -598,6 +620,35 @@ body {
     height: 100%;
     margin: auto;
     color: white;
+}
+
+.info-table-container span {
+    display: flex;
+}
+
+.info-table-container span p{
+    color: rgba(67,67,68,0.81);
+    width: 90%;
+    font-size: 2em;
+}
+
+.info-table-container span form input[type=submit]{
+    flex: 1;
+    width: 200px;
+    height: 50px;
+    margin-block-start: 1em;
+    padding: 1em;
+    text-transform: uppercase;
+    color: #fff;
+    text-align: center;
+    border: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background-color: rgba(5, 202, 255, 0.7);
+}
+
+.info-table-container span form input[type=submit]:hover {
+    background-color: rgba(5, 202, 255, 1);
 }
 
 .info-table-container p {

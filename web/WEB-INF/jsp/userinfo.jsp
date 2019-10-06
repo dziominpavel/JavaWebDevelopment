@@ -9,19 +9,18 @@
 <head>
     <script src="../../js/main.js"></script>
     <meta charset="UTF-8">
-    <fmt:message key="title.login" var="pageTitle"/>
-    <fmt:message key="label.login" var="loginLabel"/>
-    <fmt:message key="label.password" var="passwordLabel"/>
-    <fmt:message key="label.confirmPassword" var="confirmPasswordLabel"/>
-    <fmt:message key="label.name" var="nameLabel"/>
-    <fmt:message key="label.submit" var="submit"/>
+    <fmt:message key="title.user.info" var="pageTitle"/>
+    <fmt:message key="label.user.login" var="loginLabel"/>
+    <fmt:message key="label.user.password" var="passwordLabel"/>
+    <fmt:message key="label.user.confirmPassword" var="confirmPasswordLabel"/>
+    <fmt:message key="label.user.name" var="nameLabel"/>
+    <fmt:message key="button.save" var="save"/>
     <fmt:message key="button.cancel" var="cancel"/>
 
-    <fmt:message key="label.editUser" var="editUser"/>
-    <fmt:message key="format.login" var="loginFormat"/>
-    <fmt:message key="format.password" var="passwordFormat"/>
-    <fmt:message key="format.authFailMessage" var="authFailMesage"/>
-    <fmt:message key="format.name" var="nameFormat"/>
+    <fmt:message key="format.user.login" var="loginFormat"/>
+    <fmt:message key="format.user.password" var="passwordFormat"/>
+    <fmt:message key="format.user.name" var="nameFormat"/>
+    <fmt:message key="message.user.wrongData" var="wrongDataMessage"/>
 
 
     <title>"${pageTitle}"</title>
@@ -29,7 +28,7 @@
 <body>
 <div class="container">
     <div class="input-container">
-        <h1>${editUser}</h1>
+        <h1>${pageTitle}</h1>
         <form name="loginForm" method="post" action="app">
             <input type="hidden" name="command" value="userupdate">
 
@@ -50,20 +49,17 @@
             <input type="text" name="name" maxlength="32"
                    pattern="[^<>]{8,}" title="${nameFormat}" required value="${requestScope.user.name}">
 
-            <input class="button button-blue" type="submit" value="${submit}">
-            <c:choose>
-                <c:when test="${not empty requestScope.dataExists}">
-                    ${registerFailMessage}
-                </c:when>
-                <c:when test="${not empty requestScope.wrongData}">
-                    ${passwordsDoNotMatch}
-                </c:when>
-            </c:choose>
+            <input class="button button-blue" type="submit" value="${save}">
+
+            <c:if test="${not empty requestScope.wrongData}">
+                <span class="errorMsg">
+                    ${wrongDataMessage}: ${requestScope.wrongData}
+                </span>
+            </c:if>
 
         </form>
         <form action="home">
             <input class="button button-gray" type="submit" value="${cancel}">
-            ${sessionScope.wrongData = null}
         </form>
     </div>
 </div>

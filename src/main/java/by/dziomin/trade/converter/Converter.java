@@ -11,6 +11,8 @@ public interface Converter<T extends BaseEntity, D extends BaseDTO> {
 
     T convert(D dto);
 
+    T convert(D dto, T existingEntity);
+
     List<D> convertEntityList(List<T> entityList);
 
     List<T> convertDtoList(List<D> dtoList);

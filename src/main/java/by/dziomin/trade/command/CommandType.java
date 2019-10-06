@@ -7,6 +7,9 @@ import by.dziomin.trade.command.cashier.ProductInfoCommand;
 import by.dziomin.trade.command.cashier.ProductsCommand;
 import by.dziomin.trade.command.cashier.UserInfoCommand;
 import by.dziomin.trade.command.cashier.UserUpdateCommand;
+import by.dziomin.trade.command.manager.ProductCreateCommand;
+import by.dziomin.trade.command.manager.ProductDeleteCommand;
+import by.dziomin.trade.command.manager.ProductUpdateCommand;
 
 public enum CommandType {
     REGISTER(new RegisterUserCommand()),
@@ -15,7 +18,10 @@ public enum CommandType {
     USERINFO(new UserInfoCommand()),
     USERUPDATE(new UserUpdateCommand()),
     PRODUCTS(new ProductsCommand()),
-    PRODUCTINFO(new ProductInfoCommand());
+    PRODUCTINFO(new ProductInfoCommand()),
+    UPDATEPRODUCT(new ProductUpdateCommand()),
+    CREATEPRODUCT(new ProductCreateCommand()),
+    DELETEPRODUCT(new ProductDeleteCommand());
 
     private Command command;
 

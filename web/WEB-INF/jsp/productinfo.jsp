@@ -1,4 +1,5 @@
-<%@ page isELIgnored="false" contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page isELIgnored="false" contentType="text/html;charset=UTF-8"
+         language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setLocale scope="session" value="${sessionScope.locale}"/>
@@ -19,6 +20,9 @@
     <fmt:message key="label.product.measure" var="measure"/>
     <fmt:message key="button.edit" var="edit"/>
     <fmt:message key="button.delete" var="delete"/>
+    <fmt:message key="button.cancel" var="cancel"/>
+    <fmt:message key="button.save" var="save"/>
+    <fmt:message key="message.product.wrongData" var="productWrongData"/>
 
     <title>${pageTitle}</title>
 </head>
@@ -29,42 +33,85 @@
             <p class="title">
                 ${pageTitle}:
             </p>
-            <p class="all-info">
+
+            <form action="app" method="post">
+                <p class="all-info">
+                <c:choose>
+                    <c:when test="${empty requestScope.product || empty requestScope.product.id}">
+                        <input type="hidden" name="command" value="createProduct">
+                    </c:when>
+                    <c:otherwise>
+                        <input type="hidden" name="command" value="updateProduct">
+                        <input type="hidden" name="productId" value="${requestScope.product.id}">
+                    </c:otherwise>
+                </c:choose>
+
+
                 <span class="info-line">
-                    <span class="key">${barcode}</span>
-                    <span class="value">${requestScope.product.barcode}</span>
+                <span class="key">${barcode}</span>
+                    <input type="text" name="barcode" maxlength="32"
+                           title="${barcodeFormat}" required
+                           disabled
+                           value="${requestScope.product.barcode}">
                 </span>
                 <span class="info-line">
                     <span class="key">${name}</span>
-                    <span class="value">${requestScope.product.name}</span>
+                    <input type="text" name="name" maxlength="32"
+                           title="${nameFormat}" required disabled
+                           value="${requestScope.product.name}">
                 </span>
                 <span class="info-line">
                     <span class="key">${measure}</span>
-                    <span class="value">${requestScope.product.measure}</span>
+                    <input type="text" name="measure" maxlength="32"
+                           title="${measureFormat}" required
+                           disabled
+                           value="${requestScope.product.measure}">
                 </span>
                 <span class="info-line">
                     <span class="key">${count}</span>
-                    <span class="value">${requestScope.product.count}</span>
+                    <input type="text" name="count" maxlength="32"
+                           title="${countFormat}" required disabled
+                           value="${requestScope.product.count}">
                 </span>
                 <span class="info-line">
                     <span class="key">${price}</span>
-                    <span class="value">${requestScope.product.price}</span>
+                    <input type="text" name="price" maxlength="32"
+                           title="${priceFormat}" required disabled
+                           value="${requestScope.product.price}">
                 </span>
+
+                <c:if test="${not empty requestScope.wrongData}">
+                    <span class="errorMsg">
+                        ${productWrongData}: ${requestScope.wrongData}
+                    </span>
+                </c:if>
+                <input id="save" hidden type="submit" value="${save}">
             </p>
+            </form>
 
             <c:if test="${not empty sessionScope.currentUser.role && sessionScope.currentUser.role == 'MANAGER'}">
+
+                <input id="edit" type="submit"
+                       value="${edit}" onclick="makeEditable()">
+
+                <form action="app" method="post">
+                    <input type="hidden" name="command" value="productinfo">
+                    <input type="hidden" name="productId"
+                           value="${requestScope.product.id}">
+                    <input id="cancel" class="gray" hidden type="submit"
+                           value="${cancel}">
+                </form>
                 <form action="app" method="post">
                     <input type="hidden" name="command" value="deleteproduct">
-                    <input type="hidden" name="productId" value="${requestScope.product.id}">
-                    <input class="gray" type="submit" value="${delete}">
-                </form>
-                <form action="app" method="post">
-                    <input type="hidden" name="command" value="editproduct">
-                    <input type="hidden" name="productId" value="${requestScope.product.id}">
-                    <input type="submit" value="${edit}">
+                    <input type="hidden" name="productId"
+                           value="${requestScope.product.id}">
+                    <input id="delete" class="red" type="submit"
+                           value="${delete}">
                 </form>
             </c:if>
-
+            <c:if test="${not empty requestScope.wrongData || empty requestScope.product}">
+                <script>makeEditable()</script>
+            </c:if>
         </div>
     </div>
 </div>

@@ -9,14 +9,14 @@
 <head>
     <meta charset="UTF-8">
     <fmt:message key="title.login" var="pageTitle"/>
-    <fmt:message key="label.login" var="loginLabel"/>
-    <fmt:message key="label.password" var="passwordLabel"/>
-    <fmt:message key="label.signin" var="signin"/>
-    <fmt:message key="label.signup" var="signup"/>
+    <fmt:message key="label.user.login" var="loginLabel"/>
+    <fmt:message key="label.user.password" var="passwordLabel"/>
+    <fmt:message key="button.signin" var="signin"/>
+    <fmt:message key="button.signup" var="signup"/>
 
-    <fmt:message key="format.login" var="loginFormat"/>
-    <fmt:message key="format.password" var="passwordFormat"/>
-    <fmt:message key="format.authFailMessage" var="authFailMesage"/>
+    <fmt:message key="format.user.login" var="loginFormat"/>
+    <fmt:message key="format.user.password" var="passwordFormat"/>
+    <fmt:message key="message.user.authFail" var="authFailMesage"/>
 
 
     <title>${pageTitle}</title>
@@ -33,15 +33,15 @@
             <input type="password" name="password" maxlength="32"
                    pattern="[^<>]{8,}" title="${passwordFormat}" required>
             <input class="button button-blue" type="submit" value="${signin}">
-            <c:choose>
-                <c:when test="${not empty requestScope.wrongData}">
-                    ${authFailMesage}
-                </c:when>
-            </c:choose>
+
+            <c:if test="${not empty requestScope.wrongData}">
+            <span class="errorMsg">
+                ${authFailMesage}
+            </span>
+            </c:if>
         </form>
         <form action="signup">
             <input class="button button-gray" type="submit" value="${signup}">
-            ${sessionScope.wrongData = null}
         </form>
     </div>
 </div>

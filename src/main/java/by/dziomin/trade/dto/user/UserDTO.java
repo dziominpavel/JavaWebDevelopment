@@ -1,4 +1,6 @@
-package by.dziomin.trade.dto;
+package by.dziomin.trade.dto.user;
+
+import by.dziomin.trade.dto.BaseDTO;
 
 import java.io.Serializable;
 
@@ -6,6 +8,7 @@ public class UserDTO extends BaseDTO implements Serializable {
     private String login;
     private String name;
     private String role;
+    private String password;
 
     public String getLogin() {
         return login;
@@ -29,5 +32,13 @@ public class UserDTO extends BaseDTO implements Serializable {
 
     public void setRole(final String role) {
         this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(final String password) {
+        this.password = password;
     }
 }

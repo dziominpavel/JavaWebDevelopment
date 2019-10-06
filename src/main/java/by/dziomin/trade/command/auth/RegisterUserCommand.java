@@ -1,61 +1,38 @@
 package by.dziomin.trade.command.auth;
 
 import by.dziomin.trade.command.Command;
-import by.dziomin.trade.dto.UserCreateDTO;
-import by.dziomin.trade.dto.UserDTO;
-import by.dziomin.trade.entity.Role;
-import by.dziomin.trade.entity.User;
+import by.dziomin.trade.dto.user.SessionUserDTO;
+import by.dziomin.trade.dto.user.UserCreateDTO;
+import by.dziomin.trade.manager.ManagerFactory;
+import by.dziomin.trade.manager.UserManager;
 import by.dziomin.trade.service.ServiceException;
-import by.dziomin.trade.service.UserService;
 import by.dziomin.trade.validator.ValidationException;
-import by.dziomin.trade.validator.user.UserCreateValidator;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
 import static by.dziomin.trade.command.AppUrls.ERROR_PAGE;
 import static by.dziomin.trade.command.AppUrls.HOME_PAGE;
-import static by.dziomin.trade.command.AppUrls.MESSAGE_PAGE;
 import static by.dziomin.trade.command.AppUrls.SIGNUP_PAGE;
 
 public class RegisterUserCommand implements Command {
-    Logger logger = Logger.getLogger(RegisterUserCommand.class);
+    private Logger logger = Logger.getLogger(RegisterUserCommand.class);
+
     @Override
     public String execute(final HttpServletRequest request) {
-        logger.debug("executing register command");
-
         UserCreateDTO userDto = getUserCreateDTO(request);
-
         try {
-            UserCreateValidator validator = new UserCreateValidator();
-            validator.validate(userDto);
-
-            User userEntity = new User();
-            userEntity.setName(userDto.getName());
-            userEntity.setLogin(userDto.getLogin());
-            userEntity.setPassword(userDto.getPassword());
-            userEntity.setRole(Role.USER);
-
-            UserService userService = new UserService();
-            userService.createUser(userEntity);
-            User created = userService.getUserByLogin(userDto.getLogin());
-            if (created != null) {
-
-                UserDTO userDTO = new UserDTO();
-                userDTO.setName(created.getName());
-                userDTO.setLogin(created.getLogin());
-                request.getSession().setAttribute("currentUser", userDTO);
-                return HOME_PAGE;
-            } else {
-                request.setAttribute("message", "USER_CREATE_FAILED");
-                logger.debug("register failed");
-                return MESSAGE_PAGE;
-            }
+            UserManager userManager =
+                    ManagerFactory.getManager(UserManager.class);
+            SessionUserDTO userDTO = userManager.registration(userDto);
+            request.getSession().setAttribute("currentUser", userDTO);
+            return HOME_PAGE;
         } catch (ValidationException e) {
+            logger.error("Registration failed: " + userDto.getLogin(), e);
             request.setAttribute("wrongData", e.getMessage());
             return SIGNUP_PAGE;
         } catch (ServiceException e) {
-            e.printStackTrace(); //todo log
+            logger.error(e.getMessage(), e);
             return ERROR_PAGE;
         }
     }

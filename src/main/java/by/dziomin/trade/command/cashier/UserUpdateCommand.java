@@ -1,13 +1,13 @@
 package by.dziomin.trade.command.cashier;
 
 import by.dziomin.trade.command.Command;
-import by.dziomin.trade.dto.UserDTO;
-import by.dziomin.trade.dto.UserUpdateDTO;
-import by.dziomin.trade.entity.User;
+import by.dziomin.trade.dto.user.SessionUserDTO;
+import by.dziomin.trade.dto.user.UserUpdateDTO;
+import by.dziomin.trade.manager.ManagerFactory;
+import by.dziomin.trade.manager.UserManager;
 import by.dziomin.trade.service.ServiceException;
-import by.dziomin.trade.service.UserService;
 import by.dziomin.trade.validator.ValidationException;
-import by.dziomin.trade.validator.user.UserUpdateValidator;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,31 +16,25 @@ import static by.dziomin.trade.command.AppUrls.HOME_PAGE;
 import static by.dziomin.trade.command.AppUrls.USER_INFO_PAGE;
 
 public class UserUpdateCommand implements Command {
+    private Logger logger = Logger.getLogger(UserUpdateCommand.class);
+
     @Override
     public String execute(final HttpServletRequest request) {
-        UserDTO currentUser = (UserDTO) request.getSession().getAttribute(
-                "currentUser");
 
-        UserUpdateDTO userDto = getUserUpdateDTO(request);
+        UserUpdateDTO userDTO = getUserUpdateDTO(request);
         try {
-            UserUpdateValidator validator = new UserUpdateValidator();
-            validator.validate(userDto);
-
-            UserService service = new UserService();
-            User userEntity = service.getUserByLogin(currentUser.getLogin());
-            userEntity.setName(userDto.getName());
-            userEntity.setPassword(userDto.getPassword());
-
-            service.updateUser(userEntity);
-            User updated = service.getUserByLogin(currentUser.getLogin());
-            currentUser.setName(updated.getName());
-
+            UserManager userManager =
+                    ManagerFactory.getManager(UserManager.class);
+            SessionUserDTO updated = userManager.updateUser(userDTO);
+            request.getSession().setAttribute("currentUser", updated);
+            logger.debug("User update success: " + updated.getLogin());
             return HOME_PAGE;
         } catch (ValidationException e) {
+            logger.debug("User update failed: " + userDTO.getId(), e);
             request.setAttribute("wrongData", e.getMessage());
             return USER_INFO_PAGE;
         } catch (ServiceException e) {
-            e.printStackTrace();
+            logger.error(e.getMessage(), e);
             return ERROR_PAGE;
         }
     }

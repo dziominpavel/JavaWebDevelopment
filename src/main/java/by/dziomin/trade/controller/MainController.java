@@ -28,17 +28,18 @@ public class MainController extends HttpServlet {
     }
 
     private void processRequest(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
-        logger.debug("processing mainController");
         resp.setContentType("text/html");
         resp.setCharacterEncoding("UTF-8");
         req.setCharacterEncoding("UTF-8");
         String commandName = req.getParameter("command");
+        logger.debug("Command " + commandName);
         try {
             Command command =
                     CommandFactory.getInstance().defineCommand(commandName);
             String page = command.execute(req);
             req.getRequestDispatcher(page).forward(req, resp);
         } catch (Exception e) {
+            logger.error("Command " + commandName, e);
             req.getRequestDispatcher(ERROR_PAGE).forward(req, resp);
         }
     }

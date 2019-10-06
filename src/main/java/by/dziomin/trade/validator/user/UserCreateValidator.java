@@ -1,6 +1,6 @@
 package by.dziomin.trade.validator.user;
 
-import by.dziomin.trade.dto.UserCreateDTO;
+import by.dziomin.trade.dto.user.UserCreateDTO;
 import by.dziomin.trade.entity.User;
 import by.dziomin.trade.service.ServiceException;
 import by.dziomin.trade.service.UserService;
@@ -8,6 +8,18 @@ import by.dziomin.trade.validator.ValidationException;
 import by.dziomin.trade.validator.Validator;
 
 public class UserCreateValidator implements Validator<UserCreateDTO> {
+    private static UserCreateValidator instance;
+
+    private UserCreateValidator() {
+    }
+
+    public static UserCreateValidator getInstance() {
+        if (instance == null) {
+            instance = new UserCreateValidator();
+        }
+        return instance;
+    }
+
     @Override
     public void validate(final UserCreateDTO user) throws ValidationException, ServiceException {
         //todo validation

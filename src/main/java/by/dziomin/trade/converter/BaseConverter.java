@@ -37,4 +37,9 @@ public abstract class BaseConverter<T extends BaseEntity, D extends BaseDTO> imp
     public T convert(final D dto) {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public T convert(final D dto, T existingEntity) {
+        throw new UnsupportedOperationException();
+    }
 }

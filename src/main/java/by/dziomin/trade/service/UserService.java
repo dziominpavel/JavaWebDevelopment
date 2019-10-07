@@ -41,7 +41,7 @@ public class UserService extends AbstractService<User> {
         }
     }
 
-    public boolean createUser(User user) throws ServiceException {
+    public Integer createUser(User user) throws ServiceException {
         try (ConnectionPool.ProxyConnection connection = getConnection()) {
             UserDaoImpl userDaoImpl = new UserDaoImpl(connection);
             return userDaoImpl.create(user);

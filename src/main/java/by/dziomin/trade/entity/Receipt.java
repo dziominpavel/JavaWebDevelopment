@@ -2,11 +2,13 @@ package by.dziomin.trade.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class Receipt extends BaseEntity {
     private BigDecimal amount;
     private Date date;
     private User user;
+    private List<SalesItem> salesItems;
 
     public BigDecimal getAmount() {
         return amount;
@@ -28,9 +30,16 @@ public class Receipt extends BaseEntity {
         return user;
     }
 
-
     public void setUser(final User user) {
         this.user = user;
+    }
+
+    public List<SalesItem> getSalesItems() {
+        return salesItems;
+    }
+
+    public void setSalesItems(final List<SalesItem> salesItems) {
+        this.salesItems = salesItems;
     }
 
     @Override

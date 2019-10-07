@@ -76,12 +76,12 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
     }
 
     @Override
-    public boolean create(final User user) throws DaoException {
+    public Integer create(final User user) throws DaoException {
 
         Object[] params = new Object[]{user.getName(),
                 user.getLogin(), user.getPassword(), user.getRole().name()};
         try (PreparedStatement statement = createPreparedStatement(SQL_INSERT, params)) {
-            return statement.executeUpdate() > 0;
+            return statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException(e);
         }

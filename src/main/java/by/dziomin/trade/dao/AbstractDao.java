@@ -1,5 +1,7 @@
 package by.dziomin.trade.dao;
 
+import com.mysql.jdbc.Statement;
+
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +22,8 @@ public abstract class AbstractDao {
 
     protected PreparedStatement createPreparedStatement(String query,
                                                         Object... params) throws SQLException {
-        PreparedStatement statement = getConnection().prepareStatement(query);
+        PreparedStatement statement = getConnection().prepareStatement(query,
+                Statement.RETURN_GENERATED_KEYS);
         for (int i = 0; i < params.length; i++) {
             Object param = params[i];
             if (param instanceof Integer) {
@@ -30,7 +33,8 @@ public abstract class AbstractDao {
             } else if (param instanceof BigDecimal) {
                 statement.setBigDecimal(i + 1, (BigDecimal) param);
             } else if (param instanceof Date) {
-                //statement.setDate(i + 1, (Date)param);
+                Date date = (Date)param;
+                statement.setDate(i + 1, new java.sql.Date(date.getTime()));
             }
         }
         return statement;

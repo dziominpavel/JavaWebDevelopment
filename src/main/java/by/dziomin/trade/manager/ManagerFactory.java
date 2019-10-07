@@ -1,6 +1,7 @@
 package by.dziomin.trade.manager;
 
 import by.dziomin.trade.manager.impl.ProductManagerImpl;
+import by.dziomin.trade.manager.impl.ReceiptManagerImpl;
 import by.dziomin.trade.manager.impl.UserManagerImpl;
 
 import java.util.HashMap;
@@ -14,6 +15,7 @@ public final class ManagerFactory {
         managerMap = new HashMap<>();
         managerMap.put(UserManager.class, UserManagerImpl.getInstance());
         managerMap.put(ProductManager.class, ProductManagerImpl.getInstance());
+        managerMap.put(ReceiptManager.class, ReceiptManagerImpl.getInstance());
     }
 
     private ManagerFactory() {

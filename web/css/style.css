@@ -632,6 +632,26 @@ body {
     font-size: 2em;
 }
 
+.info-table-container span form.button-right {
+    display: flex;
+    margin-block-start: 2em;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.info-table-container span form.button-center {
+    display: flex;
+    margin-block-start: 2em;
+    margin-left: 10em;
+    margin-right: 10em;
+    flex: auto;
+}
+
+.info-table-container span form input[type=text]{
+    height: 50px;
+    font-size: x-large;
+}
+
 .info-table-container span form input[type=submit]{
     flex: 1;
     width: 200px;
@@ -649,6 +669,14 @@ body {
 
 .info-table-container span form input[type=submit]:hover {
     background-color: rgba(5, 202, 255, 1);
+}
+
+.info-table-container span form input[type=submit].gray{
+    background-color: rgba(179, 179, 179, 0.7);
+}
+
+.info-table-container span form input[type=submit].gray:hover {
+    background-color: rgba(179, 179, 179, 1);
 }
 
 .info-table-container p {

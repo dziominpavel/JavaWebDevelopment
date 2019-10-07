@@ -1,4 +1,4 @@
-package by.dziomin.trade.converter.impl;
+package by.dziomin.trade.converter.product;
 
 import by.dziomin.trade.converter.BaseConverter;
 import by.dziomin.trade.dto.product.ProductDTO;

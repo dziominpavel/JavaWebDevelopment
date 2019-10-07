@@ -21,8 +21,7 @@ public class ReceiptDaoImpl extends AbstractDao implements ReceiptDao {
             "sum FROM RECEIPT";
     private final static String SQL_SELECT_BY_ID = "SELECT id,user_id,date,sum" +
             " FROM RECEIPT WHERE id = ?";
-    private final static String SQL_INSERT = "INSERT INTO RECEIPT (`id`, " +
-            "`user_id`, `date`, `sum`) VALUES (?, ?, ?, ?)";
+    private final static String SQL_INSERT = "INSERT INTO RECEIPT (`user_id`, `date`, `sum`) VALUES (?, ?, ?)";
     private final static String SQL_DELETE = "DELETE FROM RECEIPT WHERE id = ?";
     private final static String SQL_UPDATE = "UPDATE RECEIPT SET user_id = ?," +
             " date = ?, sum = ? WHERE id = ?";
@@ -60,14 +59,21 @@ public class ReceiptDaoImpl extends AbstractDao implements ReceiptDao {
     }
 
     @Override
-    public boolean create(final Receipt receipt) throws DaoException {
-        Object[] params = new Object[]{receipt.getId(), receipt.getUser().getId(),
+    public Integer create(final Receipt receipt) throws DaoException {
+        Object[] params = new Object[]{receipt.getUser().getId(),
                 receipt.getDate(), receipt.getAmount()};
         try (PreparedStatement statement = createPreparedStatement(SQL_INSERT, params)) {
-            return statement.executeUpdate() > 0;
+            statement.executeUpdate();
+            ResultSet resultSet = statement.getGeneratedKeys();
+            if (resultSet.next()) {
+                Long longId = resultSet.getLong(1);
+                Integer intId = Integer.parseInt(String.valueOf(longId));
+                return intId;
+            }
         } catch (SQLException e) {
             throw new DaoException(e);
         }
+        return 0;
     }
 
     @Override

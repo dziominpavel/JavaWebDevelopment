@@ -77,12 +77,12 @@ public class ProductDaoImpl extends AbstractDao implements ProductDao {
     }
 
     @Override
-    public boolean create(final Product product) throws DaoException {
+    public Integer create(final Product product) throws DaoException {
         Object[] params = new Object[]{product.getName(),
                 product.getBarcode(), product.getPrice(), product.getCount(),
                 product.getMeasure().getId()};
         try (PreparedStatement statement = createPreparedStatement(SQL_INSERT, params)) {
-            return statement.executeUpdate() > 0;
+            return statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException(e);
         }

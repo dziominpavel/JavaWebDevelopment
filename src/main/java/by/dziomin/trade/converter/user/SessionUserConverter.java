@@ -26,4 +26,12 @@ public class SessionUserConverter extends BaseConverter<User, SessionUserDTO> {
         userDTO.setRole(entity.getRole().name());
         return userDTO;
     }
+
+    @Override
+    public User convert(final SessionUserDTO dto) {
+        User user = new User();
+        user.setLogin(dto.getLogin());
+        user.setName(dto.getName());
+        return user;
+    }
 }

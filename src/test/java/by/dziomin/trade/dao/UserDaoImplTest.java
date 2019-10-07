@@ -65,8 +65,8 @@ public class UserDaoImplTest {
         user.setPassword("1234");
         user.setRole(ADMIN);
 
-        boolean result = userDaoImpl.create(user);
-        assertTrue(result);
+        Integer result = userDaoImpl.create(user);
+        //assertTrue(result);
 
         User created = userDaoImpl.getUserByLogin("Pavel2");
         assertNotNull(created);

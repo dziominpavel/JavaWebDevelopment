@@ -22,7 +22,7 @@ public class SalesItemDaoImpl extends AbstractDao implements SalesItemDao {
     private final static String SQL_SELECT_BY_ID = "SELECT receipt_id," +
             "product_id, count, sum FROM SALESITEM WHERE id = ?";
     private final static String SQL_INSERT = "INSERT INTO SALESITEM " +
-            "(`id`,`receipt_id`, `product_id`, `count`, `sum`) VALUES (?,?," +
+            "(`receipt_id`, `product_id`, `count`, `sum`) VALUES (?," +
             "?, ?, ?)";
     private final static String SQL_DELETE = "DELETE FROM SALESITEM WHERE id = ?";
     private final static String SQL_UPDATE = "UPDATE SALESITEM SET receipt_id= ?," +
@@ -76,13 +76,13 @@ public class SalesItemDaoImpl extends AbstractDao implements SalesItemDao {
     }
 
     @Override
-    public boolean create(final SalesItem salesItem) throws DaoException {
-        Object[] params = new Object[]{salesItem.getId(),
+    public Integer create(final SalesItem salesItem) throws DaoException {
+        Object[] params = new Object[]{
                 salesItem.getReceipt().getId(),
                 salesItem.getProduct().getId(), salesItem.getCount(),
                 salesItem.getPrice()};
         try (PreparedStatement statement = createPreparedStatement(SQL_INSERT, params)) {
-            return statement.executeUpdate() > 0;
+            return statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException(e);
         }

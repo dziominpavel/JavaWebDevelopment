@@ -69,10 +69,10 @@ public class MeasureDaoImpl extends AbstractDao implements MeasureDao {
     }
 
     @Override
-    public boolean create(final Measure measure) throws DaoException {
+    public Integer create(final Measure measure) throws DaoException {
         Object[] params = new Object[]{measure.getName()};
         try (PreparedStatement statement = createPreparedStatement(SQL_INSERT, params)) {
-            return statement.executeUpdate() > 0;
+            return statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException(e);
         }

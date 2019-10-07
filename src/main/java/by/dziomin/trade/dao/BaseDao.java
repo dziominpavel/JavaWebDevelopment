@@ -10,7 +10,7 @@ public interface BaseDao<T extends BaseEntity> {
 
     T getById(Integer id) throws DaoException;
 
-    boolean create(T entity) throws DaoException;
+    Integer create(T entity) throws DaoException;
 
     boolean delete(Integer id) throws DaoException;
 

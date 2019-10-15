@@ -7,6 +7,8 @@ import by.dziomin.trade.dto.user.UserUpdateDTO;
 import by.dziomin.trade.service.ServiceException;
 import by.dziomin.trade.validator.ValidationException;
 
+import java.util.List;
+
 public interface UserManager extends Manager {
 
     SessionUserDTO login(String login, String password) throws ServiceException, ValidationException;
@@ -16,4 +18,7 @@ public interface UserManager extends Manager {
     UserDTO getCurrentUser(SessionUserDTO currentUser) throws ServiceException;
 
     SessionUserDTO updateUser(UserUpdateDTO userDTO) throws ValidationException, ServiceException;
+
+    List<UserDTO> getUsers() throws ServiceException;
+
 }

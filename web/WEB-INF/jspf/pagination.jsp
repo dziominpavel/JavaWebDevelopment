@@ -22,7 +22,7 @@
 <div class="page-number-container">
     <c:if test="${requestScope.page > 1}">
         <form action="app">
-            <input type="hidden" name="command" value="products">
+            <input type="hidden" name="command" value="${pagination}">
             <input type="hidden" name="page" value="${requestScope.page - 1}">
             <input class="page-number-blue" type="submit" value="${previous}">
         </form>
@@ -39,7 +39,7 @@
             </c:when>
             <c:otherwise>
                 <form action="app">
-                    <input type="hidden" name="command" value="products">
+                    <input type="hidden" name="command" value="${pagination}">
                     <input type="hidden" name="page" value="${i}">
                     <input class="page-number-blue" type="submit" value=${i}>
                 </form>
@@ -48,7 +48,7 @@
     </c:forEach>
     <c:if test="${requestScope.page < requestScope.pagesCount}">
         <form action="app">
-            <input type="hidden" name="command" value="products">
+            <input type="hidden" name="command" value="${pagination}">
             <input type="hidden" name="page" value="${requestScope.page + 1}">
             <input class="page-number-blue" type="submit" value="${next}">
         </form>

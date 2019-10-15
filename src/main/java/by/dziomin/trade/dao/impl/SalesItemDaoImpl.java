@@ -82,7 +82,8 @@ public class SalesItemDaoImpl extends AbstractDao implements SalesItemDao {
                 salesItem.getProduct().getId(), salesItem.getCount(),
                 salesItem.getPrice()};
         try (PreparedStatement statement = createPreparedStatement(SQL_INSERT, params)) {
-            return statement.executeUpdate();
+            statement.executeUpdate();
+            return getCreatedId(statement);
         } catch (SQLException e) {
             throw new DaoException(e);
         }

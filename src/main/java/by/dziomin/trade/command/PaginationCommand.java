@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class PaginationCommand {
     private static final String NUMBER_REGEX = "^\\d+$";
-    private static final int RECORDS_PER_PAGE = 10;
+    private static final int RECORDS_PER_PAGE = 2;
 
     protected <T> List<T> executePagination(HttpServletRequest request,
                                             List<T> list) {

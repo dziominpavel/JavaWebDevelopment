@@ -17,8 +17,7 @@ import java.util.List;
 public class ProductDaoImpl extends AbstractDao implements ProductDao {
 
     private final static String SQL_SELECT_All = "SELECT id,name,barcode," +
-            "price," +
-            "count, measure_id FROM PRODUCTS";
+            "price, count, measure_id FROM PRODUCTS ORDER BY barcode";
     private final static String SQL_SELECT_BY_ID = "SELECT id,name,barcode,price," +
             "count, measure_id FROM PRODUCTS WHERE id = ?";
     private final static String SQL_SELECT_BY_BARCODE = "SELECT id,name," +
@@ -82,7 +81,8 @@ public class ProductDaoImpl extends AbstractDao implements ProductDao {
                 product.getBarcode(), product.getPrice(), product.getCount(),
                 product.getMeasure().getId()};
         try (PreparedStatement statement = createPreparedStatement(SQL_INSERT, params)) {
-            return statement.executeUpdate();
+            statement.executeUpdate();
+            return getCreatedId(statement);
         } catch (SQLException e) {
             throw new DaoException(e);
         }

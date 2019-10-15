@@ -31,7 +31,7 @@ public class DbConfigManager {
         return instance;
     }
 
-    public String getProperty(String key) {
+    String getProperty(String key) {
         return properties.getProperty(key);
     }
 }

@@ -20,8 +20,10 @@ public class LocaleFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) resp;
 
         String lang = request.getParameter("lang");
+
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+
         request.getSession().setAttribute("locale", lang);
         chain.doFilter(request, response);
     }

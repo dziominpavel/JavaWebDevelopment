@@ -66,6 +66,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>Users</servlet-name>
+        <jsp-file>/WEB-INF/jsp/users.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Users</servlet-name>
+        <url-pattern>/users</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ProductInfo</servlet-name>
         <jsp-file>/WEB-INF/jsp/productinfo.jsp</jsp-file>
     </servlet>

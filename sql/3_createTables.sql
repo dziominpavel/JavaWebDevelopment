@@ -26,7 +26,8 @@ CREATE TABLE `measure`
 (
     `id`   TINYINT     NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(45) NULL,
-    CONSTRAINT PK_measure PRIMARY KEY (`id`)
+    CONSTRAINT PK_measure PRIMARY KEY (`id`),
+    UNIQUE INDEX `IDX_measure_name` (`name` ASC)
 );
 
 

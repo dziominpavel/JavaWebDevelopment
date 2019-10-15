@@ -64,16 +64,10 @@ public class ReceiptDaoImpl extends AbstractDao implements ReceiptDao {
                 receipt.getDate(), receipt.getAmount()};
         try (PreparedStatement statement = createPreparedStatement(SQL_INSERT, params)) {
             statement.executeUpdate();
-            ResultSet resultSet = statement.getGeneratedKeys();
-            if (resultSet.next()) {
-                Long longId = resultSet.getLong(1);
-                Integer intId = Integer.parseInt(String.valueOf(longId));
-                return intId;
-            }
+            return getCreatedId(statement);
         } catch (SQLException e) {
             throw new DaoException(e);
         }
-        return 0;
     }
 
     @Override

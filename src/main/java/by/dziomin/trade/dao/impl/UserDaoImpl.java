@@ -15,16 +15,16 @@ import java.util.List;
 
 public class UserDaoImpl extends AbstractDao implements UserDao {
 
-    final static String SQL_SELECT_All = "SELECT id,name,login,password,role " +
+    private final static String SQL_SELECT_All = "SELECT id,name,login,password,role " +
             "FROM USER";
-    final static String SQL_SELECT_BY_ID = "SELECT id,name,login,password," +
+    private final static String SQL_SELECT_BY_ID = "SELECT id,name,login,password," +
             "role FROM USER WHERE id = ?";
-    final static String SQL_INSERT = "INSERT INTO USER (`name`, " +
-            "`login`, `password`, `role`) VALUES (?, ?, ?, ?)";
-    final static String SQL_SELECT_BY_LOGIN = "SELECT id,name,login,password," +
+    private final static String SQL_INSERT = "INSERT INTO USER (name, " +
+            "login, password, role) VALUES (?, ?, ?, ?)";
+    private final static String SQL_SELECT_BY_LOGIN = "SELECT id,name,login,password," +
             "role FROM USER WHERE login = ?";
-    final static String SQL_DELETE = "DELETE FROM USER WHERE id = ?";
-    final static String SQL_UPDATE = "UPDATE USER SET name = ?, password = ?," +
+    private final static String SQL_DELETE = "DELETE FROM USER WHERE id = ?";
+    private final static String SQL_UPDATE = "UPDATE USER SET name = ?, password = ?," +
             " role = ? WHERE id = ?";
 
     public UserDaoImpl(final Connection connection) {
@@ -81,7 +81,8 @@ public class UserDaoImpl extends AbstractDao implements UserDao {
         Object[] params = new Object[]{user.getName(),
                 user.getLogin(), user.getPassword(), user.getRole().name()};
         try (PreparedStatement statement = createPreparedStatement(SQL_INSERT, params)) {
-            return statement.executeUpdate();
+            statement.executeUpdate();
+            return getCreatedId(statement);
         } catch (SQLException e) {
             throw new DaoException(e);
         }

@@ -5,6 +5,7 @@ import com.mysql.jdbc.Statement;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
@@ -38,5 +39,13 @@ public abstract class AbstractDao {
             }
         }
         return statement;
+    }
+
+    protected Integer getCreatedId(PreparedStatement statement) throws SQLException {
+        ResultSet resultSet = statement.getGeneratedKeys();
+        if (resultSet.next()) {
+            return (int) resultSet.getLong(1);
+        }
+        return null;
     }
 }

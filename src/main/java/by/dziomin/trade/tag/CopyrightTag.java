@@ -7,12 +7,11 @@ import java.io.IOException;
 import java.util.GregorianCalendar;
 
 //@SuppressWarnings("serial")
-public class InfoTimeTag extends TagSupport {
+public class CopyrightTag extends TagSupport {
     @Override
     public int doStartTag() throws JspException {
         GregorianCalendar gc = new GregorianCalendar();
-        String time = "� " + gc.toZonedDateTime().getYear() + " Copyright :";
-//        String locale = "Locale : <b> " + Locale.getDefault() + " </b>";
+        String time = " © " + gc.toZonedDateTime().getYear() + " Copyright :";
         try {
             JspWriter out = pageContext.getOut();
             out.write(time);

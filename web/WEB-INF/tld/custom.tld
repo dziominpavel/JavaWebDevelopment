@@ -12,7 +12,7 @@
     <!-- Invoke 'Generate' action to add tags or functions -->
     <tag>
         <name>info-time</name>
-        <tag-class>by.dziomin.trade.tag.InfoTimeTag</tag-class>
+        <tag-class>by.dziomin.trade.tag.CopyrightTag</tag-class>
         <body-content>empty</body-content>
     </tag>
 

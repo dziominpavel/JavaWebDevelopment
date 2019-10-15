@@ -22,6 +22,7 @@
     <fmt:message key="button.product.open" var="open"/>
     <fmt:message key="button.product.create" var="create"/>
 
+    <c:set var="pagination" value="products" scope="request" />
 
     <title>${pageTitle}</title>
 </head>
@@ -31,7 +32,7 @@
 <div class="info-table-container">
     <span>
         <p class="title">
-            ${pageTitle}:
+            ${pageTitle}: ${page}
         </p>
         <form action="productinfo">
             <input type="submit" value="${create}">

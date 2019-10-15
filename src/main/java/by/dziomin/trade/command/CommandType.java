@@ -10,24 +10,28 @@ import by.dziomin.trade.command.cashier.ReceiptCreateCommand;
 import by.dziomin.trade.command.cashier.SalesItemAddCommand;
 import by.dziomin.trade.command.cashier.UserInfoCommand;
 import by.dziomin.trade.command.cashier.UserUpdateCommand;
+import by.dziomin.trade.command.cashier.UsersCommand;
 import by.dziomin.trade.command.manager.ProductCreateCommand;
 import by.dziomin.trade.command.manager.ProductDeleteCommand;
 import by.dziomin.trade.command.manager.ProductUpdateCommand;
 
 public enum CommandType {
-    REGISTER(new RegisterUserCommand()),
+    ADDSALESITEM(new SalesItemAddCommand()),
+    CANCELRECEIPT(new ReceiptCancelCommand()),
+    CREATEPRODUCT(new ProductCreateCommand()),
+    CREATERECEIPT(new ReceiptCreateCommand()),
+    DELETEPRODUCT(new ProductDeleteCommand()),
     LOGIN(new LoginCommand()),
     LOGOUT(new LogoutCommand()),
-    USERINFO(new UserInfoCommand()),
-    USERUPDATE(new UserUpdateCommand()),
     PRODUCTS(new ProductsCommand()),
     PRODUCTINFO(new ProductInfoCommand()),
+    REGISTER(new RegisterUserCommand()),
     UPDATEPRODUCT(new ProductUpdateCommand()),
-    CREATEPRODUCT(new ProductCreateCommand()),
-    DELETEPRODUCT(new ProductDeleteCommand()),
-    ADDSALESITEM(new SalesItemAddCommand()),
-    CREATERECEIPT(new ReceiptCreateCommand()),
-    CANCELRECEIPT(new ReceiptCancelCommand());
+    USERS(new UsersCommand()),
+    USERINFO(new UserInfoCommand()),
+    USERUPDATE(new UserUpdateCommand());
+
+
 
     private Command command;
 

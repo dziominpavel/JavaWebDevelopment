@@ -11,6 +11,7 @@ public final class AppUrls {
 
     public static final String MESSAGE_PAGE = "/message";
 
+    public static final String USERS_PAGE = "/users";
     public static final String USER_INFO_PAGE = "/userinfo";
 
     public static final String PRODUCTS_PAGE = "/products";

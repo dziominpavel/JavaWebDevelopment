@@ -5,10 +5,11 @@ import by.dziomin.trade.dto.user.SessionUserDTO;
 import by.dziomin.trade.dto.user.UserCreateDTO;
 import by.dziomin.trade.dto.user.UserDTO;
 import by.dziomin.trade.dto.user.UserUpdateDTO;
-import by.dziomin.trade.entity.User;
+import by.dziomin.trade.entity.UserEntity;
 import by.dziomin.trade.manager.BaseManager;
 import by.dziomin.trade.manager.UserManager;
 import by.dziomin.trade.service.ServiceException;
+import by.dziomin.trade.service.ServiceFactory;
 import by.dziomin.trade.service.UserService;
 import by.dziomin.trade.validator.ValidationException;
 
@@ -30,8 +31,8 @@ public class UserManagerImpl extends BaseManager implements UserManager {
 
     @Override
     public SessionUserDTO login(String login, String password) throws ServiceException, ValidationException {
-        UserService service = new UserService();
-        User user = service.getUserByLogin(login);
+        UserService service = ServiceFactory.getService(UserService.class);
+        UserEntity user = service.getUserByLogin(login);
         if (user != null && user.getPassword().equals(password)) {
             return convert(user, SessionUserDTO.class);
         } else {
@@ -39,13 +40,14 @@ public class UserManagerImpl extends BaseManager implements UserManager {
         }
     }
 
+    @Override
     public SessionUserDTO registration(UserCreateDTO userDto) throws ValidationException, ServiceException {
         validate(userDto);
-        User user = convert(userDto, User.class);
+        UserEntity user = convert(userDto, UserEntity.class);
 
-        UserService userService = new UserService();
-        userService.createUser(user);
-        User created = userService.getUserByLogin(userDto.getLogin());
+        UserService service = ServiceFactory.getService(UserService.class);
+        service.createUser(user);
+        UserEntity created = service.getUserByLogin(userDto.getLogin());
         if (created != null) {
             return convert(created, SessionUserDTO.class);
         } else {
@@ -55,8 +57,8 @@ public class UserManagerImpl extends BaseManager implements UserManager {
 
     @Override
     public UserDTO getCurrentUser(final SessionUserDTO currentUser) throws ServiceException {
-        UserService service = new UserService();
-        User user = service.getUserByLogin(currentUser.getLogin());
+        UserService service = ServiceFactory.getService(UserService.class);
+        UserEntity user = service.getUserByLogin(currentUser.getLogin());
         return convert(user, UserDTO.class);
     }
 
@@ -64,23 +66,23 @@ public class UserManagerImpl extends BaseManager implements UserManager {
     public SessionUserDTO updateUser(final UserUpdateDTO userDTO) throws ValidationException, ServiceException {
         validate(userDTO);
 
-        UserService service = new UserService();
-        User existingUser = service.getUserById(userDTO.getId());
+        UserService service = ServiceFactory.getService(UserService.class);
+        UserEntity existingUser = service.getUserById(userDTO.getId());
         if (existingUser == null) {
             throw new ValidationException("USER_NOT_FOUND");
         }
 
-        User user = convert(userDTO, existingUser, User.class);
+        UserEntity user = convert(userDTO, existingUser, UserEntity.class);
         service.updateUser(user);
-        User updated = service.getUserById(userDTO.getId());
+        UserEntity updated = service.getUserById(userDTO.getId());
         return convert(updated, SessionUserDTO.class);
     }
 
     @Override
     public List<UserDTO> getUsers() throws ServiceException {
-        UserService service = new UserService();
-        List<User> userList = service.getAllUsers();
-        Converter<User, UserDTO> converter = getConverter(User.class,
+        UserService service = ServiceFactory.getService(UserService.class);
+        List<UserEntity> userList = service.getAllUsers();
+        Converter<UserEntity, UserDTO> converter = getConverter(UserEntity.class,
                 UserDTO.class);
         return converter.convertEntityList(userList);
     }

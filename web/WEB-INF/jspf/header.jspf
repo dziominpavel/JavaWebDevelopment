@@ -24,7 +24,6 @@
     <fmt:message key="label.users" var="users"/>
 
 
-
 </head>
 <body>
 <div class="header">
@@ -33,6 +32,11 @@
             <input type="image" src="../../img/logo.png" alt="Home">
         </div>
     </form>
+    <div class="currentusername">
+        <c:if test="${not empty sessionScope.currentUser}">
+            ${sessionScope.currentUser.name}
+        </c:if>
+    </div>
 
     <div class="lang-button-container">
         <c:if test="${not empty sessionScope.currentUser}">

@@ -2,9 +2,9 @@ package by.dziomin.trade.converter.user;
 
 import by.dziomin.trade.converter.BaseConverter;
 import by.dziomin.trade.dto.user.UserUpdateDTO;
-import by.dziomin.trade.entity.User;
+import by.dziomin.trade.entity.UserEntity;
 
-public class UserUpdateConverter extends BaseConverter<User, UserUpdateDTO> {
+public class UserUpdateConverter extends BaseConverter<UserEntity, UserUpdateDTO> {
     private static UserUpdateConverter instance;
 
     private UserUpdateConverter() {
@@ -18,7 +18,7 @@ public class UserUpdateConverter extends BaseConverter<User, UserUpdateDTO> {
     }
 
     @Override
-    public User convert(final UserUpdateDTO dto, final User existingUser) {
+    public UserEntity convert(final UserUpdateDTO dto, final UserEntity existingUser) {
         existingUser.setName(dto.getName());
         String password = dto.getPassword();
         if (!password.contains("/u2022")) {

@@ -5,7 +5,7 @@ import by.dziomin.trade.converter.Converter;
 import by.dziomin.trade.converter.ConverterFactory;
 import by.dziomin.trade.dto.product.ProductDTO;
 import by.dziomin.trade.dto.salesitem.SalesItemDTO;
-import by.dziomin.trade.entity.Product;
+import by.dziomin.trade.entity.ProductEntity;
 import by.dziomin.trade.entity.SalesItem;
 
 public class SalesItemConverter extends BaseConverter<SalesItem, SalesItemDTO> {
@@ -27,10 +27,10 @@ public class SalesItemConverter extends BaseConverter<SalesItem, SalesItemDTO> {
         salesItem.setPrice(dto.getTotalPrice());
         salesItem.setCount(dto.getCount());
 
-        Converter<Product, ProductDTO> productConverter =
-                ConverterFactory.getInstance().getConverter(Product.class,
+        Converter<ProductEntity, ProductDTO> productConverter =
+                ConverterFactory.getInstance().getConverter(ProductEntity.class,
                         ProductDTO.class);
-        Product product = productConverter.convert(dto.getProduct());
+        ProductEntity product = productConverter.convert(dto.getProduct());
         salesItem.setProduct(product);
         return salesItem;
     }

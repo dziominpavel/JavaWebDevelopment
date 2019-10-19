@@ -2,10 +2,10 @@ package by.dziomin.trade.converter.product;
 
 import by.dziomin.trade.converter.BaseConverter;
 import by.dziomin.trade.dto.product.ProductDTO;
-import by.dziomin.trade.entity.Measure;
-import by.dziomin.trade.entity.Product;
+import by.dziomin.trade.entity.MeasureEntity;
+import by.dziomin.trade.entity.ProductEntity;
 
-public class ProductConverter extends BaseConverter<Product, ProductDTO> {
+public class ProductConverter extends BaseConverter<ProductEntity, ProductDTO> {
 
     private static ProductConverter instance;
 
@@ -20,7 +20,7 @@ public class ProductConverter extends BaseConverter<Product, ProductDTO> {
     }
 
     @Override
-    public ProductDTO convert(final Product product) {
+    public ProductDTO convert(final ProductEntity product) {
         ProductDTO productDTO = new ProductDTO();
         productDTO.setId(product.getId());
         productDTO.setBarcode(product.getBarcode());
@@ -34,15 +34,15 @@ public class ProductConverter extends BaseConverter<Product, ProductDTO> {
     }
 
     @Override
-    public Product convert(final ProductDTO dto) {
-        Product product = new Product();
+    public ProductEntity convert(final ProductDTO dto) {
+        ProductEntity product = new ProductEntity();
         product.setId(dto.getId());
         product.setName(dto.getName());
         product.setBarcode(dto.getBarcode());
         product.setCount(dto.getCount());
         product.setPrice(dto.getPrice());
         if (dto.getMeasure() != null && !dto.getMeasure().isEmpty()) {
-            Measure measure = new Measure();
+            MeasureEntity measure = new MeasureEntity();
             measure.setName(dto.getMeasure());
             product.setMeasure(measure);
         }

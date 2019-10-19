@@ -1,9 +1,10 @@
 package by.dziomin.trade.validator.product;
 
 import by.dziomin.trade.dto.product.ProductCreateDTO;
-import by.dziomin.trade.entity.Product;
+import by.dziomin.trade.entity.ProductEntity;
 import by.dziomin.trade.service.ProductService;
 import by.dziomin.trade.service.ServiceException;
+import by.dziomin.trade.service.ServiceFactory;
 import by.dziomin.trade.validator.ValidationException;
 import by.dziomin.trade.validator.Validator;
 
@@ -37,8 +38,9 @@ public class ProductCreateValidator implements Validator<ProductCreateDTO> {
             throw new ValidationException("PRICE_INVALID");
         }
 
-        ProductService service = new ProductService();
-        Product existing = service.getProductByBarcode(dto.getBarcode());
+        ProductService service =
+                ServiceFactory.getService(ProductService.class);
+        ProductEntity existing = service.getProductByBarcode(dto.getBarcode());
         if (existing != null) {
             throw new ValidationException("BARCODE_EXIST");
         }

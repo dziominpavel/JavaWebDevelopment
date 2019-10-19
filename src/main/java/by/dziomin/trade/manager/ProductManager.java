@@ -12,11 +12,11 @@ public interface ProductManager extends Manager {
 
     List<ProductDTO> getProducts() throws ServiceException;
 
-    ProductDTO getProductById(Integer productId) throws ServiceException;
+    ProductDTO getProductById(Long productId) throws ServiceException;
 
-    ProductDTO updateProduct(final ProductUpdateDTO productDTO) throws ServiceException, ValidationException;
+    ProductDTO updateProduct(ProductUpdateDTO productDTO) throws ServiceException, ValidationException;
 
     ProductDTO createProduct(ProductCreateDTO productDTO) throws ValidationException, ServiceException;
 
-    void deleteProduct(final Integer productId) throws ServiceException;
+    void deleteProduct(Long productId) throws ServiceException;
 }

@@ -1,39 +1,84 @@
 package by.dziomin.trade.entity;
 
-public class User extends BaseEntity {
+/**
+ * User entity
+ *
+ * @author - Pavel Dziomin
+ */
+public class UserEntity extends BaseEntity {
     private String name;
     private String login;
     private String password;
     private Role role;
 
+    /**
+     * Get user full name
+     *
+     * @return user full name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Set user full name
+     *
+     * @param name name to set
+     */
     public void setName(final String name) {
         this.name = name;
     }
 
+    /**
+     * Get user login
+     *
+     * @return user login
+     */
     public String getLogin() {
         return login;
     }
 
+    /**
+     * Set user login
+     *
+     * @param login login to set
+     */
     public void setLogin(final String login) {
         this.login = login;
     }
 
+    /**
+     * Get user password
+     *
+     * @return user password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Set user password
+     *
+     * @param password password to set
+     */
     public void setPassword(final String password) {
         this.password = password;
     }
 
+    /**
+     * Get user role
+     *
+     * @return user role
+     */
     public Role getRole() {
         return role;
     }
 
+    /**
+     * Set user role
+     *
+     * @param role role to set
+     */
     public void setRole(final Role role) {
         this.role = role;
     }
@@ -45,7 +90,7 @@ public class User extends BaseEntity {
         if (o == null || getClass() != o.getClass())
             return false;
 
-        User user = (User) o;
+        UserEntity user = (UserEntity) o;
 
         if (getName() != null ? !getName().equals(user.getName()) : user.getName() != null)
             return false;

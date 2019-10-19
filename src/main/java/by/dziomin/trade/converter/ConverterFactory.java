@@ -1,7 +1,7 @@
 package by.dziomin.trade.converter;
 
 import by.dziomin.trade.converter.product.ProductConverter;
-import by.dziomin.trade.converter.receipt.ReceiptConverter;
+import by.dziomin.trade.converter.receipt.ReceiptCreateConverter;
 import by.dziomin.trade.converter.salesitem.SalesItemConverter;
 import by.dziomin.trade.converter.user.SessionUserConverter;
 import by.dziomin.trade.converter.user.UserConverter;
@@ -18,10 +18,10 @@ import by.dziomin.trade.dto.user.UserCreateDTO;
 import by.dziomin.trade.dto.user.UserDTO;
 import by.dziomin.trade.dto.user.UserUpdateDTO;
 import by.dziomin.trade.entity.BaseEntity;
-import by.dziomin.trade.entity.Product;
-import by.dziomin.trade.entity.Receipt;
+import by.dziomin.trade.entity.ProductEntity;
+import by.dziomin.trade.entity.ReceiptEntity;
 import by.dziomin.trade.entity.SalesItem;
-import by.dziomin.trade.entity.User;
+import by.dziomin.trade.entity.UserEntity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,13 +54,13 @@ public class ConverterFactory {
 
         Map<Class, Converter> receiptConverters = new HashMap<>();
         receiptConverters.put(ReceiptCreateDTO.class,
-                ReceiptConverter.getInstance());
+                ReceiptCreateConverter.getInstance());
 
 
-        converters.put(Product.class, productConverters);
-        converters.put(User.class, userConverters);
+        converters.put(ProductEntity.class, productConverters);
+        converters.put(UserEntity.class, userConverters);
         converters.put(SalesItem.class, salesItemConverters);
-        converters.put(Receipt.class, receiptConverters);
+        converters.put(ReceiptEntity.class, receiptConverters);
     }
 
     public static ConverterFactory getInstance() {

@@ -7,6 +7,7 @@ import by.dziomin.trade.command.cashier.ProductInfoCommand;
 import by.dziomin.trade.command.cashier.ProductsCommand;
 import by.dziomin.trade.command.cashier.ReceiptCancelCommand;
 import by.dziomin.trade.command.cashier.ReceiptCreateCommand;
+import by.dziomin.trade.command.cashier.ReceiptsCommand;
 import by.dziomin.trade.command.cashier.SalesItemAddCommand;
 import by.dziomin.trade.command.cashier.UserInfoCommand;
 import by.dziomin.trade.command.cashier.UserUpdateCommand;
@@ -25,6 +26,7 @@ public enum CommandType {
     LOGOUT(new LogoutCommand()),
     PRODUCTS(new ProductsCommand()),
     PRODUCTINFO(new ProductInfoCommand()),
+    RECEIPTS(new ReceiptsCommand()),
     REGISTER(new RegisterUserCommand()),
     UPDATEPRODUCT(new ProductUpdateCommand()),
     USERS(new UsersCommand()),

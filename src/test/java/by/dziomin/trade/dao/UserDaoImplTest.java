@@ -2,7 +2,7 @@ package by.dziomin.trade.dao;
 
 import by.dziomin.trade.connection.ConnectionPool;
 import by.dziomin.trade.dao.impl.UserDaoImpl;
-import by.dziomin.trade.entity.User;
+import by.dziomin.trade.entity.UserEntity;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +16,6 @@ import static by.dziomin.trade.entity.Role.USER;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 public class UserDaoImplTest {
     private Connection connection;
@@ -35,14 +34,14 @@ public class UserDaoImplTest {
 
     @Test
     public void testGetAll() throws DaoException {
-        List<User> result = userDaoImpl.getAll();
+        List<UserEntity> result = userDaoImpl.getAll();
         assertNotNull(result);
         assertEquals(4, result.size());
     }
 
     @Test
     public void testGetUserById() throws DaoException {
-        User result = userDaoImpl.getById(2);
+        UserEntity result = userDaoImpl.getById(2L);
         assertNotNull(result);
         assertEquals("Petrov", result.getName());
         assertEquals("pe", result.getLogin());
@@ -52,23 +51,21 @@ public class UserDaoImplTest {
 
     @Test
     public void testGetUserByIdNotFound() throws DaoException {
-        User result = userDaoImpl.getById(123);
+        UserEntity result = userDaoImpl.getById(123L);
         assertNull(result);
     }
 
     @Test
     public void testCreateUser() throws DaoException {
-        User user = new User();
-//        user.setId(10);
+        UserEntity user = new UserEntity();
         user.setName("Dziomin");
         user.setLogin("Pavel2");
         user.setPassword("1234");
         user.setRole(ADMIN);
 
-        Integer result = userDaoImpl.create(user);
-        //assertTrue(result);
+        Long result = userDaoImpl.create(user);
 
-        User created = userDaoImpl.getUserByLogin("Pavel2");
+        UserEntity created = userDaoImpl.getById(result);
         assertNotNull(created);
         assertEquals("Dziomin", created.getName());
         assertEquals("Pavel2", created.getLogin());
@@ -78,23 +75,21 @@ public class UserDaoImplTest {
 
     @Test
     public void testDeleteUser() throws DaoException {
-        boolean result = userDaoImpl.delete(3);
-        assertTrue(result);
-        User deleted = userDaoImpl.getById(3);
+        userDaoImpl.delete(3L);
+        UserEntity deleted = userDaoImpl.getById(3L);
         assertNull(deleted);
     }
 
     @Test
     public void testUpdateUser() throws DaoException {
-        User user = new User();
-        user.setId(2);
+        UserEntity user = new UserEntity();
+        user.setId(2L);
         user.setName("test");
         user.setPassword("password");
         user.setRole(ADMIN);
-        boolean result = userDaoImpl.update(user);
-        assertTrue(result);
+        userDaoImpl.update(user);
 
-        User updated = userDaoImpl.getById(2);
+        UserEntity updated = userDaoImpl.getById(2L);
         assertEquals("test", updated.getName());
         assertEquals("pe", updated.getLogin());
         assertEquals("password", updated.getPassword());

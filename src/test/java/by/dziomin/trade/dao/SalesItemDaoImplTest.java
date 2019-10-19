@@ -40,7 +40,7 @@ public class SalesItemDaoImplTest {
     @Ignore
     @Test
     public void getSalesItemById() throws DaoException {
-        SalesItem result = salesItemDao.getById(1); //todo
+        SalesItem result = salesItemDao.getById(1L); //todo
         assertNotNull(result);
         //assertEquals(250, result.getPrice(), 1);
     }

@@ -1,9 +1,9 @@
 package by.dziomin.trade.dao;
 
-import by.dziomin.trade.entity.Product;
+import by.dziomin.trade.entity.ProductEntity;
 
-public interface ProductDao extends BaseDao<Product> {
+public interface ProductDao extends BaseDao<ProductEntity> {
 
-    Product getByBarcode(String barcode) throws DaoException;
+    ProductEntity getByBarcode(String barcode) throws DaoException;
 
 }

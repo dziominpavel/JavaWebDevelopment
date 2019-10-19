@@ -18,6 +18,8 @@ public final class AppUrls {
     public static final String PRODUCT_INFO_PAGE = "/productinfo";
     public static final String PRODUCT_EDIT_PAGE = "/productinfo";
 
+    public static final String RECEIPT_PAGE = "/receipts";
+
 
     private AppUrls() {
     }

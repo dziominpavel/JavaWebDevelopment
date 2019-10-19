@@ -1,115 +1,64 @@
 package by.dziomin.trade.service;
 
-import by.dziomin.trade.connection.ConnectionPool;
-import by.dziomin.trade.dao.DaoException;
-import by.dziomin.trade.dao.MeasureDao;
-import by.dziomin.trade.dao.ProductDao;
-import by.dziomin.trade.dao.impl.MeasureDaoImpl;
-import by.dziomin.trade.dao.impl.ProductDaoImpl;
-import by.dziomin.trade.entity.Measure;
-import by.dziomin.trade.entity.Product;
+import by.dziomin.trade.entity.ProductEntity;
 
 import java.util.List;
 
-public class ProductService extends AbstractService<Product> {
+/**
+ * Service for products
+ *
+ * @author - Pavel Dziomin
+ */
+public interface ProductService extends Service {
 
-    public List<Product> getAllProducts() throws ServiceException {
-        try (ConnectionPool.ProxyConnection connection = getConnection()) {
+    /**
+     * Get all products.
+     *
+     * @return list of products
+     * @throws ServiceException service exception
+     */
+    List<ProductEntity> getAllProducts() throws ServiceException;
 
-            ProductDao productDao = new ProductDaoImpl(connection);
-            MeasureDao measureDao = new MeasureDaoImpl(connection);
-            List<Product> productList = productDao.getAll();
-            for (Product product : productList) {
-                Measure measure =
-                        measureDao.getById(product.getMeasure().getId());
-                product.setMeasure(measure);
-            }
-            return productList;
-        } catch (DaoException e) {
+    /**
+     * Get product by id
+     *
+     * @param id product id
+     * @return product
+     * @throws ServiceException service exception
+     */
+    ProductEntity getProductById(Long id) throws ServiceException;
 
-            throw new ServiceException("get all users error", e);
-        }
-    }
+    /**
+     * Get product by Barcode
+     *
+     * @param barcode barcode
+     * @return product
+     * @throws ServiceException service exception
+     */
+    ProductEntity getProductByBarcode(String barcode) throws ServiceException;
 
-    public Product getProductById(Integer id) throws ServiceException {
-        try (ConnectionPool.ProxyConnection connection = getConnection()) {
-            ProductDao productDao = new ProductDaoImpl(connection);
-            MeasureDao measureDao = new MeasureDaoImpl(connection);
-            Product product = productDao.getById(id);
-            Measure measure =
-                    measureDao.getById(product.getMeasure().getId());
-            product.setMeasure(measure);
-            return product;
-        } catch (DaoException e) {
-            throw new ServiceException("get product by id error", e);
-        }
-    }
+    /**
+     * Update existing product
+     *
+     * @param product product to update
+     * @throws ServiceException service exception
+     */
+    void updateProduct(ProductEntity product) throws ServiceException;
 
-    public Product getProductByBarcode(String barcode) throws ServiceException {
-        try (ConnectionPool.ProxyConnection connection = getConnection()) {
-            ProductDao productDao = new ProductDaoImpl(connection);
-            MeasureDao measureDao = new MeasureDaoImpl(connection);
-            Product product = productDao.getByBarcode(barcode);
-            if (product != null) {
-                Measure measure =
-                        measureDao.getById(product.getMeasure().getId());
-                product.setMeasure(measure);
-            }
-            return product;
-        } catch (DaoException e) {
-            throw new ServiceException("get product by barcode error", e);
-        }
-    }
+    /**
+     * Create new product
+     *
+     * @param product product to create
+     * @throws ServiceException service exception
+     */
+    void createProduct(ProductEntity product) throws ServiceException;
 
+    /**
+     * Delete product by product id
+     *
+     * @param productId product id
+     * @throws ServiceException service exception
+     */
+    void deleteProduct(Long productId) throws ServiceException;
 
-    public void updateProduct(final Product product) throws ServiceException {
-        try (ConnectionPool.ProxyConnection connection = getConnection()) {
-            ProductDao productDao = new ProductDaoImpl(connection);
-            MeasureDao measureDao = new MeasureDaoImpl(connection);
-
-            Measure measure =
-                    measureDao.getByName(product.getMeasure().getName());
-            if (measure == null) {
-                //create measure if not exist
-                measureDao.create(product.getMeasure());
-                measure = measureDao.getByName(product.getMeasure().getName());
-            }
-            product.setMeasure(measure);
-            productDao.update(product);
-        } catch (DaoException e) {
-            throw new ServiceException("Product update error", e);
-        }
-    }
-
-    public void createProduct(final Product product) throws ServiceException {
-        try (ConnectionPool.ProxyConnection connection = getConnection()) {
-            ProductDao productDao = new ProductDaoImpl(connection);
-            MeasureDao measureDao = new MeasureDaoImpl(connection);
-
-            Measure measure =
-                    measureDao.getByName(product.getMeasure().getName());
-            if (measure == null) {
-                //create measure if not exist
-                measureDao.create(product.getMeasure());
-                measure = measureDao.getByName(product.getMeasure().getName());
-            }
-            product.setMeasure(measure);
-            productDao.create(product);
-        } catch (DaoException e) {
-            throw new ServiceException("Product create error", e);
-        }
-    }
-
-    public void deleteProduct(final Integer productId) throws ServiceException {
-        try (ConnectionPool.ProxyConnection connection = getConnection()) {
-            ProductDao productDao = new ProductDaoImpl(connection);
-            Product product = productDao.getById(productId);
-            if (product == null) {
-                throw new ServiceException("PRODUCT_NOT_FOUND");
-            }
-            productDao.delete(productId);
-        } catch (DaoException e) {
-            throw new ServiceException("Product delete error", e);
-        }
-    }
 }

@@ -1,13 +1,28 @@
 package by.dziomin.trade.entity;
 
+/**
+ * Base entity
+ *
+ * @author - Pavel Dziomin
+ */
 public class BaseEntity {
-    private Integer id;
+    private Long id;
 
-    public Integer getId() {
+    /**
+     * Get entity id
+     *
+     * @return entity id
+     */
+    public Long getId() {
         return id;
     }
 
-    public void setId(final Integer id) {
+    /**
+     * Set entity id
+     *
+     * @param id id to set
+     */
+    public void setId(final Long id) {
         this.id = id;
     }
 }

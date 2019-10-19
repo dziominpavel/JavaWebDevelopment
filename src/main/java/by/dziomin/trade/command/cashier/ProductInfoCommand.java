@@ -18,7 +18,7 @@ public class ProductInfoCommand implements Command {
     @Override
     public String execute(final HttpServletRequest request) {
         try {
-            Integer productId = Integer.parseInt(request.getParameter(
+            Long productId = Long.parseLong(request.getParameter(
                     "productId"));
             ProductManager manager = ManagerFactory.getManager(ProductManager.class);
             ProductDTO product = manager.getProductById(productId);

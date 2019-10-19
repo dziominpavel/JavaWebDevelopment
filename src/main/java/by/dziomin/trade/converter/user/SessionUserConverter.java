@@ -2,9 +2,9 @@ package by.dziomin.trade.converter.user;
 
 import by.dziomin.trade.converter.BaseConverter;
 import by.dziomin.trade.dto.user.SessionUserDTO;
-import by.dziomin.trade.entity.User;
+import by.dziomin.trade.entity.UserEntity;
 
-public class SessionUserConverter extends BaseConverter<User, SessionUserDTO> {
+public class SessionUserConverter extends BaseConverter<UserEntity, SessionUserDTO> {
 
     private static SessionUserConverter instance;
 
@@ -19,7 +19,7 @@ public class SessionUserConverter extends BaseConverter<User, SessionUserDTO> {
     }
 
     @Override
-    public SessionUserDTO convert(final User entity) {
+    public SessionUserDTO convert(final UserEntity entity) {
         SessionUserDTO userDTO = new SessionUserDTO();
         userDTO.setName(entity.getName());
         userDTO.setLogin(entity.getLogin());
@@ -28,8 +28,8 @@ public class SessionUserConverter extends BaseConverter<User, SessionUserDTO> {
     }
 
     @Override
-    public User convert(final SessionUserDTO dto) {
-        User user = new User();
+    public UserEntity convert(final SessionUserDTO dto) {
+        UserEntity user = new UserEntity();
         user.setLogin(dto.getLogin());
         user.setName(dto.getName());
         return user;

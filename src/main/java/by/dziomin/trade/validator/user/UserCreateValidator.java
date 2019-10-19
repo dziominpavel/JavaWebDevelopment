@@ -1,8 +1,9 @@
 package by.dziomin.trade.validator.user;
 
 import by.dziomin.trade.dto.user.UserCreateDTO;
-import by.dziomin.trade.entity.User;
+import by.dziomin.trade.entity.UserEntity;
 import by.dziomin.trade.service.ServiceException;
+import by.dziomin.trade.service.ServiceFactory;
 import by.dziomin.trade.service.UserService;
 import by.dziomin.trade.validator.ValidationException;
 import by.dziomin.trade.validator.Validator;
@@ -38,8 +39,8 @@ public class UserCreateValidator implements Validator<UserCreateDTO> {
             throw new ValidationException("PASSWORD_CONFIRM_NOT_EQUALS");
         }
 
-        UserService userService = new UserService();
-        User existing = userService.getUserByLogin(user.getLogin());
+        UserService service = ServiceFactory.getService(UserService.class);
+        UserEntity existing = service.getUserByLogin(user.getLogin());
         if (existing != null) {
             throw new ValidationException("USER_ALREADY_EXIST");
         }

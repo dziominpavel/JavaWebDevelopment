@@ -2,10 +2,11 @@ package by.dziomin.trade.validator.receipt;
 
 import by.dziomin.trade.dto.receipt.ReceiptCreateDTO;
 import by.dziomin.trade.dto.salesitem.SalesItemDTO;
-import by.dziomin.trade.entity.Product;
-import by.dziomin.trade.entity.User;
+import by.dziomin.trade.entity.ProductEntity;
+import by.dziomin.trade.entity.UserEntity;
 import by.dziomin.trade.service.ProductService;
 import by.dziomin.trade.service.ServiceException;
+import by.dziomin.trade.service.ServiceFactory;
 import by.dziomin.trade.service.UserService;
 import by.dziomin.trade.validator.ValidationException;
 import by.dziomin.trade.validator.Validator;
@@ -13,7 +14,7 @@ import by.dziomin.trade.validator.Validator;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class ReceiptCreateValidator implements Validator<ReceiptCreateDTO> {
+public final class ReceiptCreateValidator implements Validator<ReceiptCreateDTO> {
     private static ReceiptCreateValidator instance;
 
     private ReceiptCreateValidator() {
@@ -33,14 +34,15 @@ public class ReceiptCreateValidator implements Validator<ReceiptCreateDTO> {
             throw new ValidationException("SALES_ITEMS_EMPTY");
         }
 
-        ProductService productService = new ProductService();
+        ProductService productService =
+                ServiceFactory.getService(ProductService.class);
         BigDecimal total = BigDecimal.ZERO;
         for (SalesItemDTO salesItem : salesItems) {
             if (salesItem.getProduct() == null) {
                 throw new ValidationException("PRODUCT_EMPTY");
             }
 
-            Product existing =
+            ProductEntity existing =
                     productService.getProductById(salesItem.getProduct().getId());
             if (existing == null) {
                 throw new ValidationException("PRODUCT_NOT_FOUND");
@@ -69,9 +71,9 @@ public class ReceiptCreateValidator implements Validator<ReceiptCreateDTO> {
             throw new ValidationException("USER_EMPTY");
         }
 
-        UserService userService = new UserService();
-        User existing =
-                userService.getUserByLogin(dto.getCurrentUser().getLogin());
+        UserService service = ServiceFactory.getService(UserService.class);
+        UserEntity existing =
+                service.getUserByLogin(dto.getCurrentUser().getLogin());
         if (existing == null) {
             throw new ValidationException("USER_NOT_FOUND");
         }

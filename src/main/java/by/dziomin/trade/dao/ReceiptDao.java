@@ -1,6 +1,6 @@
 package by.dziomin.trade.dao;
 
-import by.dziomin.trade.entity.Receipt;
+import by.dziomin.trade.entity.ReceiptEntity;
 
-public interface ReceiptDao extends BaseDao<Receipt> {
+public interface ReceiptDao extends BaseDao<ReceiptEntity> {
 }

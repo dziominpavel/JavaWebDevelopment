@@ -2,18 +2,26 @@ package by.dziomin.trade.dao;
 
 import by.dziomin.trade.connection.ConnectionPool;
 import by.dziomin.trade.dao.impl.ProductDaoImpl;
-import by.dziomin.trade.entity.Product;
+import by.dziomin.trade.entity.MeasureEntity;
+import by.dziomin.trade.entity.ProductEntity;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
+/**
+ * Tests for ProductDaoImpl
+ *
+ * @author - Pavel Dziomin
+ */
 public class ProductDaoImplTest {
     private Connection connection;
     private ProductDaoImpl productDao;
@@ -32,16 +40,75 @@ public class ProductDaoImplTest {
 
     @Test
     public void testGetAll() throws DaoException {
-        List<Product> result = productDao.getAll();
+        List<ProductEntity> result = productDao.getAll();
         assertNotNull(result);
-        assertEquals(4, result.size());
+        assertEquals(13, result.size());
     }
 
     @Test
     public void testGetProductById() throws DaoException {
-        Product result = productDao.getById(3);
+        ProductEntity result = productDao.getById(1L);
         assertNotNull(result);
-        assertEquals("snickers", result.getName());
+        assertEquals("Шпатлевка Ceresit", result.getName());
     }
 
+    @Test
+    public void createProductTest() throws DaoException {
+        ProductEntity entity = new ProductEntity();
+        entity.setName("Гвозди 5х60");
+        MeasureEntity measure = new MeasureEntity();
+        measure.setId(6L);
+        entity.setMeasure(measure);
+        entity.setBarcode("4446");
+        entity.setCount(40);
+        BigDecimal price = BigDecimal.valueOf(45.5);
+        entity.setPrice(price);
+
+        Long id = productDao.create(entity);
+        assertNotNull(id);
+        ProductEntity created = productDao.getById(id);
+        assertNotNull(created);
+        assertEquals("Гвозди 5х60", created.getName());
+        assertEquals(Long.valueOf(6), created.getMeasure().getId());
+        assertEquals("4446", created.getBarcode());
+        assertEquals(Integer.valueOf(40), created.getCount());
+        assertEquals(0, price.compareTo(created.getPrice()));
+    }
+
+    @Test
+    public void deleteProductTest() throws DaoException {
+        ProductEntity existing = productDao.getByBarcode("4446");
+        assertNotNull(existing);
+        productDao.delete(existing.getId());
+        ProductEntity deleted = productDao.getByBarcode("4446");
+        assertNull(deleted);
+    }
+
+    @Test
+    public void updateProductTest() throws DaoException {
+        ProductEntity entity = new ProductEntity();
+        entity.setId(7L);
+        entity.setName("Гвозди 5х70");
+        MeasureEntity measure = new MeasureEntity();
+        measure.setId(6L);
+        entity.setMeasure(measure);
+        entity.setCount(50);
+        BigDecimal price = BigDecimal.valueOf(50.5);
+        entity.setPrice(price);
+
+        productDao.update(entity);
+        ProductEntity updated = productDao.getById(7L);
+        assertEquals("Гвозди 5х70", updated.getName());
+        assertEquals(Long.valueOf(6), updated.getMeasure().getId());
+        assertEquals("4444", updated.getBarcode());
+        assertEquals(Integer.valueOf(50), updated.getCount());
+        assertEquals(0, price.compareTo(updated.getPrice()));
+    }
+
+    @Test
+    public void getByBarcodeTest() throws DaoException {
+        ProductEntity result = productDao.getByBarcode("4444");
+        assertNotNull(result);
+        assertEquals("4444", result.getBarcode());
+    }
 }

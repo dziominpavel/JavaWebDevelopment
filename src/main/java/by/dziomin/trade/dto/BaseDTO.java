@@ -1,13 +1,13 @@
 package by.dziomin.trade.dto;
 
 public class BaseDTO {
-    private Integer id;
+    private Long id;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(final Integer id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 }

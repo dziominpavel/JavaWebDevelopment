@@ -1,15 +1,16 @@
 package by.dziomin.trade.validator.product;
 
 import by.dziomin.trade.dto.product.ProductUpdateDTO;
-import by.dziomin.trade.entity.Product;
+import by.dziomin.trade.entity.ProductEntity;
 import by.dziomin.trade.service.ProductService;
 import by.dziomin.trade.service.ServiceException;
+import by.dziomin.trade.service.ServiceFactory;
 import by.dziomin.trade.validator.ValidationException;
 import by.dziomin.trade.validator.Validator;
 
 import java.math.BigDecimal;
 
-public class ProductUpdateValidator implements Validator<ProductUpdateDTO> {
+public final class ProductUpdateValidator implements Validator<ProductUpdateDTO> {
 
     private static ProductUpdateValidator instance;
 
@@ -37,8 +38,9 @@ public class ProductUpdateValidator implements Validator<ProductUpdateDTO> {
             throw new ValidationException("PRICE_INVALID");
         }
 
-        ProductService service = new ProductService();
-        Product existing = service.getProductByBarcode(dto.getBarcode());
+        ProductService service =
+                ServiceFactory.getService(ProductService.class);
+        ProductEntity existing = service.getProductByBarcode(dto.getBarcode());
         if (existing != null && !existing.getId().equals(dto.getId())) {
             throw new ValidationException("BARCODE_EXIST");
         }

@@ -2,49 +2,104 @@ package by.dziomin.trade.entity;
 
 import java.math.BigDecimal;
 
-public class Product extends BaseEntity {
+/**
+ * Product entity
+ *
+ * @author - Pavel Dziomin
+ */
+public class ProductEntity extends BaseEntity {
     private String name;
     private String barcode;
     private BigDecimal price;
     private Integer count;
-    private Measure measure;
+    private MeasureEntity measure;
 
-    public Measure getMeasure() {
+    /**
+     * Get product measure
+     *
+     * @return measure
+     */
+    public MeasureEntity getMeasure() {
         return measure;
     }
 
-    public void setMeasure(final Measure measure) {
+    /**
+     * Set product measure
+     *
+     * @param measure measure
+     */
+    public void setMeasure(final MeasureEntity measure) {
         this.measure = measure;
     }
 
+    /**
+     * Get product name
+     *
+     * @return name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Set product name
+     *
+     * @param name name to set
+     */
     public void setName(final String name) {
         this.name = name;
     }
 
+    /**
+     * Get product barcode
+     *
+     * @return product barcode
+     */
     public String getBarcode() {
         return barcode;
     }
 
+    /**
+     * Set product barcode
+     *
+     * @param barcode barcode to set
+     */
     public void setBarcode(final String barcode) {
         this.barcode = barcode;
     }
 
+    /**
+     * Get product price
+     *
+     * @return product price
+     */
     public BigDecimal getPrice() {
         return price;
     }
 
+    /**
+     * Set product price
+     *
+     * @param price price to set
+     */
     public void setPrice(final BigDecimal price) {
         this.price = price;
     }
 
+    /**
+     * Get product count in stock
+     *
+     * @return count in stock
+     */
     public Integer getCount() {
         return count;
     }
 
+    /**
+     * Set product count in stock
+     *
+     * @param count count to set
+     */
     public void setCount(final Integer count) {
         this.count = count;
     }
@@ -53,10 +108,10 @@ public class Product extends BaseEntity {
     public boolean equals(final Object o) {
         if (this == o)
             return true;
-        if (!(o instanceof Product))
+        if (!(o instanceof ProductEntity))
             return false;
 
-        Product product = (Product) o;
+        ProductEntity product = (ProductEntity) o;
 
         if (getName() != null ? !getName().equals(product.getName()) : product.getName() != null)
             return false;

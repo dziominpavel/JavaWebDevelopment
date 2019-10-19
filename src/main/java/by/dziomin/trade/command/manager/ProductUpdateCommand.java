@@ -48,7 +48,7 @@ public class ProductUpdateCommand implements Command {
 
         ProductUpdateDTO productDTO = new ProductUpdateDTO();
         if (id != null && !id.isEmpty()) {
-            productDTO.setId(Integer.parseInt(id));
+            productDTO.setId(Long.parseLong(id));
         }
         productDTO.setBarcode(barcode);
         productDTO.setName(name);

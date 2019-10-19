@@ -1,43 +1,88 @@
 package by.dziomin.trade.entity;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
-public class Receipt extends BaseEntity {
+/**
+ * Receipt entity
+ *
+ * @author - Pavel Dziomin
+ */
+public class ReceiptEntity extends BaseEntity {
     private BigDecimal amount;
-    private Date date;
-    private User user;
+    private LocalDateTime date;
+    private UserEntity user;
     private List<SalesItem> salesItems;
 
+    /**
+     * Get total gross amount
+     *
+     * @return total gross amount
+     */
     public BigDecimal getAmount() {
         return amount;
     }
 
+    /**
+     * Set total gross amount
+     *
+     * @param amount total gross amount
+     */
     public void setAmount(final BigDecimal amount) {
         this.amount = amount;
     }
 
-    public Date getDate() {
+    /**
+     * Get receipt date
+     *
+     * @return receipt date
+     */
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(final Date date) {
+    /**
+     * Set receipt date
+     *
+     * @param date date to set
+     */
+    public void setDate(final LocalDateTime date) {
         this.date = date;
     }
 
-    public User getUser() {
+    /**
+     * Get receipt cashier
+     *
+     * @return receipt cashier
+     */
+    public UserEntity getUser() {
         return user;
     }
 
-    public void setUser(final User user) {
+    /**
+     * Set receipt cashier
+     *
+     * @param user cashier to set
+     */
+    public void setUser(final UserEntity user) {
         this.user = user;
     }
 
+    /**
+     * Get receipt sales items
+     *
+     * @return sales items list
+     */
     public List<SalesItem> getSalesItems() {
         return salesItems;
     }
 
+    /**
+     * Set receipt sales items
+     *
+     * @param salesItems sales items to set
+     */
     public void setSalesItems(final List<SalesItem> salesItems) {
         this.salesItems = salesItems;
     }
@@ -49,7 +94,7 @@ public class Receipt extends BaseEntity {
         if (o == null || getClass() != o.getClass())
             return false;
 
-        Receipt receipt = (Receipt) o;
+        ReceiptEntity receipt = (ReceiptEntity) o;
 
         if (getAmount() != null ? !getAmount().equals(receipt.getAmount()) : receipt.getAmount() != null)
             return false;

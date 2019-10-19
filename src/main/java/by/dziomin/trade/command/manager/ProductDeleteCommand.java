@@ -23,7 +23,7 @@ public class ProductDeleteCommand extends PaginationCommand implements Command {
             String productId = request.getParameter("productId");
             ProductManager manager =
                     ManagerFactory.getManager(ProductManager.class);
-            manager.deleteProduct(Integer.parseInt(productId));
+            manager.deleteProduct(Long.parseLong(productId));
 
             List<ProductDTO> productDTOList = manager.getProducts();
             List<ProductDTO> productsOnPage = executePagination(request,

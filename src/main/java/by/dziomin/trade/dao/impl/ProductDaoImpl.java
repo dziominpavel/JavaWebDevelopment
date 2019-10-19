@@ -1,73 +1,92 @@
 package by.dziomin.trade.dao.impl;
 
-import by.dziomin.trade.dao.AbstractDao;
 import by.dziomin.trade.dao.DaoException;
 import by.dziomin.trade.dao.ProductDao;
-import by.dziomin.trade.entity.Measure;
-import by.dziomin.trade.entity.Product;
+import by.dziomin.trade.entity.MeasureEntity;
+import by.dziomin.trade.entity.ProductEntity;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-public class ProductDaoImpl extends AbstractDao implements ProductDao {
+/**
+ * DAO implementation for products
+ *
+ * @author - Pavel Dziomin
+ */
+public class ProductDaoImpl extends BaseDaoImpl<ProductEntity> implements ProductDao {
 
-    private final static String SQL_SELECT_All = "SELECT id,name,barcode," +
+    private static final String SQL_SELECT_ALL = "SELECT id,name,barcode," +
             "price, count, measure_id FROM PRODUCTS ORDER BY barcode";
-    private final static String SQL_SELECT_BY_ID = "SELECT id,name,barcode,price," +
+    private static final String SQL_SELECT_BY_ID = "SELECT id,name,barcode,price," +
             "count, measure_id FROM PRODUCTS WHERE id = ?";
-    private final static String SQL_SELECT_BY_BARCODE = "SELECT id,name," +
+    private static final String SQL_SELECT_BY_BARCODE = "SELECT id,name," +
             "barcode,price,count, measure_id FROM PRODUCTS WHERE barcode = ?";
-    private final static String SQL_INSERT = "INSERT INTO PRODUCTS (`name`, " +
-            "`barcode`, `price`, `count`,`measure_id`) VALUES (?, ?, ?, ?," +
+    private static final String SQL_INSERT = "INSERT INTO PRODUCTS (name, " +
+            "barcode, price, count, measure_id) VALUES (?, ?, ?, ?," +
             "?)";
-    private final static String SQL_DELETE = "DELETE FROM PRODUCTS WHERE id = ?";
-    private final static String SQL_UPDATE = "UPDATE PRODUCTS SET name = ?, barcode " +
-            "= ?, price = ?, count = ?, measure_id = ? WHERE id = ?";
+    private static final String SQL_DELETE = "DELETE FROM PRODUCTS WHERE id = ?";
+    private static final String SQL_UPDATE = "UPDATE PRODUCTS SET name = ?, " +
+            " price = ?, count = ?, measure_id = ? WHERE id = ?";
 
-
+    /**
+     * Constructor
+     *
+     * @param connection db connection
+     */
     public ProductDaoImpl(final Connection connection) {
         super(connection);
     }
 
     @Override
-    public List<Product> getAll() throws DaoException {
-        try (PreparedStatement statement = getConnection().prepareStatement(SQL_SELECT_All);
-             ResultSet resultSet = statement.executeQuery()) {
-            List<Product> productList = new ArrayList<>();
-            while (resultSet.next()) {
-                productList.add(mapQueryResult(resultSet));
-            }
-            return productList;
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
+    String getSqlSelectAll() {
+        return SQL_SELECT_ALL;
     }
 
     @Override
-    public Product getById(Integer id) throws DaoException {
-        try (PreparedStatement statement = createPreparedStatement(SQL_SELECT_BY_ID, id);
-             ResultSet resultSet = statement.executeQuery()) {
-            if (resultSet.next()) {
-                return mapQueryResult(resultSet);
-            }
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
-        return null;
+    String getSqlSelectById() {
+        return SQL_SELECT_BY_ID;
     }
 
     @Override
-    public Product getByBarcode(String barcode) throws DaoException {
+    String getSqlInsert() {
+        return SQL_INSERT;
+    }
+
+    @Override
+    String getSqlUpdate() {
+        return SQL_UPDATE;
+    }
+
+    @Override
+    String getSqlDelete() {
+        return SQL_DELETE;
+    }
+
+    @Override
+    Object[] getInsertParams(final ProductEntity entity) {
+        return new Object[]{entity.getName(),
+                entity.getBarcode(), entity.getPrice(), entity.getCount(),
+                entity.getMeasure().getId()};
+    }
+
+    @Override
+    Object[] getUpdateParams(final ProductEntity entity) {
+        return new Object[]{entity.getName(), entity.getPrice(),
+                entity.getCount(), entity.getMeasure().getId(), entity.getId()};
+    }
+
+    @Override
+    public ProductEntity getByBarcode(String barcode) throws DaoException {
         try (PreparedStatement statement =
-                     createPreparedStatement(SQL_SELECT_BY_BARCODE, barcode);
-             ResultSet resultSet = statement.executeQuery()) {
-            if (resultSet.next()) {
-                return mapQueryResult(resultSet);
+                     getConnection().prepareStatement(SQL_SELECT_BY_BARCODE)) {
+            setParameters(statement, barcode);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return mapQueryResult(resultSet);
+                }
             }
         } catch (SQLException e) {
             throw new DaoException(e);
@@ -76,51 +95,16 @@ public class ProductDaoImpl extends AbstractDao implements ProductDao {
     }
 
     @Override
-    public Integer create(final Product product) throws DaoException {
-        Object[] params = new Object[]{product.getName(),
-                product.getBarcode(), product.getPrice(), product.getCount(),
-                product.getMeasure().getId()};
-        try (PreparedStatement statement = createPreparedStatement(SQL_INSERT, params)) {
-            statement.executeUpdate();
-            return getCreatedId(statement);
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
-    }
-
-    @Override
-    public boolean delete(final Integer id) throws DaoException {
-        try (PreparedStatement statement = createPreparedStatement(SQL_DELETE,
-                id)) {
-            return statement.executeUpdate() > 0;
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
-    }
-
-    @Override
-    public boolean update(final Product product) throws DaoException {
-        Object[] params = new Object[]{product.getName(),
-                product.getBarcode(), product.getPrice(), product.getCount(),
-                product.getMeasure().getId(), product.getId()};
-        try (PreparedStatement statement = createPreparedStatement(SQL_UPDATE,
-                params)) {
-            return statement.executeUpdate() > 0;
-        } catch (SQLException e) {
-            throw new DaoException(e);
-        }
-    }
-
-    private Product mapQueryResult(final ResultSet resultSet) throws SQLException {
-        Integer id = resultSet.getInt("id");
+    protected ProductEntity mapQueryResult(final ResultSet resultSet) throws SQLException {
+        Long id = resultSet.getLong("id");
         String name = resultSet.getString("name");
         String barcode = resultSet.getString("barcode");
         BigDecimal price = resultSet.getBigDecimal("price");
         Integer count = resultSet.getInt("count");
-        Measure measure = new Measure();
-        measure.setId(resultSet.getInt("measure_id"));
+        MeasureEntity measure = new MeasureEntity();
+        measure.setId(resultSet.getLong("measure_id"));
 
-        Product entity = new Product();
+        ProductEntity entity = new ProductEntity();
         entity.setId(id);
         entity.setName(name);
         entity.setBarcode(barcode);

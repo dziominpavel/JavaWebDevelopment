@@ -1,5 +1,23 @@
 package by.dziomin.trade.entity;
 
+/**
+ * User role
+ *
+ * @author - Pavel Dziomin
+ */
 public enum Role {
-    USER, ADMIN, MANAGER
+    /**
+     * User
+     **/
+    USER,
+
+    /**
+     * Admin
+     **/
+    ADMIN,
+
+    /**
+     * Manager
+     **/
+    MANAGER
 }

@@ -75,6 +75,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>Receipts</servlet-name>
+        <jsp-file>/WEB-INF/jsp/receipts.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Receipts</servlet-name>
+        <url-pattern>/receipts</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ProductInfo</servlet-name>
         <jsp-file>/WEB-INF/jsp/productinfo.jsp</jsp-file>
     </servlet>

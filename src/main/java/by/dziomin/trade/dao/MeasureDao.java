@@ -1,8 +1,8 @@
 package by.dziomin.trade.dao;
 
-import by.dziomin.trade.entity.Measure;
+import by.dziomin.trade.entity.MeasureEntity;
 
-public interface MeasureDao extends BaseDao<Measure> {
+public interface MeasureDao extends BaseDao<MeasureEntity> {
 
-    Measure getByName(String name) throws DaoException;
+    MeasureEntity getByName(String name) throws DaoException;
 }

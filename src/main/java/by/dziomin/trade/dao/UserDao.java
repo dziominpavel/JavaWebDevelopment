@@ -1,9 +1,9 @@
 package by.dziomin.trade.dao;
 
-import by.dziomin.trade.entity.User;
+import by.dziomin.trade.entity.UserEntity;
 
-public interface UserDao extends BaseDao<User> {
+public interface UserDao extends BaseDao<UserEntity> {
 
-    User getUserByLogin(String login) throws DaoException;
+    UserEntity getUserByLogin(String login) throws DaoException;
 
 }

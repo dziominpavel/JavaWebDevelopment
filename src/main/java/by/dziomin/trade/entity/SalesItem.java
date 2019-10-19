@@ -3,24 +3,24 @@ package by.dziomin.trade.entity;
 import java.math.BigDecimal;
 
 public class SalesItem extends BaseEntity {
-    private Receipt receipt;
-    private Product product;
+    private ReceiptEntity receipt;
+    private ProductEntity product;
     private Integer count;
     private BigDecimal price;
 
-    public Receipt getReceipt() {
+    public ReceiptEntity getReceipt() {
         return receipt;
     }
 
-    public void setReceipt(final Receipt receipt) {
+    public void setReceipt(final ReceiptEntity receipt) {
         this.receipt = receipt;
     }
 
-    public Product getProduct() {
+    public ProductEntity getProduct() {
         return product;
     }
 
-    public void setProduct(final Product product) {
+    public void setProduct(final ProductEntity product) {
         this.product = product;
     }
 

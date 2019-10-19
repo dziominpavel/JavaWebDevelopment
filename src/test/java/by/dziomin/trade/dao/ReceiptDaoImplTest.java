@@ -2,7 +2,7 @@ package by.dziomin.trade.dao;
 
 import by.dziomin.trade.connection.ConnectionPool;
 import by.dziomin.trade.dao.impl.ReceiptDaoImpl;
-import by.dziomin.trade.entity.Receipt;
+import by.dziomin.trade.entity.ReceiptEntity;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,14 +31,14 @@ public class ReceiptDaoImplTest {
 
     @Test
     public void getReceiptList() throws DaoException {
-        List<Receipt> result = receiptDao.getAll();
+        List<ReceiptEntity> result = receiptDao.getAll();
         assertNotNull(result);
         assertEquals(1, result.size());
     }
 
     @Test
     public void getReceiptById() throws DaoException {
-        Receipt result = receiptDao.getById(1);
+        ReceiptEntity result = receiptDao.getById(1L);
         assertNotNull(result);
 //        assertEquals(250, result.getAmount(), 1);
     }

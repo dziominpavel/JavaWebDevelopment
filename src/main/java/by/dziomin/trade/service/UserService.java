@@ -1,73 +1,64 @@
 package by.dziomin.trade.service;
 
-import by.dziomin.trade.connection.ConnectionPool;
-import by.dziomin.trade.dao.DaoException;
-import by.dziomin.trade.dao.impl.UserDaoImpl;
-import by.dziomin.trade.entity.User;
+import by.dziomin.trade.entity.UserEntity;
 
 import java.util.List;
 
-public class UserService extends AbstractService<User> {
+/**
+ * Service for users
+ *
+ * @author - Pavel Dziomin
+ */
+public interface UserService extends Service {
+    /**
+     * Get all users
+     *
+     * @return users list
+     * @throws ServiceException service exception
+     */
+    List<UserEntity> getAllUsers() throws ServiceException;
 
-    public List<User> getAllUsers() throws ServiceException {
-        try (ConnectionPool.ProxyConnection connection = getConnection()) {
+    /**
+     * Get user by id
+     *
+     * @param id user id
+     * @return user
+     * @throws ServiceException service exception
+     */
+    UserEntity getUserById(Long id) throws ServiceException;
 
-            UserDaoImpl userDaoImpl = new UserDaoImpl(connection);
+    /**
+     * Get user by login
+     *
+     * @param login user login
+     * @return user
+     * @throws ServiceException service exception
+     */
+    UserEntity getUserByLogin(String login) throws ServiceException;
 
-            return userDaoImpl.getAll();
-        } catch (DaoException e) {
+    /**
+     * Create new user
+     *
+     * @param user user to create
+     * @return created user id
+     * @throws ServiceException service exception
+     */
+    Long createUser(UserEntity user) throws ServiceException;
 
-            throw new ServiceException("get all users error", e);
-        }
-    }
+    /**
+     * Delete user by user id
+     *
+     * @param id user id
+     * @throws ServiceException service exception
+     */
+    void deleteUser(Long id) throws ServiceException;
 
-    public User getUserById(Integer id) throws ServiceException {
-        try (ConnectionPool.ProxyConnection connection = getConnection()) {
-            UserDaoImpl userDaoImpl = new UserDaoImpl(connection);
-            return userDaoImpl.getById(id);
-        } catch (DaoException e) {
-
-            throw new ServiceException("get user by id error", e);
-        }
-    }
-
-    public User getUserByLogin(String login) throws ServiceException {
-        try (ConnectionPool.ProxyConnection connection = getConnection()) {
-            UserDaoImpl userDaoImpl = new UserDaoImpl(connection);
-            return userDaoImpl.getUserByLogin(login);
-        } catch (DaoException e) {
-
-            throw new ServiceException("get user by login error", e);
-        }
-    }
-
-    public Integer createUser(User user) throws ServiceException {
-        try (ConnectionPool.ProxyConnection connection = getConnection()) {
-            UserDaoImpl userDaoImpl = new UserDaoImpl(connection);
-            return userDaoImpl.create(user);
-        } catch (DaoException e) {
-
-            throw new ServiceException("create user error", e);
-        }
-    }
-
-    public boolean deleteUser(Integer id) throws ServiceException {
-        try (ConnectionPool.ProxyConnection connection = getConnection()) {
-            UserDaoImpl userDaoImpl = new UserDaoImpl(connection);
-            return userDaoImpl.delete(id);
-        } catch (DaoException e) {
-
-            throw new ServiceException("delete user error", e);
-        }
-    }
-
-    public boolean updateUser(User user) throws ServiceException {
-        try (ConnectionPool.ProxyConnection connection = getConnection()) {
-            UserDaoImpl userDaoImpl = new UserDaoImpl(connection);
-            return userDaoImpl.update(user);
-        } catch (DaoException e) {
-
-            throw new ServiceException("update user error", e);
-        }
-    }
+    /**
+     * Update existing user
+     *
+     * @param user user to update
+     * @throws ServiceException service exception
+     */
+    void updateUser(UserEntity user) throws ServiceException;
 }
+

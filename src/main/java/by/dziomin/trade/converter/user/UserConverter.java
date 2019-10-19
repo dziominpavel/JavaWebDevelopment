@@ -2,9 +2,9 @@ package by.dziomin.trade.converter.user;
 
 import by.dziomin.trade.converter.BaseConverter;
 import by.dziomin.trade.dto.user.UserDTO;
-import by.dziomin.trade.entity.User;
+import by.dziomin.trade.entity.UserEntity;
 
-public class UserConverter extends BaseConverter<User, UserDTO> {
+public class UserConverter extends BaseConverter<UserEntity, UserDTO> {
     private static UserConverter instance;
 
     private UserConverter() {
@@ -18,7 +18,7 @@ public class UserConverter extends BaseConverter<User, UserDTO> {
     }
 
     @Override
-    public UserDTO convert(final User entity) {
+    public UserDTO convert(final UserEntity entity) {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(entity.getId());
         userDTO.setName(entity.getName());

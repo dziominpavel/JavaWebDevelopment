@@ -12,7 +12,7 @@ function checkPass() {
 
 function makeEditable() {
     var inputs = document.querySelectorAll("input[type=text]");
-    for (var i=0; i<inputs.length; i++) {
+    for (var i = 0; i < inputs.length; i++) {
         var input = inputs[i];
         var dis = input.getAttribute("disabled");
         input.disabled = false;
@@ -25,4 +25,9 @@ function makeEditable() {
 
     var editButton = document.getElementById("edit");
     editButton.hidden = true;
+}
+
+function disableRoleDropdown() {
+    var roleSelect = document.getElementById("role");
+    roleSelect.disabled = true;
 }

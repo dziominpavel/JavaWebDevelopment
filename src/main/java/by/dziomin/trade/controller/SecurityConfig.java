@@ -11,8 +11,10 @@ import java.util.Map;
 import static by.dziomin.trade.command.AppUrls.PRODUCTS_PAGE;
 import static by.dziomin.trade.command.AppUrls.PRODUCT_EDIT_PAGE;
 import static by.dziomin.trade.command.AppUrls.PRODUCT_INFO_PAGE;
+import static by.dziomin.trade.command.AppUrls.RECEIPT_PAGE;
 import static by.dziomin.trade.command.AppUrls.SIGNIN_PAGE;
 import static by.dziomin.trade.command.AppUrls.SIGNUP_PAGE;
+import static by.dziomin.trade.command.AppUrls.USERS_PAGE;
 import static by.dziomin.trade.command.AppUrls.USER_INFO_PAGE;
 
 final class SecurityConfig {
@@ -39,13 +41,19 @@ final class SecurityConfig {
         userUrls.add(USER_INFO_PAGE);
         userUrls.add(PRODUCTS_PAGE);
         userUrls.add(PRODUCT_INFO_PAGE);
+        userUrls.add(RECEIPT_PAGE);
 
         //MANAGER
         List<String> managerUrls = new ArrayList<>(userUrls);
         managerUrls.add(PRODUCT_EDIT_PAGE);
 
+        //ADMIN
+        List<String> adminUrls = new ArrayList<>(managerUrls);
+        managerUrls.add(USERS_PAGE);
+
         mapConfig.put(Role.USER.name(), userUrls);
         mapConfig.put(Role.MANAGER.name(), managerUrls);
+        mapConfig.put(Role.ADMIN.name(), adminUrls);
     }
 
     static boolean checkAccess(String role, String url) {

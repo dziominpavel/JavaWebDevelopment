@@ -12,12 +12,13 @@ public enum Role {
     USER,
 
     /**
-     * Admin
-     **/
-    ADMIN,
-
-    /**
      * Manager
      **/
-    MANAGER
+    MANAGER,
+
+    /**
+     * Admin
+     **/
+    ADMIN
+
 }

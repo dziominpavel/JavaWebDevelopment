@@ -5,6 +5,7 @@ import by.dziomin.trade.dto.user.SessionUserDTO;
 import by.dziomin.trade.dto.user.UserCreateDTO;
 import by.dziomin.trade.dto.user.UserDTO;
 import by.dziomin.trade.dto.user.UserUpdateDTO;
+import by.dziomin.trade.entity.Role;
 import by.dziomin.trade.entity.UserEntity;
 import by.dziomin.trade.manager.BaseManager;
 import by.dziomin.trade.manager.UserManager;
@@ -63,13 +64,40 @@ public class UserManagerImpl extends BaseManager implements UserManager {
     }
 
     @Override
-    public SessionUserDTO updateUser(final UserUpdateDTO userDTO) throws ValidationException, ServiceException {
+    public Role getUserRole(final String login) throws ServiceException {
+        UserService service = ServiceFactory.getService(UserService.class);
+        Role userRole = service.getUserRole(login);
+        if (userRole == null) {
+            throw new ServiceException("USER_ROLE_UNDEFINED");
+        }
+        return userRole;
+    }
+
+    @Override
+    public SessionUserDTO updateUser(final UserUpdateDTO userDTO, final SessionUserDTO currentUser) throws ValidationException, ServiceException {
         validate(userDTO);
 
         UserService service = ServiceFactory.getService(UserService.class);
         UserEntity existingUser = service.getUserById(userDTO.getId());
         if (existingUser == null) {
-            throw new ValidationException("USER_NOT_FOUND");
+            throw new ServiceException("USER_NOT_FOUND");
+        }
+
+        UserEntity currentUserEntity =
+                service.getUserByLogin(currentUser.getLogin());
+        if (currentUserEntity == null) {
+            throw new ServiceException("USER_NOT_FOUND");
+        }
+
+        //only admin can update other users
+        if (currentUserEntity.getRole() != Role.ADMIN
+                && !currentUserEntity.getId().equals(existingUser.getId())) {
+            throw new ServiceException("NO_PERMISSIONS_TO_UPDATE_USER");
+        }
+
+        //role can be updated only by admin
+        if (currentUserEntity.getRole() != Role.ADMIN) {
+            userDTO.setRole(null);
         }
 
         UserEntity user = convert(userDTO, existingUser, UserEntity.class);
@@ -85,5 +113,15 @@ public class UserManagerImpl extends BaseManager implements UserManager {
         Converter<UserEntity, UserDTO> converter = getConverter(UserEntity.class,
                 UserDTO.class);
         return converter.convertEntityList(userList);
+    }
+
+    @Override
+    public UserDTO getUser(final Long userId) throws ValidationException, ServiceException {
+        UserService service = ServiceFactory.getService(UserService.class);
+        UserEntity userEntity = service.getUserById(userId);
+        if (userEntity == null) {
+            throw new ValidationException("USER_NOT_FOUND");
+        }
+        return convert(userEntity, UserDTO.class);
     }
 }

@@ -26,7 +26,7 @@ public class UserConverter extends BaseConverter<UserEntity, UserDTO> {
         userDTO.setRole(entity.getRole().name());
         StringBuilder password = new StringBuilder();
         for (int i = 0; i < entity.getPassword().length(); i++) {
-            password.append("/u2022");
+            password.append('\u2022');
         }
         userDTO.setPassword(password.toString());
         return userDTO;

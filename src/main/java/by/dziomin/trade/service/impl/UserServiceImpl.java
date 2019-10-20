@@ -3,6 +3,7 @@ package by.dziomin.trade.service.impl;
 import by.dziomin.trade.connection.ConnectionPool;
 import by.dziomin.trade.dao.DaoException;
 import by.dziomin.trade.dao.impl.UserDaoImpl;
+import by.dziomin.trade.entity.Role;
 import by.dziomin.trade.entity.UserEntity;
 import by.dziomin.trade.service.AbstractService;
 import by.dziomin.trade.service.ServiceException;
@@ -89,6 +90,16 @@ public class UserServiceImpl extends AbstractService implements UserService {
             userDaoImpl.update(user);
         } catch (DaoException e) {
             throw new ServiceException("update user error", e);
+        }
+    }
+
+    @Override
+    public Role getUserRole(final String login) throws ServiceException {
+        try (ConnectionPool.ProxyConnection connection = getConnection()) {
+            UserDaoImpl userDaoImpl = new UserDaoImpl(connection);
+            return userDaoImpl.getRoleByLogin(login);
+        } catch (DaoException e) {
+            throw new ServiceException("get role by login error", e);
         }
     }
 }

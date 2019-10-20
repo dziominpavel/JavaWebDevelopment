@@ -1,14 +1,23 @@
 package by.dziomin.trade.command.cashier;
 
-import by.dziomin.trade.command.Command;
+import by.dziomin.trade.command.BaseCommand;
+import by.dziomin.trade.entity.Role;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.List;
 
 import static by.dziomin.trade.command.AppUrls.HOME_PAGE;
 
-public class ReceiptCancelCommand implements Command {
+public class ReceiptCancelCommand extends BaseCommand {
+
     @Override
-    public String execute(final HttpServletRequest request) {
+    protected List<Role> getRequiredRoles() {
+        return Arrays.asList(Role.values());
+    }
+
+    @Override
+    protected String executeCheckedCommand(final HttpServletRequest request) {
         request.getSession().removeAttribute("currentReceipt");
         return HOME_PAGE;
     }

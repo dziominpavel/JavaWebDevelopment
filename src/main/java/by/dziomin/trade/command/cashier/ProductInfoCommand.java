@@ -1,22 +1,30 @@
 package by.dziomin.trade.command.cashier;
 
-import by.dziomin.trade.command.Command;
+import by.dziomin.trade.command.BaseCommand;
 import by.dziomin.trade.dto.product.ProductDTO;
+import by.dziomin.trade.entity.Role;
 import by.dziomin.trade.manager.ManagerFactory;
 import by.dziomin.trade.manager.ProductManager;
 import by.dziomin.trade.service.ServiceException;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.List;
 
 import static by.dziomin.trade.command.AppUrls.ERROR_PAGE;
 import static by.dziomin.trade.command.AppUrls.PRODUCT_INFO_PAGE;
 
-public class ProductInfoCommand implements Command {
+public class ProductInfoCommand extends BaseCommand {
     private Logger logger = Logger.getLogger(ProductInfoCommand.class);
 
     @Override
-    public String execute(final HttpServletRequest request) {
+    protected List<Role> getRequiredRoles() {
+        return Arrays.asList(Role.values());
+    }
+
+    @Override
+    protected String executeCheckedCommand(final HttpServletRequest request) {
         try {
             Long productId = Long.parseLong(request.getParameter(
                     "productId"));

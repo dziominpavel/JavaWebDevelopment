@@ -23,17 +23,32 @@ public class UserCreateValidator implements Validator<UserCreateDTO> {
 
     @Override
     public void validate(final UserCreateDTO user) throws ValidationException, ServiceException {
-        //todo validation
-        if (user.getLogin() == null || user.getLogin().isEmpty()) {
+        String login = user.getLogin();
+        if (login == null || login.isEmpty()) {
             throw new ValidationException("LOGIN_IS_EMPTY");
         }
+        String loginPattern="[A-Za-z0-9._]{4,32}";
+        if (!login.matches(loginPattern)) {
+            throw new ValidationException("WRONG_LOGIN_FORMAT");
+        }
 
-        if (user.getName() == null || user.getName().isEmpty()) {
+        String name = user.getName();
+        if (name == null || name.isEmpty()) {
             throw new ValidationException("NAME_IS_EMPTY");
         }
-        //validate login size
-        //validate password is empty
-        //validate password size
+        String namePattern = "[^<>]{8,32}";
+        if (!name.matches(namePattern)) {
+            throw new ValidationException("WRONG_NAME_FORMAT");
+        }
+
+        String password = user.getPassword();
+        if (password == null || password.isEmpty()) {
+            throw new ValidationException("PASSWORD_IS_EMPTY");
+        }
+        String passwordPattern = "[^<>]{8,32}";
+        if (!password.matches(passwordPattern)) {
+            throw new ValidationException("WRONG_PASSWORD_FORMAT");
+        }
 
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             throw new ValidationException("PASSWORD_CONFIRM_NOT_EQUALS");

@@ -14,6 +14,7 @@
     <fmt:message key="label.user.password" var="passwordLabel"/>
     <fmt:message key="label.user.confirmPassword" var="confirmPasswordLabel"/>
     <fmt:message key="label.user.name" var="nameLabel"/>
+    <fmt:message key="label.users.role" var="roleLabel"/>
     <fmt:message key="button.save" var="save"/>
     <fmt:message key="button.cancel" var="cancel"/>
 
@@ -31,23 +32,41 @@
         <h1>${pageTitle}</h1>
         <form name="loginForm" method="post" action="app">
             <input type="hidden" name="command" value="userupdate">
+            <input type="hidden" name="id" value="${requestScope.user.id}">
 
             <span>${loginLabel}</span>
-            <input type="text" name="login" maxlength="16" disabled
-                   pattern="[A-Za-z0-9._]{4,}" title="${loginFormat}" required value="${requestScope.user.login}">
+            <input type="text" name="login" maxlength="32" disabled
+                   pattern="[A-Za-z0-9._]{4,32}" title="${loginFormat}" required value="${requestScope.user.login}">
 
 
             <span>${passwordLabel}</span>
             <input type="password" name="password" maxlength="32" id="pass1"
-            pattern="[^<>]{8,}" title="${passwordFormat}" required>
+            pattern="[^<>]{8,32}" title="${passwordFormat}" required
+                   value="${requestScope.user.password}">
 
             <span>${confirmPasswordLabel}</span>
             <input type="password" name="confirm" maxlength="32" id="pass2"
-            pattern="[^<>]{8,}" title="${passwordFormat}" onkeyup="checkPass()" required>
+            pattern="[^<>]{8,32}" title="${passwordFormat}" onkeyup="checkPass()"
+                   required value="${requestScope.user.password}">
 
             <span>${nameLabel}</span>
             <input type="text" name="name" maxlength="32"
-                   pattern="[^<>]{8,}" title="${nameFormat}" required value="${requestScope.user.name}">
+                   pattern="[^<>]{8,32}" title="${nameFormat}" required value="${requestScope.user.name}">
+
+            <span>${roleLabel}</span>
+            <select name="role" id="role">
+                <c:forEach items="${requestScope.roleList}" var="roleOption">
+                    <c:choose>
+                        <c:when test="${requestScope.user.role == roleOption}">
+                            <option value="${roleOption}" selected><fmt:message key="${roleOption}"/></option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${roleOption}"><fmt:message key="${roleOption}"/></option>
+                        </c:otherwise>
+                    </c:choose>
+                </c:forEach>
+            </select>
+            <script></script>
 
             <input class="button button-blue" type="submit" value="${save}">
 
@@ -61,6 +80,10 @@
         <form action="home">
             <input class="button button-gray" type="submit" value="${cancel}">
         </form>
+
+        <c:if test="${sessionScope.currentUser.role != 'ADMIN'}">
+            <script>disableRoleDropdown()</script>
+        </c:if>
     </div>
 </div>
 </body>

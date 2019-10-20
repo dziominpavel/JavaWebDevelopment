@@ -1,5 +1,6 @@
 package by.dziomin.trade.service;
 
+import by.dziomin.trade.entity.Role;
 import by.dziomin.trade.entity.UserEntity;
 
 import java.util.List;
@@ -60,5 +61,13 @@ public interface UserService extends Service {
      * @throws ServiceException service exception
      */
     void updateUser(UserEntity user) throws ServiceException;
+
+    /**
+     * Get user role by user login
+     *
+     * @param login user login
+     * @return user role
+     */
+    Role getUserRole(String login) throws ServiceException;
 }
 

@@ -1,6 +1,6 @@
 package by.dziomin.trade.command.auth;
 
-import by.dziomin.trade.command.Command;
+import by.dziomin.trade.command.BaseCommand;
 import by.dziomin.trade.dto.user.SessionUserDTO;
 import by.dziomin.trade.dto.user.UserCreateDTO;
 import by.dziomin.trade.manager.ManagerFactory;
@@ -15,11 +15,11 @@ import static by.dziomin.trade.command.AppUrls.ERROR_PAGE;
 import static by.dziomin.trade.command.AppUrls.HOME_PAGE;
 import static by.dziomin.trade.command.AppUrls.SIGNUP_PAGE;
 
-public class RegisterUserCommand implements Command {
+public class RegisterUserCommand extends BaseCommand {
     private Logger logger = Logger.getLogger(RegisterUserCommand.class);
 
     @Override
-    public String execute(final HttpServletRequest request) {
+    protected String executeCheckedCommand(final HttpServletRequest request) {
         UserCreateDTO userDto = getUserCreateDTO(request);
         try {
             UserManager userManager =

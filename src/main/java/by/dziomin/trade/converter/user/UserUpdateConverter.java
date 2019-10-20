@@ -21,8 +21,11 @@ public class UserUpdateConverter extends BaseConverter<UserEntity, UserUpdateDTO
     public UserEntity convert(final UserUpdateDTO dto, final UserEntity existingUser) {
         existingUser.setName(dto.getName());
         String password = dto.getPassword();
-        if (!password.contains("/u2022")) {
+        if (password.indexOf('\u2022') == -1) {
             existingUser.setPassword(password);
+        }
+        if (dto.getRole() != null) {
+            existingUser.setRole(dto.getRole());
         }
         return existingUser;
     }

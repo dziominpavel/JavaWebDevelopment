@@ -1,8 +1,9 @@
 package by.dziomin.trade.command.cashier;
 
-import by.dziomin.trade.command.Command;
+import by.dziomin.trade.command.BaseCommand;
 import by.dziomin.trade.dto.receipt.ReceiptCreateDTO;
 import by.dziomin.trade.dto.receipt.ReceiptDTO;
+import by.dziomin.trade.entity.Role;
 import by.dziomin.trade.manager.ManagerFactory;
 import by.dziomin.trade.manager.ReceiptManager;
 import by.dziomin.trade.service.ServiceException;
@@ -10,15 +11,22 @@ import by.dziomin.trade.validator.ValidationException;
 import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
+import java.util.List;
 
 import static by.dziomin.trade.command.AppUrls.ERROR_PAGE;
 import static by.dziomin.trade.command.AppUrls.HOME_PAGE;
 
-public class SalesItemAddCommand implements Command {
+public class SalesItemAddCommand extends BaseCommand {
     private Logger logger = Logger.getLogger(SalesItemAddCommand.class);
 
     @Override
-    public String execute(final HttpServletRequest request) {
+    protected List<Role> getRequiredRoles() {
+        return Arrays.asList(Role.values());
+    }
+
+    @Override
+    protected String executeCheckedCommand(final HttpServletRequest request) {
         String barcode = request.getParameter("barcode");
         ReceiptDTO currentReceipt = getCurrentReceipt(request);
         try {

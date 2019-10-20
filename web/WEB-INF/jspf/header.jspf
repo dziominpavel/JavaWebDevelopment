@@ -48,10 +48,12 @@
                 <input type="hidden" name="command" value="receipts">
                 <input class="lang-button" type="submit" value="${receipts}">
             </form>
-            <form action="app">
-                <input type="hidden" name="command" value="users">
-                <input class="lang-button" type="submit" value="${users}">
-            </form>
+            <c:if test="${sessionScope.currentUser.role == 'ADMIN'}">
+                <form action="app">
+                    <input type="hidden" name="command" value="users">
+                    <input class="lang-button" type="submit" value="${users}">
+                </form>
+            </c:if>
         </c:if>
     </div>
 

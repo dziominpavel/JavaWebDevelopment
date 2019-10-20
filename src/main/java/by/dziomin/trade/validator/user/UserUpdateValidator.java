@@ -20,12 +20,23 @@ public class UserUpdateValidator implements Validator<UserUpdateDTO> {
 
     @Override
     public void validate(final UserUpdateDTO user) throws ValidationException, ServiceException {
-        if (user.getName() == null || user.getName().isEmpty()) {
+        String name = user.getName();
+        if (name == null || name.isEmpty()) {
             throw new ValidationException("NAME_IS_EMPTY");
         }
-        //validate login size
-        //validate password is empty
-        //validate password size
+        String namePattern = "[^<>]{8,32}";
+        if (!name.matches(namePattern)) {
+            throw new ValidationException("WRONG_NAME_FORMAT");
+        }
+
+        String password = user.getPassword();
+        if (password == null || password.isEmpty()) {
+            throw new ValidationException("PASSWORD_IS_EMPTY");
+        }
+        String passwordPattern = "[^<>]{8,32}";
+        if (!password.matches(passwordPattern)) {
+            throw new ValidationException("WRONG_PASSWORD_FORMAT");
+        }
 
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             throw new ValidationException("PASSWORD_CONFIRM_NOT_EQUALS");

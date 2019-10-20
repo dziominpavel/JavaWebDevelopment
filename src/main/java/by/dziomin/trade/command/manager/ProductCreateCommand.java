@@ -1,8 +1,9 @@
 package by.dziomin.trade.command.manager;
 
-import by.dziomin.trade.command.Command;
+import by.dziomin.trade.command.BaseCommand;
 import by.dziomin.trade.dto.product.ProductCreateDTO;
 import by.dziomin.trade.dto.product.ProductDTO;
+import by.dziomin.trade.entity.Role;
 import by.dziomin.trade.manager.ManagerFactory;
 import by.dziomin.trade.manager.ProductManager;
 import by.dziomin.trade.service.ServiceException;
@@ -11,15 +12,22 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
 
 import static by.dziomin.trade.command.AppUrls.ERROR_PAGE;
 import static by.dziomin.trade.command.AppUrls.PRODUCT_INFO_PAGE;
 
-public class ProductCreateCommand implements Command {
+public class ProductCreateCommand extends BaseCommand {
     private Logger logger = Logger.getLogger(ProductCreateCommand.class);
 
     @Override
-    public String execute(final HttpServletRequest request) {
+    protected List<Role> getRequiredRoles() {
+        return Arrays.asList(Role.ADMIN, Role.MANAGER);
+    }
+
+    @Override
+    protected String executeCheckedCommand(final HttpServletRequest request) {
         ProductCreateDTO productDTO = getProductDTO(request);
         try {
             ProductManager manager =

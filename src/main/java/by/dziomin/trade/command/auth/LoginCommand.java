@@ -1,6 +1,6 @@
 package by.dziomin.trade.command.auth;
 
-import by.dziomin.trade.command.Command;
+import by.dziomin.trade.command.BaseCommand;
 import by.dziomin.trade.dto.user.SessionUserDTO;
 import by.dziomin.trade.manager.ManagerFactory;
 import by.dziomin.trade.manager.UserManager;
@@ -14,11 +14,11 @@ import static by.dziomin.trade.command.AppUrls.ERROR_PAGE;
 import static by.dziomin.trade.command.AppUrls.HOME_PAGE;
 import static by.dziomin.trade.command.AppUrls.SIGNIN_PAGE;
 
-public class LoginCommand implements Command {
+public class LoginCommand extends BaseCommand {
     private Logger logger = Logger.getLogger(LoginCommand.class);
 
     @Override
-    public String execute(final HttpServletRequest request) {
+    protected String executeCheckedCommand(final HttpServletRequest request) {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
         try {

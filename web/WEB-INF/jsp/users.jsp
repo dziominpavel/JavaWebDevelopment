@@ -49,7 +49,7 @@
                             <td>${user.id}</td>
                             <td>${user.name}</td>
                             <td>${user.login}</td>
-                            <td>${user.role}</td>
+                            <td><fmt:message key="${user.role}"/></td>
                             <td>
                                 <form action="app">
                                     <input type="hidden" name="command" value="userinfo">

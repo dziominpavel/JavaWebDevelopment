@@ -28,6 +28,7 @@ public class UserDaoImpl extends BaseDaoImpl<UserEntity> implements UserDao {
     private static final String SQL_DELETE = "DELETE FROM USER WHERE id = ?";
     private static final String SQL_UPDATE = "UPDATE USER SET name = ?, password = ?," +
             " role = ? WHERE id = ?";
+    private static final String SQL_SELECT_ROLE_BY_LOGIN = "SELECT role FROM USER WHERE login = ?";
 
     /**
      * Constructor
@@ -83,6 +84,22 @@ public class UserDaoImpl extends BaseDaoImpl<UserEntity> implements UserDao {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return mapQueryResult(resultSet);
+                }
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
+        return null;
+    }
+
+    @Override
+    public Role getRoleByLogin(final String login) throws DaoException {
+        try (PreparedStatement statement =
+                     getConnection().prepareStatement(SQL_SELECT_ROLE_BY_LOGIN)) {
+            setParameters(statement, login);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return Role.valueOf(resultSet.getString("role").toUpperCase());
                 }
             }
         } catch (SQLException e) {

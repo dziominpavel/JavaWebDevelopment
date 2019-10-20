@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class PaginationCommand {
+public abstract class PaginationCommand extends BaseCommand {
     private static final String NUMBER_REGEX = "^\\d+$";
     private static final int RECORDS_PER_PAGE = 10;
 

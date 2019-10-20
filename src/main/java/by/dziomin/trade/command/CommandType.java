@@ -1,5 +1,6 @@
 package by.dziomin.trade.command;
 
+import by.dziomin.trade.command.admin.UsersCommand;
 import by.dziomin.trade.command.auth.LoginCommand;
 import by.dziomin.trade.command.auth.LogoutCommand;
 import by.dziomin.trade.command.auth.RegisterUserCommand;
@@ -11,7 +12,6 @@ import by.dziomin.trade.command.cashier.ReceiptsCommand;
 import by.dziomin.trade.command.cashier.SalesItemAddCommand;
 import by.dziomin.trade.command.cashier.UserInfoCommand;
 import by.dziomin.trade.command.cashier.UserUpdateCommand;
-import by.dziomin.trade.command.cashier.UsersCommand;
 import by.dziomin.trade.command.manager.ProductCreateCommand;
 import by.dziomin.trade.command.manager.ProductDeleteCommand;
 import by.dziomin.trade.command.manager.ProductUpdateCommand;

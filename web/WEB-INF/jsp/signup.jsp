@@ -28,19 +28,22 @@
     <div class="input-container">
         <form name="loginForm" method="post" action="app">
             <input type="hidden" name="command" value="register">
+
             <span>${loginLabel}</span>
-            <input type="text" name="login" maxlength="16"
-                   pattern="[A-Za-z0-9._]{4,}" title="${loginFormat}" required>
-            <input type="text" name="name" maxlength="32"
-                   pattern="[^<>]{8,}" title="${nameFormat}" required>  <span>${passwordLabel}</span>
+            <input type="text" name="login" maxlength="32"
+                   pattern="[A-Za-z0-9._]{4,32}" title="${loginFormat}" required>
+
+            <span>${passwordLabel}</span>
             <input type="password" name="password" maxlength="32" id="pass1"
-                   pattern="[^<>]{8,}" title="${passwordFormat}" required>
+                   pattern="[^<>]{8,32}" title="${passwordFormat}" required>
+
             <span>${confirmPasswordLabel}</span>
             <input type="password" name="confirm" maxlength="32" id="pass2"
-                   pattern="[^<>]{8,}" title="${passwordFormat}" onkeyup="checkPass()" required>
+                   pattern="[^<>]{8,32}" title="${passwordFormat}" onkeyup="checkPass()" required>
+
             <span>${nameLabel}</span>
             <input type="text" name="name" maxlength="32"
-                   pattern="[^<>]{8,}" title="${nameFormat}" required>
+                   pattern="[^<>]{8,32}" title="${nameFormat}" required>
 
             <input class="button button-gray" type="submit" value="${save}">
 

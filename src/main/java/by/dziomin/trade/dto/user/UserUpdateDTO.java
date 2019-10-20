@@ -1,12 +1,14 @@
 package by.dziomin.trade.dto.user;
 
 import by.dziomin.trade.dto.BaseDTO;
+import by.dziomin.trade.entity.Role;
 
 public class UserUpdateDTO extends BaseDTO {
 
     private String name;
     private String password;
     private String confirmPassword;
+    private Role role;
 
     public String getName() {
         return name;
@@ -30,5 +32,13 @@ public class UserUpdateDTO extends BaseDTO {
 
     public void setConfirmPassword(final String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(final Role role) {
+        this.role = role;
     }
 }

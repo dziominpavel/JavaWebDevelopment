@@ -2,7 +2,7 @@
 -- Data for table `trade`.`user`
 -- -----------------------------------------------------
 USE `trade`;
-INSERT INTO user (`name`, `login`, `password`, `role`) VALUES ('Ivanov Ivan', 'ivanov', '11111111', 'ADMIN');
+INSERT INTO user (`name`, `login`, `password`, `role`) VALUES ('admin admin', 'admin', 'Admin123', 'ADMIN');
 
 -- -----------------------------------------------------
 -- Data for table `trade`.`measure`

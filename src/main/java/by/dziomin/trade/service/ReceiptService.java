@@ -27,4 +27,11 @@ public interface ReceiptService extends Service {
      * @throws ServiceException service exception
      */
     List<ReceiptEntity> getAllReceipts() throws ServiceException;
+
+    /**
+     * Get receipt by receipt ID
+     * @param receiptId receipt id
+     * @return receipt
+     */
+    ReceiptEntity getReceiptById(Long receiptId) throws ServiceException;
 }

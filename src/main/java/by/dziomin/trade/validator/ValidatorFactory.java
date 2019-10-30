@@ -15,6 +15,11 @@ import by.dziomin.trade.validator.user.UserUpdateValidator;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Validator factory
+ *
+ * @author - Pavel Dziomin
+ */
 public final class ValidatorFactory {
     private static Map<Class, Validator> validators;
 

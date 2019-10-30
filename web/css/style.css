@@ -195,10 +195,8 @@ body {
 }
 
 .header .currentusername {
-    position: absolute;
     left: 150px;
     width: 20%;
-    height: 100%;
     font-size: xx-large;
     font-style: italic;
     float: left;
@@ -220,64 +218,6 @@ body {
 
 .header .lang-button-container .lang-button:hover {
     background-color: rgba(5, 202, 255, 1);
-}
-
-/*КАРТОЧКА ТАТУ*/
-
-.tattoo-card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-}
-
-.tatoo-card {
-    width: 15vw;
-    height: 25vw;
-    min-width: 210px;
-    min-height: 350px;
-    background-color: white;
-    margin: 20px 30px;
-
-}
-
-.tattoo-card-button {
-    margin: 0;
-}
-
-.tatoo-card .delete-button {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 1.5em;
-    height: 1.5em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #b1adac;
-    cursor: pointer;
-}
-
-.tatoo-card .img-container {
-    align-items: center;
-    width: 100%;
-    height: 60%;
-    overflow: hidden;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    background-color: #000;
-}
-
-.tatoo-card .img-container img.wide {
-
-    max-height: 100%;
-    height: auto;
-}
-
-.tatoo-card .img-container img.tall {
-
-    max-width: 100%;
-    width: auto;
 }
 
 .info-container {
@@ -329,25 +269,6 @@ body {
     background-color: rgba(5, 202, 255, 1);
 }
 
-/*РЕЙТИНГ*/
-.rating {
-    unicode-bidi: bidi-override;
-    direction: rtl;
-}
-
-.rating > span {
-    display: inline-block;
-    position: relative;
-    width: 1.1em;
-}
-
-.rating > span:hover:before,
-.rating > span:hover ~ span:before {
-    color: #ffdd00;
-    content: "\2605";
-    position: absolute;
-}
-
 .page-number-container {
     display: flex;
     flex-direction: row;
@@ -395,35 +316,6 @@ body {
     transition: all 0.3s ease;
 }
 
-/* ЗАКАЗЫ */
-
-.offer-card {
-    width: 40%;
-    height: 35vh;
-}
-
-.offer-card .info-container {
-    height: 30vh;
-    width: 100%;
-    background-color: aqua;
-}
-
-.offer-card .button-container input {
-    height: 5vh;
-    background-color: rgba(5, 202, 255, 0.7);
-    width: 100%;
-    padding: 1em;
-    text-transform: uppercase;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.offer-card .button-container input:hover {
-    background-color: rgba(5, 202, 255, 1);
-}
-
 /*ORDER*/
 .order-card-container {
     width: 100%;
@@ -436,38 +328,11 @@ body {
 .order-card-container .order-card {
     width: 140vh;
     height: 80vh;
-    display: flex;
-}
-
-.order-card_img-container {
-    width: 60%;
+    display: contents;
 }
 
 .order-card_info-container {
     width: 40%;
-}
-
-.order-card_img-container {
-    overflow: hidden;
-    margin: 0 auto;
-    position: relative;
-    background-color: rgba(50, 50, 51, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.order-card_img-container img.photo {
-    max-height: 100%;
-    max-width: 100%;
-}
-
-.order-card_img-container img.photo.tall {
-    min-height: 70vh;
-}
-
-.order-card_img-container img.photo.wide {
-    min-width: 84vh;
 }
 
 .order-card_info-container {
@@ -547,97 +412,10 @@ body {
     text-align: left;
 }
 
-/*USER ROOM*/
-
-.user-cabinet-container {
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.user-cabinet-container .user-card-container {
-    width: 80%;
-    height: 65%;
-    display: flex;
-    flex-direction: column;
-}
-
-.user-cabinet-container .user-card-container .username {
-    font-size: 2.5em;
-    font-weight: bold;
-    color: #fff;
-    margin-bottom: 0.2em;
-}
-
-.user-cabinet-container .user-card-container .user-card {
-    height: 80%;
-    background-color: rgba(50, 50, 51, 0.5);
-    color: #fff;
-    padding: 1em;
-
-}
-
-.user-cabinet-container .user-card-container .user-card .info {
-
-}
-
-.user-cabinet-container .user-card-container .user-card .info .key {
-    font-weight: bold;
-}
-
-.user-cabinet-container .user-card-container .user-card .info .key:after {
-    content: ':';
-}
-
-.user-cabinet-container .user-card-container .user-card form input[type=submit] {
-    width: 15em;
-    padding: 2em;
-    text-transform: uppercase;
-    color: #fff;
-    text-align: center;
-    border: none;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.user-cabinet-container .user-card-container .user-card .button-container {
-    width: 100%;
-    height: 30%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.user-cabinet-container .user-card-container .user-card form input[type=submit].blue {
-    background-color: rgba(5, 202, 255, 0.7);
-}
-
-.user-cabinet-container .user-card-container .user-card form input[type=submit].blue:hover {
-    background-color: rgba(5, 202, 255, 1);
-}
-
-.user-cabinet-container .user-card-container .user-card form input[type=submit].gray {
-    background-color: rgba(179, 179, 179, 0.7);
-}
-
-.user-cabinet-container .user-card-container .user-card form input[type=submit].gray:hover {
-    background-color: rgba(179, 179, 179, 1);
-}
-
-/*OFFER*/
-.offer-offer-table input, .offer-offer-table select {
-    min-width: 13em;
-}
-
-.upload-offer-table input, .upload-offer-table select {
-    min-width: 18.75em;
-}
-
 .info-table-container {
     width: 80%;
-    height: 100%;
+    min-height: 85vh;
+    height: auto;
     margin: auto;
     color: white;
 }
@@ -646,8 +424,8 @@ body {
     display: flex;
 }
 
-.info-table-container span p{
-    color: rgba(67,67,68,0.81);
+.info-table-container span p {
+    color: rgba(67, 67, 68, 0.81);
     width: 90%;
     font-size: 2em;
 }
@@ -659,6 +437,12 @@ body {
     margin-right: 1em;
 }
 
+.info-table-container span form.button-right span p {
+    color: rgba(67, 67, 68, 0.81);
+    font-size: 1.5em;
+    margin: 0.5em;
+}
+
 .info-table-container span form.button-center {
     display: flex;
     margin-block-start: 2em;
@@ -667,12 +451,12 @@ body {
     flex: auto;
 }
 
-.info-table-container span form input[type=text]{
+.info-table-container span form input[type=text] {
     height: 50px;
     font-size: x-large;
 }
 
-.info-table-container span form input[type=submit]{
+.info-table-container span form input[type=submit] {
     flex: 1;
     width: 200px;
     height: 50px;
@@ -691,7 +475,7 @@ body {
     background-color: rgba(5, 202, 255, 1);
 }
 
-.info-table-container span form input[type=submit].gray{
+.info-table-container span form input[type=submit].gray {
     background-color: rgba(179, 179, 179, 0.7);
 }
 
@@ -717,10 +501,12 @@ body {
 
 .info-table-container table th {
     background-color: rgba(28, 28, 29, 0.5);
+    height: 6vh
 }
 
 .info-table-container table td {
     background-color: rgba(50, 50, 51, 0.5);
+    height: 6vh
 }
 
 .info-table-container table tr:nth-child(even) {
@@ -747,31 +533,10 @@ body {
     background-color: rgba(5, 202, 255, 1);
 }
 
-.inputfile {
-    width: 0.1px;
-    height: 0.1px;
-    opacity: 0;
-    overflow: hidden;
-    position: absolute;
-    z-index: -1;
+.info-table-container table td form input[type=submit].red {
+    background-color: rgba(179, 32, 26, 0.7);
 }
 
-.inputfile + label {
-    text-align: center;
-    text-transform: uppercase;
-    padding: 0.5em;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    opacity: 0.95;
-    color: #fff;
-    font-size: 1em;
-    box-shadow: 0 0 0 #fff inset;
-    background-color: rgba(5, 202, 255, 0.7);
-}
-
-.inputfile:focus + label {
-}
-
-.inputfile + label:hover {
-    background-color: rgba(5, 202, 255, 1);
+.info-table-container table td form input[type=submit].red:hover {
+    background-color: rgb(179, 42, 37);
 }

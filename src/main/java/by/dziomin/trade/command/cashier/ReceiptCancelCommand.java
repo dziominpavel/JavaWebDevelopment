@@ -9,6 +9,11 @@ import java.util.List;
 
 import static by.dziomin.trade.command.AppUrls.HOME_PAGE;
 
+/**
+ * Command to cancel receipt
+ *
+ * @author - Pavel Dziomin
+ */
 public class ReceiptCancelCommand extends BaseCommand {
 
     @Override

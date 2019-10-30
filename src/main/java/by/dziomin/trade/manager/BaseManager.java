@@ -9,10 +9,15 @@ import by.dziomin.trade.validator.ValidationException;
 import by.dziomin.trade.validator.Validator;
 import by.dziomin.trade.validator.ValidatorFactory;
 
+/**
+ * Base manager
+ *
+ * @author - Pavel Dziomin
+ */
 public abstract class BaseManager {
 
     @SuppressWarnings("unchecked")
-    protected <D extends BaseDTO> void validate(D dto) throws ValidationException, ServiceException {
+    protected <D extends BaseDTO> void validate(final D dto) throws ValidationException, ServiceException {
         Class<D> dtoClass = (Class<D>) dto.getClass();
         Validator<D> validator = ValidatorFactory.getValidator(dtoClass);
         validator.validate(dto);
@@ -26,7 +31,8 @@ public abstract class BaseManager {
     }
 
     @SuppressWarnings("unchecked")
-    protected <T extends BaseEntity, D extends BaseDTO> T convert(D dto, Class<T> classTo) {
+    protected <T extends BaseEntity,
+            D extends BaseDTO> T convert(final D dto, final Class<T> classTo) {
         Class<D> classFrom = (Class<D>) dto.getClass();
         Converter<T, D> converter = getConverter(classTo, classFrom);
         return converter.convert(dto);

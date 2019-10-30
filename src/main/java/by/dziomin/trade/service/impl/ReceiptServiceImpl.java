@@ -18,7 +18,12 @@ import by.dziomin.trade.service.AbstractService;
 import by.dziomin.trade.service.ReceiptService;
 import by.dziomin.trade.service.ServiceException;
 
+import java.sql.SQLException;
 import java.util.List;
+
+import static by.dziomin.trade.util.ErrorMessages.GET_ALL_USERS_ERROR;
+import static by.dziomin.trade.util.ErrorMessages.GET_PRODUCT_BY_ID_ERROR;
+import static by.dziomin.trade.util.ErrorMessages.PRODUCT_CREATE_ERROR;
 
 /**
  * Implementation of Receipt Service
@@ -42,6 +47,7 @@ public class ReceiptServiceImpl extends AbstractService implements ReceiptServic
     @Override
     public ReceiptEntity createReceipt(final ReceiptEntity receipt) throws ServiceException {
         try (ConnectionPool.ProxyConnection connection = getConnection()) {
+            connection.setAutoCommit(false);
             ReceiptDao receiptDao = new ReceiptDaoImpl(connection);
             SalesItemDao salesItemDao = new SalesItemDaoImpl(connection);
             ProductDao productDao = new ProductDaoImpl(connection);
@@ -64,9 +70,10 @@ public class ReceiptServiceImpl extends AbstractService implements ReceiptServic
                 product.setCount(countInStock);
                 productDao.update(product);
             }
+            connection.commit();
             return created;
-        } catch (DaoException e) {
-            throw new ServiceException("Product create error", e);
+        } catch (DaoException | SQLException e) {
+            throw new ServiceException(PRODUCT_CREATE_ERROR, e);
         }
     }
 
@@ -78,7 +85,34 @@ public class ReceiptServiceImpl extends AbstractService implements ReceiptServic
 
             return receiptDaoImpl.getAll();
         } catch (DaoException e) {
-            throw new ServiceException("get all users error", e);
+            throw new ServiceException(GET_ALL_USERS_ERROR, e);
+        }
+    }
+
+    @Override
+    public ReceiptEntity getReceiptById(final Long id) throws ServiceException {
+        try (ConnectionPool.ProxyConnection connection = getConnection()) {
+            ReceiptDao receiptDao = new ReceiptDaoImpl(connection);
+            ReceiptEntity receiptEntity = receiptDao.getById(id);
+
+            SalesItemDao salesItemDao = new SalesItemDaoImpl(connection);
+            List<SalesItem> salesItems = salesItemDao.getByReceiptId(id);
+
+            ProductDao productDao = new ProductDaoImpl(connection);
+            for (SalesItem salesItem : salesItems) {
+                ProductEntity productEntity =
+                        productDao.getById(salesItem.getProduct().getId());
+                salesItem.setProduct(productEntity);
+            }
+            receiptEntity.setSalesItems(salesItems);
+
+            UserDao userDao = new UserDaoImpl(connection);
+            UserEntity user = userDao.getById(receiptEntity.getUser().getId());
+            receiptEntity.setUser(user);
+
+            return receiptEntity;
+        } catch (DaoException e) {
+            throw new ServiceException(GET_PRODUCT_BY_ID_ERROR, e);
         }
     }
 }

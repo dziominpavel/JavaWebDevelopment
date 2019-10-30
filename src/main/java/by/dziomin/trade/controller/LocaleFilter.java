@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Filter to manage user locale
+ *
+ * @author - Pavel Dziomin
+ */
 @WebFilter("/locale")
 public class LocaleFilter implements Filter {
     @Override

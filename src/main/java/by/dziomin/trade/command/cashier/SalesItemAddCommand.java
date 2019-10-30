@@ -8,7 +8,8 @@ import by.dziomin.trade.manager.ManagerFactory;
 import by.dziomin.trade.manager.ReceiptManager;
 import by.dziomin.trade.service.ServiceException;
 import by.dziomin.trade.validator.ValidationException;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -17,8 +18,13 @@ import java.util.List;
 import static by.dziomin.trade.command.AppUrls.ERROR_PAGE;
 import static by.dziomin.trade.command.AppUrls.HOME_PAGE;
 
+/**
+ * Command to add sales item to receipt
+ *
+ * @author - Pavel Dziomin
+ */
 public class SalesItemAddCommand extends BaseCommand {
-    private Logger logger = Logger.getLogger(SalesItemAddCommand.class);
+    private Logger logger = LogManager.getLogger();
 
     @Override
     protected List<Role> getRequiredRoles() {
@@ -28,11 +34,13 @@ public class SalesItemAddCommand extends BaseCommand {
     @Override
     protected String executeCheckedCommand(final HttpServletRequest request) {
         String barcode = request.getParameter("barcode");
+        Integer countToAdd = getCountToAdd(request);
+
         ReceiptDTO currentReceipt = getCurrentReceipt(request);
         try {
             ReceiptManager receiptManager =
                     ManagerFactory.getManager(ReceiptManager.class);
-            receiptManager.addSalesItem(barcode, currentReceipt);
+            receiptManager.addSalesItem(barcode, countToAdd, currentReceipt);
             request.getSession().setAttribute("currentReceipt", currentReceipt);
             request.setAttribute("barcode", barcode);
         } catch (ValidationException e) {
@@ -44,6 +52,14 @@ public class SalesItemAddCommand extends BaseCommand {
             return ERROR_PAGE;
         }
         return HOME_PAGE;
+    }
+
+    private Integer getCountToAdd(final HttpServletRequest request) {
+        String countToAdd = request.getParameter("countToAdd");
+        if (countToAdd == null || countToAdd.isEmpty()) {
+            return 1;
+        }
+        return Integer.parseInt(countToAdd);
     }
 
     private ReceiptDTO getCurrentReceipt(final HttpServletRequest request) {

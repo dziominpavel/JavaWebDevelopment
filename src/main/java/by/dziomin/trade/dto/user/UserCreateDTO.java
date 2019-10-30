@@ -2,6 +2,11 @@ package by.dziomin.trade.dto.user;
 
 import by.dziomin.trade.dto.BaseDTO;
 
+/**
+ * DTO to create user
+ *
+ * @author - Pavel Dziomin
+ */
 public class UserCreateDTO extends BaseDTO {
     private String name;
     private String login;

@@ -36,10 +36,10 @@ public class MeasureDaoImplTest {
     }
 
     @Test
-    public void getMeasureList() throws DaoException {
+    public void getMeasureListTest() throws DaoException {
         List<MeasureEntity> result = measureDao.getAll();
         assertNotNull(result);
-        assertEquals(9, result.size());
+        assertEquals(8, result.size());
     }
 
     @Test
@@ -62,7 +62,7 @@ public class MeasureDaoImplTest {
     }
 
     @Test
-    public void deleteMeasureTest() throws DaoException {
+    public void DeleteMeasureTest() throws DaoException {
         MeasureEntity existing = measureDao.getByName("мешок 5кг");
         assertNotNull(existing);
         measureDao.delete(existing.getId());

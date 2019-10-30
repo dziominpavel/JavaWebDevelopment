@@ -6,6 +6,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import static by.dziomin.trade.command.AppUrls.SIGNIN_PAGE;
 
+/**
+ * Command to logout
+ *
+ * @author - Pavel Dziomin
+ */
 public class LogoutCommand extends BaseCommand {
     @Override
     protected String executeCheckedCommand(final HttpServletRequest request) {

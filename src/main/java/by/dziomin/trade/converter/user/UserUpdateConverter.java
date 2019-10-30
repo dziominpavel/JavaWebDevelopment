@@ -4,6 +4,11 @@ import by.dziomin.trade.converter.BaseConverter;
 import by.dziomin.trade.dto.user.UserUpdateDTO;
 import by.dziomin.trade.entity.UserEntity;
 
+/**
+ * Converter for UserEntity and UserUpdateDTO
+ *
+ * @author - Pavel Dziomin
+ */
 public class UserUpdateConverter extends BaseConverter<UserEntity, UserUpdateDTO> {
     private static UserUpdateConverter instance;
 

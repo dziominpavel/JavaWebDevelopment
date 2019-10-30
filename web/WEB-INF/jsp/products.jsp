@@ -21,6 +21,8 @@
     <fmt:message key="label.product.empty" var="emptyProductList"/>
     <fmt:message key="button.product.open" var="open"/>
     <fmt:message key="button.product.create" var="create"/>
+    <fmt:message key="button.product.search" var="search"/>
+    <fmt:message key="button.product.addToReceipt" var="addToReceipt"/>
 
     <c:set var="pagination" value="products" scope="request" />
 
@@ -34,6 +36,16 @@
         <p class="title">
             ${pageTitle}: ${page}
         </p>
+        <form action="app" method="post" class="button-right" style="margin-block-start: 0.9em">
+            <c:if test="${not empty requestScope.wrongData}">
+            <span class="errorMsg" style="margin: 0.5em;">
+                <fmt:message key="${requestScope.wrongData}"/>
+            </span>
+            </c:if>
+            <input type="hidden" name="command" value="products">
+            <input type="text" name="searchText" maxlength="32" value="${sessionScope.searchText}">
+            <input type="submit" value="${search}" style="margin-block-start: 0;">
+        </form>
         <form action="productinfo">
             <input type="submit" value="${create}">
         </form>
@@ -49,6 +61,7 @@
                         <th>${count}</th>
                         <th>${price}</th>
                         <th></th>
+                        <th></th>
                     </tr>
                     <c:forEach var="product" items="${requestScope.products}">
                         <tr>
@@ -62,6 +75,13 @@
                                     <input type="hidden" name="command" value="productinfo">
                                     <input type="hidden" name="productId" value="${product.id}">
                                     <input type="submit" value="${open}">
+                                </form>
+                            </td>
+                            <td>
+                                <form action="app">
+                                    <input type="hidden" name="command" value="addSalesItem">
+                                    <input type="hidden" name="barcode" value="${product.barcode}">
+                                    <input type="submit" value="${addToReceipt}">
                                 </form>
                             </td>
                         </tr>

@@ -7,7 +7,8 @@ import by.dziomin.trade.manager.ManagerFactory;
 import by.dziomin.trade.manager.UserManager;
 import by.dziomin.trade.service.ServiceException;
 import by.dziomin.trade.validator.ValidationException;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,8 +16,13 @@ import static by.dziomin.trade.command.AppUrls.ERROR_PAGE;
 import static by.dziomin.trade.command.AppUrls.HOME_PAGE;
 import static by.dziomin.trade.command.AppUrls.SIGNUP_PAGE;
 
+/**
+ * Command to register user
+ *
+ * @author - Pavel Dziomin
+ */
 public class RegisterUserCommand extends BaseCommand {
-    private Logger logger = Logger.getLogger(RegisterUserCommand.class);
+    private Logger logger = LogManager.getLogger();
 
     @Override
     protected String executeCheckedCommand(final HttpServletRequest request) {

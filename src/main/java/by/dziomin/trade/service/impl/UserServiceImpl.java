@@ -11,6 +11,14 @@ import by.dziomin.trade.service.UserService;
 
 import java.util.List;
 
+import static by.dziomin.trade.util.ErrorMessages.CREATE_USER_ERROR;
+import static by.dziomin.trade.util.ErrorMessages.DELETE_USER_ERROR;
+import static by.dziomin.trade.util.ErrorMessages.GET_ALL_USERS_ERROR;
+import static by.dziomin.trade.util.ErrorMessages.GET_ROLE_BY_LOGIN_ERROR;
+import static by.dziomin.trade.util.ErrorMessages.GET_USER_BY_ID_ERROR;
+import static by.dziomin.trade.util.ErrorMessages.GET_USER_BY_LOGIN_ERROR;
+import static by.dziomin.trade.util.ErrorMessages.UPDATE_USER_ERROR;
+
 /**
  * Implementation of User Service
  *
@@ -39,7 +47,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
             return userDaoImpl.getAll();
         } catch (DaoException e) {
 
-            throw new ServiceException("get all users error", e);
+            throw new ServiceException(GET_ALL_USERS_ERROR, e);
         }
     }
 
@@ -49,7 +57,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
             UserDaoImpl userDaoImpl = new UserDaoImpl(connection);
             return userDaoImpl.getById(id);
         } catch (DaoException e) {
-            throw new ServiceException("get user by id error", e);
+            throw new ServiceException(GET_USER_BY_ID_ERROR, e);
         }
     }
 
@@ -59,7 +67,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
             UserDaoImpl userDaoImpl = new UserDaoImpl(connection);
             return userDaoImpl.getUserByLogin(login);
         } catch (DaoException e) {
-            throw new ServiceException("get user by login error", e);
+            throw new ServiceException(GET_USER_BY_LOGIN_ERROR, e);
         }
     }
 
@@ -69,7 +77,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
             UserDaoImpl userDaoImpl = new UserDaoImpl(connection);
             return userDaoImpl.create(user);
         } catch (DaoException e) {
-            throw new ServiceException("create user error", e);
+            throw new ServiceException(CREATE_USER_ERROR, e);
         }
     }
 
@@ -79,7 +87,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
             UserDaoImpl userDaoImpl = new UserDaoImpl(connection);
             userDaoImpl.delete(id);
         } catch (DaoException e) {
-            throw new ServiceException("delete user error", e);
+            throw new ServiceException(DELETE_USER_ERROR, e);
         }
     }
 
@@ -89,7 +97,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
             UserDaoImpl userDaoImpl = new UserDaoImpl(connection);
             userDaoImpl.update(user);
         } catch (DaoException e) {
-            throw new ServiceException("update user error", e);
+            throw new ServiceException(UPDATE_USER_ERROR, e);
         }
     }
 
@@ -99,7 +107,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
             UserDaoImpl userDaoImpl = new UserDaoImpl(connection);
             return userDaoImpl.getRoleByLogin(login);
         } catch (DaoException e) {
-            throw new ServiceException("get role by login error", e);
+            throw new ServiceException(GET_ROLE_BY_LOGIN_ERROR, e);
         }
     }
 }

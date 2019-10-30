@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Abstract DAO
+ * Abstract DAO.
  *
  * @author - Pavel Dziomin
  */
@@ -18,16 +18,16 @@ public abstract class AbstractDao {
     private Connection connection;
 
     /**
-     * Constructor
+     * Constructor.
      *
-     * @param connection db connection
+     * @param newConnection db connection
      */
-    public AbstractDao(final Connection connection) {
-        this.connection = connection;
+    public AbstractDao(final Connection newConnection) {
+        connection = newConnection;
     }
 
     /**
-     * Get db connection
+     * Get db connection.
      *
      * @return db connection
      */

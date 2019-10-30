@@ -59,7 +59,7 @@ public class ProductDaoImplTest {
         MeasureEntity measure = new MeasureEntity();
         measure.setId(6L);
         entity.setMeasure(measure);
-        entity.setBarcode("4446");
+        entity.setBarcode("4447");
         entity.setCount(40);
         BigDecimal price = BigDecimal.valueOf(45.5);
         entity.setPrice(price);
@@ -70,24 +70,24 @@ public class ProductDaoImplTest {
         assertNotNull(created);
         assertEquals("Гвозди 5х60", created.getName());
         assertEquals(Long.valueOf(6), created.getMeasure().getId());
-        assertEquals("4446", created.getBarcode());
+        assertEquals("4447", created.getBarcode());
         assertEquals(Integer.valueOf(40), created.getCount());
         assertEquals(0, price.compareTo(created.getPrice()));
     }
 
     @Test
     public void deleteProductTest() throws DaoException {
-        ProductEntity existing = productDao.getByBarcode("4446");
+        ProductEntity existing = productDao.getByBarcode("4447");
         assertNotNull(existing);
         productDao.delete(existing.getId());
-        ProductEntity deleted = productDao.getByBarcode("4446");
+        ProductEntity deleted = productDao.getByBarcode("4447");
         assertNull(deleted);
     }
 
     @Test
     public void updateProductTest() throws DaoException {
         ProductEntity entity = new ProductEntity();
-        entity.setId(7L);
+        entity.setId(10L);
         entity.setName("Гвозди 5х70");
         MeasureEntity measure = new MeasureEntity();
         measure.setId(6L);
@@ -97,18 +97,18 @@ public class ProductDaoImplTest {
         entity.setPrice(price);
 
         productDao.update(entity);
-        ProductEntity updated = productDao.getById(7L);
+        ProductEntity updated = productDao.getById(10L);
         assertEquals("Гвозди 5х70", updated.getName());
         assertEquals(Long.valueOf(6), updated.getMeasure().getId());
-        assertEquals("4444", updated.getBarcode());
+        assertEquals("5556", updated.getBarcode());
         assertEquals(Integer.valueOf(50), updated.getCount());
         assertEquals(0, price.compareTo(updated.getPrice()));
     }
 
     @Test
     public void getByBarcodeTest() throws DaoException {
-        ProductEntity result = productDao.getByBarcode("4444");
+        ProductEntity result = productDao.getByBarcode("5556");
         assertNotNull(result);
-        assertEquals("4444", result.getBarcode());
+        assertEquals("5556", result.getBarcode());
     }
 }

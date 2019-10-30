@@ -61,4 +61,11 @@ public interface ProductService extends Service {
      */
     void deleteProduct(Long productId) throws ServiceException;
 
+    /**
+     * Search products by name or barcode
+     * @param text search text
+     * @return product list
+     */
+    List<ProductEntity> searchProducts(final String text) throws ServiceException;
+
 }

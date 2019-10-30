@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * DAO implementation for products
@@ -30,6 +32,9 @@ public class ProductDaoImpl extends BaseDaoImpl<ProductEntity> implements Produc
     private static final String SQL_DELETE = "DELETE FROM PRODUCTS WHERE id = ?";
     private static final String SQL_UPDATE = "UPDATE PRODUCTS SET name = ?, " +
             " price = ?, count = ?, measure_id = ? WHERE id = ?";
+    private static final String SQL_SEARCH = "SELECT id,name,barcode," +
+            "price, count, measure_id FROM PRODUCTS WHERE name LIKE ? OR " +
+            "barcode LIKE ? ORDER BY barcode";
 
     /**
      * Constructor
@@ -92,6 +97,25 @@ public class ProductDaoImpl extends BaseDaoImpl<ProductEntity> implements Produc
             throw new DaoException(e);
         }
         return null;
+    }
+
+    @Override
+    public List<ProductEntity> search(String text) throws DaoException {
+        String param = "%" + text + "%";
+        Object[] params = new Object[]{param, param};
+        try (PreparedStatement statement =
+                     getConnection().prepareStatement(SQL_SEARCH)) {
+            setParameters(statement, params);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                List<ProductEntity> resultList = new ArrayList<>();
+                while (resultSet.next()) {
+                    resultList.add(mapQueryResult(resultSet));
+                }
+                return resultList;
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
     }
 
     @Override

@@ -63,13 +63,13 @@ public class ReceiptDaoImpl extends BaseDaoImpl<ReceiptEntity> implements Receip
     @Override
     Object[] getInsertParams(final ReceiptEntity entity) {
         return new Object[]{entity.getUser().getId(),
-                entity.getDate(), entity.getAmount()};
+                entity.getDate(), entity.getTotalPrice()};
     }
 
     @Override
     Object[] getUpdateParams(final ReceiptEntity entity) {
         return new Object[]{entity.getUser().getId(),
-                entity.getDate(), entity.getAmount(),
+                entity.getDate(), entity.getTotalPrice(),
                 entity.getId()};
     }
 
@@ -87,7 +87,7 @@ public class ReceiptDaoImpl extends BaseDaoImpl<ReceiptEntity> implements Receip
         entity.setId(id);
         entity.setUser(user);
         entity.setDate(dateTime);
-        entity.setAmount(amount);
+        entity.setTotalPrice(amount);
         return entity;
     }
 }

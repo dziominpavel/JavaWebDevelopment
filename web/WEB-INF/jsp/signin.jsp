@@ -29,19 +29,19 @@
 
             <span>${loginLabel}</span>
             <input type="text" name="login" maxlength="32"
-                   pattern="[A-Za-z0-9._]{4,32}" title="${loginFormat}" required>
+                   pattern="[A-Za-z0-9._]{4,32}" title="${loginFormat}"
+                   required>
 
             <span>${passwordLabel}</span>
             <input type="password" name="password" maxlength="32"
                    pattern="[^<>]{8,32}" title="${passwordFormat}" required>
 
+            <c:if test="${not empty requestScope.wrongData}">
+                <p class="errorMsg">${authFailMesage}</p>
+            </c:if>
+
             <input class="button button-blue" type="submit" value="${signin}">
 
-            <c:if test="${not empty requestScope.wrongData}">
-            <span class="errorMsg">
-                ${authFailMesage}
-            </span>
-            </c:if>
         </form>
         <form action="signup">
             <input class="button button-gray" type="submit" value="${signup}">

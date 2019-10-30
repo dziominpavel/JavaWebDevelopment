@@ -10,13 +10,25 @@ function checkPass() {
     }
 }
 
-function makeEditable() {
-    var inputs = document.querySelectorAll("input[type=text]");
-    for (var i = 0; i < inputs.length; i++) {
-        var input = inputs[i];
-        var dis = input.getAttribute("disabled");
-        input.disabled = false;
+function checkDecimal(fieldId) {
+    var input = document.getElementById(fieldId);
+    if (input) {
+        var reg = /^\d+$/;
+        var isCorrect = reg.test(input.value);
+        var goodColor = "#66cc66";
+        var badColor = "#ff6666";
+        if (pass1.value === pass2.value) {
+            pass2.style.backgroundColor = goodColor;
+        } else {
+            pass2.style.backgroundColor = badColor;
+        }
     }
+}
+
+function makeEditable() {
+    makeEditableInputs("input[type=text]");
+    makeEditableInputs("input[type=number]");
+
     var saveButton = document.getElementById("save");
     saveButton.hidden = false;
 
@@ -25,6 +37,14 @@ function makeEditable() {
 
     var editButton = document.getElementById("edit");
     editButton.hidden = true;
+}
+
+function makeEditableInputs(inputType) {
+    var inputs = document.querySelectorAll(inputType);
+    for (var i = 0; i < inputs.length; i++) {
+        var input = inputs[i];
+        input.disabled = false;
+    }
 }
 
 function disableRoleDropdown() {

@@ -2,6 +2,11 @@ package by.dziomin.trade.entity;
 
 import java.math.BigDecimal;
 
+/**
+ * Salesitem entity
+ *
+ * @author - Pavel Dziomin
+ */
 public class SalesItem extends BaseEntity {
     private ReceiptEntity receipt;
     private ProductEntity product;

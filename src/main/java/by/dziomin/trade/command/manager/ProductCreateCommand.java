@@ -8,7 +8,8 @@ import by.dziomin.trade.manager.ManagerFactory;
 import by.dziomin.trade.manager.ProductManager;
 import by.dziomin.trade.service.ServiceException;
 import by.dziomin.trade.validator.ValidationException;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
@@ -18,8 +19,13 @@ import java.util.List;
 import static by.dziomin.trade.command.AppUrls.ERROR_PAGE;
 import static by.dziomin.trade.command.AppUrls.PRODUCT_INFO_PAGE;
 
+/**
+ * Command to create product
+ *
+ * @author - Pavel Dziomin
+ */
 public class ProductCreateCommand extends BaseCommand {
-    private Logger logger = Logger.getLogger(ProductCreateCommand.class);
+    private Logger logger = LogManager.getLogger();
 
     @Override
     protected List<Role> getRequiredRoles() {

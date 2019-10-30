@@ -6,7 +6,8 @@ import by.dziomin.trade.entity.Role;
 import by.dziomin.trade.manager.ManagerFactory;
 import by.dziomin.trade.manager.UserManager;
 import by.dziomin.trade.service.ServiceException;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
@@ -15,8 +16,13 @@ import java.util.List;
 import static by.dziomin.trade.command.AppUrls.ERROR_PAGE;
 import static by.dziomin.trade.command.AppUrls.USERS_PAGE;
 
+/**
+ * Command to get users list
+ *
+ * @author - Pavel Dziomin
+ */
 public class UsersCommand extends PaginationCommand {
-    private Logger logger = Logger.getLogger(UsersCommand.class);
+    private Logger logger = LogManager.getLogger();
 
     @Override
     protected List<Role> getRequiredRoles() {

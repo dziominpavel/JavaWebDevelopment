@@ -17,15 +17,18 @@ import static by.dziomin.trade.command.AppUrls.SIGNUP_PAGE;
 import static by.dziomin.trade.command.AppUrls.USERS_PAGE;
 import static by.dziomin.trade.command.AppUrls.USER_INFO_PAGE;
 
+/**
+ * Security configuration
+ *
+ * @author - Pavel Dziomin
+ */
 final class SecurityConfig {
-
-    private static final Map<String, List<String>> mapConfig = new HashMap<>();
-
-    private static final List<String> freeAccess = Arrays.asList(SIGNIN_PAGE,
-            SIGNUP_PAGE, "/app");
 
     static final List<String> authorizedAccess = Arrays.asList(
             "/locale", "/home");
+    private static final Map<String, List<String>> mapConfig = new HashMap<>();
+    private static final List<String> freeAccess = Arrays.asList(SIGNIN_PAGE,
+            SIGNUP_PAGE, "/app");
 
     static {
         init();

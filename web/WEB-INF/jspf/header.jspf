@@ -8,12 +8,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Trade</title>
+<%--    <title>Trade</title>--%>
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/css/style.css"/>
-    <%--    <link rel="stylesheet"--%>
-    <%--          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">--%>
-
 
     <fmt:message key="label.lang.english" var="en"/>
     <fmt:message key="label.lang.russian" var="ru"/>
@@ -22,7 +19,6 @@
     <fmt:message key="label.products" var="products"/>
     <fmt:message key="label.receipts" var="receipts"/>
     <fmt:message key="label.users" var="users"/>
-
 
 </head>
 <body>

@@ -1,5 +1,10 @@
 package by.dziomin.trade.command;
 
+/**
+ * Exception for command layer
+ *
+ * @author - Pavel Dziomin
+ */
 public class CommandException extends Exception {
 
     public CommandException() {

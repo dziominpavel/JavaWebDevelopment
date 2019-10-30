@@ -6,7 +6,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+/**
+ * Abstract command to make pagination
+ *
+ * @author - Pavel Dziomin
+ */
 public abstract class PaginationCommand extends BaseCommand {
     private static final String NUMBER_REGEX = "^\\d+$";
     private static final int RECORDS_PER_PAGE = 10;

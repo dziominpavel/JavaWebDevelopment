@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import static by.dziomin.trade.entity.Role.ADMIN;
-import static by.dziomin.trade.entity.Role.USER;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -41,12 +40,12 @@ public class UserDaoImplTest {
 
     @Test
     public void testGetUserById() throws DaoException {
-        UserEntity result = userDaoImpl.getById(2L);
+        UserEntity result = userDaoImpl.getById(5L);
         assertNotNull(result);
-        assertEquals("Petrov", result.getName());
-        assertEquals("pe", result.getLogin());
-        assertEquals("2222", result.getPassword());
-        assertEquals(USER, result.getRole());
+        assertEquals("Dziomin", result.getName());
+        assertEquals("pavel85", result.getLogin());
+        assertEquals("12341234", result.getPassword());
+        assertEquals(ADMIN, result.getRole());
     }
 
     @Test
@@ -59,18 +58,20 @@ public class UserDaoImplTest {
     public void testCreateUser() throws DaoException {
         UserEntity user = new UserEntity();
         user.setName("Dziomin");
-        user.setLogin("Pavel2");
-        user.setPassword("1234");
+        user.setLogin("pavel85");
+        user.setPassword("12341234");
         user.setRole(ADMIN);
 
-        Long result = userDaoImpl.create(user);
-
-        UserEntity created = userDaoImpl.getById(result);
-        assertNotNull(created);
-        assertEquals("Dziomin", created.getName());
-        assertEquals("Pavel2", created.getLogin());
-        assertEquals("1234", created.getPassword());
-        assertEquals(ADMIN, created.getRole());
+        UserEntity userEntity = userDaoImpl.getUserByLogin("pavel85");
+        if (userEntity == null) {
+            Long result = userDaoImpl.create(user);
+            UserEntity created = userDaoImpl.getById(result);
+            assertNotNull(created);
+            assertEquals("Dziomin", created.getName());
+            assertEquals("pavel85", created.getLogin());
+            assertEquals("12341234", created.getPassword());
+            assertEquals(ADMIN, created.getRole());
+        }
     }
 
     @Test
@@ -83,16 +84,16 @@ public class UserDaoImplTest {
     @Test
     public void testUpdateUser() throws DaoException {
         UserEntity user = new UserEntity();
-        user.setId(2L);
-        user.setName("test");
-        user.setPassword("password");
+        user.setId(4L);
+        user.setName("testName");
+        user.setPassword("testPassword");
         user.setRole(ADMIN);
         userDaoImpl.update(user);
 
-        UserEntity updated = userDaoImpl.getById(2L);
-        assertEquals("test", updated.getName());
-        assertEquals("pe", updated.getLogin());
-        assertEquals("password", updated.getPassword());
+        UserEntity updated = userDaoImpl.getById(4L);
+        assertEquals("testName", updated.getName());
+        assertEquals("dziomin", updated.getLogin());
+        assertEquals("testPassword", updated.getPassword());
         assertEquals(ADMIN, updated.getRole());
     }
 }

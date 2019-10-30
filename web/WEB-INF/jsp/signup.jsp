@@ -49,7 +49,7 @@
 
             <c:if test="${not empty requestScope.wrongData}">
             <span class="errorMsg">
-                ${userWrongData}: ${requestScope.wrongData}
+                ${userWrongData}: <fmt:message key="${requestScope.wrongData}"/>
             </span>
             </c:if>
 

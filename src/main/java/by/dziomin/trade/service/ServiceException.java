@@ -1,5 +1,7 @@
 package by.dziomin.trade.service;
 
+import by.dziomin.trade.util.ErrorMessages;
+
 /**
  * Exception for service layer
  *
@@ -38,5 +40,23 @@ public class ServiceException extends Exception {
      */
     public ServiceException(final Throwable cause) {
         super(cause);
+    }
+
+    /**
+     * Constructor
+     * @param message error message
+     */
+    public ServiceException(final ErrorMessages message) {
+        super("ERROR." + message.name());
+    }
+
+    /**
+     * Constructor
+     *
+     * @param message message
+     * @param cause   cause
+     */
+    public ServiceException(final ErrorMessages message, final Throwable cause) {
+        super("ERROR." + message.name(), cause);
     }
 }

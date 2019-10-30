@@ -4,6 +4,11 @@ import by.dziomin.trade.dto.BaseDTO;
 
 import java.math.BigDecimal;
 
+/**
+ * DTO to display product
+ *
+ * @author - Pavel Dziomin
+ */
 public class ProductDTO extends BaseDTO {
     private String name;
     private String barcode;

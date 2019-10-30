@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../css/style.css">
 
-    <fmt:message key="info.email" var="email"/>
+    <fmt:message key="footer.email" var="email"/>
 
 </head>
 <body>

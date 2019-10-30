@@ -6,7 +6,8 @@ import by.dziomin.trade.entity.Role;
 import by.dziomin.trade.manager.ManagerFactory;
 import by.dziomin.trade.manager.ProductManager;
 import by.dziomin.trade.service.ServiceException;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -15,8 +16,13 @@ import java.util.List;
 import static by.dziomin.trade.command.AppUrls.ERROR_PAGE;
 import static by.dziomin.trade.command.AppUrls.PRODUCTS_PAGE;
 
+/**
+ * Command to get products list
+ *
+ * @author - Pavel Dziomin
+ */
 public class ProductsCommand extends PaginationCommand {
-    private Logger logger = Logger.getLogger(ProductsCommand.class);
+    private Logger logger = LogManager.getLogger();
 
     @Override
     protected List<Role> getRequiredRoles() {
@@ -25,11 +31,13 @@ public class ProductsCommand extends PaginationCommand {
 
     @Override
     protected String executeCheckedCommand(final HttpServletRequest request) {
+        String searchText = request.getParameter("searchText");
         try {
             ProductManager manager = ManagerFactory.getManager(ProductManager.class);
-            List<ProductDTO> productList = manager.getProducts();
+            List<ProductDTO> productList = manager.getProducts(searchText);
             List<ProductDTO> productsOnPage = executePagination(request, productList);
             request.setAttribute("products", productsOnPage);
+            request.getSession().setAttribute("searchText", searchText);
         } catch (ServiceException e) {
             logger.error(e.getMessage(), e);
             return ERROR_PAGE;

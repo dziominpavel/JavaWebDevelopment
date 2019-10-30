@@ -5,6 +5,17 @@ import by.dziomin.trade.service.ServiceException;
 import by.dziomin.trade.validator.ValidationException;
 import by.dziomin.trade.validator.Validator;
 
+import static by.dziomin.trade.util.ErrorMessages.NAME_IS_EMPTY;
+import static by.dziomin.trade.util.ErrorMessages.PASSWORD_CONFIRM_NOT_EQUALS;
+import static by.dziomin.trade.util.ErrorMessages.PASSWORD_IS_EMPTY;
+import static by.dziomin.trade.util.ErrorMessages.WRONG_NAME_FORMAT;
+import static by.dziomin.trade.util.ErrorMessages.WRONG_PASSWORD_FORMAT;
+
+/**
+ * Validator to update user
+ *
+ * @author - Pavel Dziomin
+ */
 public class UserUpdateValidator implements Validator<UserUpdateDTO> {
     private static UserUpdateValidator instance;
 
@@ -22,24 +33,24 @@ public class UserUpdateValidator implements Validator<UserUpdateDTO> {
     public void validate(final UserUpdateDTO user) throws ValidationException, ServiceException {
         String name = user.getName();
         if (name == null || name.isEmpty()) {
-            throw new ValidationException("NAME_IS_EMPTY");
+            throw new ValidationException(NAME_IS_EMPTY);
         }
         String namePattern = "[^<>]{8,32}";
         if (!name.matches(namePattern)) {
-            throw new ValidationException("WRONG_NAME_FORMAT");
+            throw new ValidationException(WRONG_NAME_FORMAT);
         }
 
         String password = user.getPassword();
         if (password == null || password.isEmpty()) {
-            throw new ValidationException("PASSWORD_IS_EMPTY");
+            throw new ValidationException(PASSWORD_IS_EMPTY);
         }
         String passwordPattern = "[^<>]{8,32}";
         if (!password.matches(passwordPattern)) {
-            throw new ValidationException("WRONG_PASSWORD_FORMAT");
+            throw new ValidationException(WRONG_PASSWORD_FORMAT);
         }
 
         if (!user.getPassword().equals(user.getConfirmPassword())) {
-            throw new ValidationException("PASSWORD_CONFIRM_NOT_EQUALS");
+            throw new ValidationException(PASSWORD_CONFIRM_NOT_EQUALS);
         }
     }
 }

@@ -8,7 +8,8 @@ import by.dziomin.trade.manager.ManagerFactory;
 import by.dziomin.trade.manager.UserManager;
 import by.dziomin.trade.service.ServiceException;
 import by.dziomin.trade.validator.ValidationException;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -17,8 +18,13 @@ import java.util.List;
 import static by.dziomin.trade.command.AppUrls.ERROR_PAGE;
 import static by.dziomin.trade.command.AppUrls.USER_INFO_PAGE;
 
+/**
+ * Command to get user info
+ *
+ * @author - Pavel Dziomin
+ */
 public class UserInfoCommand extends BaseCommand {
-    private Logger logger = Logger.getLogger(UserInfoCommand.class);
+    private Logger logger = LogManager.getLogger();
 
     @Override
     protected List<Role> getRequiredRoles() {

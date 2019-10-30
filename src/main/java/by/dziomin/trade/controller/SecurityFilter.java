@@ -16,6 +16,11 @@ import static by.dziomin.trade.command.AppUrls.ACCESS_DENIED_PAGE;
 import static by.dziomin.trade.command.AppUrls.HOME_PAGE;
 import static by.dziomin.trade.command.AppUrls.SIGNIN_PAGE;
 
+/**
+ * Filter to manage security acces to pages
+ *
+ * @author - Pavel Dziomin
+ */
 @WebFilter("/*")
 public class SecurityFilter implements Filter {
 

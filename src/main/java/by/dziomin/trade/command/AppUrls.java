@@ -1,5 +1,10 @@
 package by.dziomin.trade.command;
 
+/**
+ * Application urls
+ *
+ * @author - Pavel Dziomin
+ */
 public final class AppUrls {
 
     public static final String HOME_PAGE = "/home";
@@ -19,6 +24,7 @@ public final class AppUrls {
     public static final String PRODUCT_EDIT_PAGE = "/productinfo";
 
     public static final String RECEIPT_PAGE = "/receipts";
+    public static final String RECEIPT_INFO_PAGE = "/receiptinfo";
 
 
     private AppUrls() {

@@ -14,6 +14,11 @@ import by.dziomin.trade.validator.ValidationException;
 
 import java.util.List;
 
+/**
+ * Manager for product
+ *
+ * @author - Pavel Dziomin
+ */
 public class ProductManagerImpl extends BaseManager implements ProductManager {
 
     private static ProductManager instance;
@@ -29,10 +34,16 @@ public class ProductManagerImpl extends BaseManager implements ProductManager {
     }
 
     @Override
-    public List<ProductDTO> getProducts() throws ServiceException {
+    public List<ProductDTO> getProducts(final String searchText) throws ServiceException {
         ProductService service =
                 ServiceFactory.getService(ProductService.class);
-        List<ProductEntity> productList = service.getAllProducts();
+        List<ProductEntity> productList;
+        String text = searchText == null ? null : searchText.trim();
+        if (text == null || text.isEmpty()) {
+            productList = service.getAllProducts();
+        } else {
+            productList = service.searchProducts(text);
+        }
         Converter<ProductEntity, ProductDTO> converter = getConverter(ProductEntity.class, ProductDTO.class);
         return converter.convertEntityList(productList);
     }

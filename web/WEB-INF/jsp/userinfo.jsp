@@ -36,7 +36,8 @@
 
             <span>${loginLabel}</span>
             <input type="text" name="login" maxlength="32" disabled
-                   pattern="[A-Za-z0-9._]{4,32}" title="${loginFormat}" required value="${requestScope.user.login}">
+                   pattern="[A-Za-z0-9._]{4,32}" title="${loginFormat}"
+                   required value="${requestScope.user.login}">
 
 
             <span>${passwordLabel}</span>
@@ -51,7 +52,8 @@
 
             <span>${nameLabel}</span>
             <input type="text" name="name" maxlength="32"
-                   pattern="[^<>]{8,32}" title="${nameFormat}" required value="${requestScope.user.name}">
+                   pattern="[^<>]{8,32}" title="${nameFormat}" required
+                   value="${requestScope.user.name}">
 
             <span>${roleLabel}</span>
             <select name="role" id="role">
@@ -72,7 +74,7 @@
 
             <c:if test="${not empty requestScope.wrongData}">
                 <span class="errorMsg">
-                    ${wrongDataMessage}: ${requestScope.wrongData}
+                    ${wrongDataMessage}: <fmt:message key="${requestScope.wrongData}"/>
                 </span>
             </c:if>
 

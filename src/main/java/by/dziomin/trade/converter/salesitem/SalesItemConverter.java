@@ -8,6 +8,11 @@ import by.dziomin.trade.dto.salesitem.SalesItemDTO;
 import by.dziomin.trade.entity.ProductEntity;
 import by.dziomin.trade.entity.SalesItem;
 
+/**
+ * Converter for SalesItem and SalesItemDTO
+ *
+ * @author - Pavel Dziomin
+ */
 public class SalesItemConverter extends BaseConverter<SalesItem, SalesItemDTO> {
     private static SalesItemConverter instance;
 
@@ -33,5 +38,20 @@ public class SalesItemConverter extends BaseConverter<SalesItem, SalesItemDTO> {
         ProductEntity product = productConverter.convert(dto.getProduct());
         salesItem.setProduct(product);
         return salesItem;
+    }
+
+    @Override
+    public SalesItemDTO convert(final SalesItem entity) {
+        SalesItemDTO salesItemDTO = new SalesItemDTO();
+        salesItemDTO.setTotalPrice(entity.getPrice());
+        salesItemDTO.setCount(entity.getCount());
+        salesItemDTO.setId(entity.getId());
+
+        Converter<ProductEntity, ProductDTO> productConverter =
+                ConverterFactory.getInstance().getConverter(ProductEntity.class,
+                        ProductDTO.class);
+        ProductDTO productDTO = productConverter.convert(entity.getProduct());
+        salesItemDTO.setProduct(productDTO);
+        return salesItemDTO;
     }
 }

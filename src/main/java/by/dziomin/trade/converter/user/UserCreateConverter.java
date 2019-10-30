@@ -5,6 +5,11 @@ import by.dziomin.trade.dto.user.UserCreateDTO;
 import by.dziomin.trade.entity.Role;
 import by.dziomin.trade.entity.UserEntity;
 
+/**
+ * Converter for UserEntity and UserCreateDTO
+ *
+ * @author - Pavel Dziomin
+ */
 public class UserCreateConverter extends BaseConverter<UserEntity, UserCreateDTO> {
 
     private static UserCreateConverter instance;

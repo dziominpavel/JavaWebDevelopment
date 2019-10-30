@@ -5,6 +5,11 @@ import by.dziomin.trade.dto.product.ProductDTO;
 import by.dziomin.trade.entity.MeasureEntity;
 import by.dziomin.trade.entity.ProductEntity;
 
+/**
+ * Converter for  ProductEntity and ProductDTO
+ *
+ * @author - Pavel Dziomin
+ */
 public class ProductConverter extends BaseConverter<ProductEntity, ProductDTO> {
 
     private static ProductConverter instance;

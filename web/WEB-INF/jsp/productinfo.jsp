@@ -50,8 +50,7 @@
                 <span class="info-line">
                 <span class="key">${barcode}</span>
                     <input type="text" name="barcode" maxlength="32"
-                           title="${barcodeFormat}" required
-                           disabled
+                           title="${barcodeFormat}" required disabled
                            value="${requestScope.product.barcode}">
                 </span>
                 <span class="info-line">
@@ -63,33 +62,36 @@
                 <span class="info-line">
                     <span class="key">${measure}</span>
                     <input type="text" name="measure" maxlength="32"
-                           title="${measureFormat}" required
-                           disabled
+                           title="${measureFormat}" required disabled
                            value="${requestScope.product.measure}">
                 </span>
                 <span class="info-line">
                     <span class="key">${count}</span>
-                    <input type="text" name="count" maxlength="32"
+                    <input type="text" id="count" name="count" maxlength="32"
                            title="${countFormat}" required disabled
-                           value="${requestScope.product.count}">
+                           value="${requestScope.product.count}"
+                           pattern="^\d+$">
                 </span>
                 <span class="info-line">
                     <span class="key">${price}</span>
                     <input type="text" name="price" maxlength="32"
                            title="${priceFormat}" required disabled
-                           value="${requestScope.product.price}">
+                           value="${requestScope.product.price}"
+                           pattern="^\d*(\.\d{0,2})?$">
                 </span>
 
                 <c:if test="${not empty requestScope.wrongData}">
                     <span class="errorMsg">
-                        ${productWrongData}: ${requestScope.wrongData}
+                        ${productWrongData}: <fmt:message key="${requestScope.wrongData}"/>
                     </span>
                 </c:if>
                 <input id="save" hidden type="submit" value="${save}">
             </p>
             </form>
 
-            <c:if test="${not empty sessionScope.currentUser.role && sessionScope.currentUser.role == 'MANAGER'}">
+            <c:if test="${not empty sessionScope.currentUser.role
+            && (sessionScope.currentUser.role == 'MANAGER'
+            || sessionScope.currentUser.role == 'ADMIN')}">
 
                 <input id="edit" type="submit"
                        value="${edit}" onclick="makeEditable()">
@@ -101,13 +103,15 @@
                     <input id="cancel" class="gray" hidden type="submit"
                            value="${cancel}">
                 </form>
-                <form action="app" method="post">
-                    <input type="hidden" name="command" value="deleteproduct">
-                    <input type="hidden" name="productId"
-                           value="${requestScope.product.id}">
-                    <input id="delete" class="red" type="submit"
-                           value="${delete}">
-                </form>
+                <c:if test="${not empty requestScope.product.id}">
+                    <form action="app" method="post">
+                        <input type="hidden" name="command" value="deleteproduct">
+                        <input type="hidden" name="productId"
+                               value="${requestScope.product.id}">
+                        <input id="delete" class="red" type="submit"
+                               value="${delete}">
+                    </form>
+                </c:if>
             </c:if>
             <c:if test="${not empty requestScope.wrongData || empty requestScope.product}">
                 <script>makeEditable()</script>

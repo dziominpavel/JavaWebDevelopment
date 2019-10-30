@@ -3,6 +3,11 @@ package by.dziomin.trade.dto.user;
 import by.dziomin.trade.dto.BaseDTO;
 import by.dziomin.trade.entity.Role;
 
+/**
+ * DTO to update user
+ *
+ * @author - Pavel Dziomin
+ */
 public class UserUpdateDTO extends BaseDTO {
 
     private String name;

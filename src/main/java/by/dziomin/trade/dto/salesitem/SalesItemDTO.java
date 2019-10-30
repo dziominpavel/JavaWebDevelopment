@@ -5,6 +5,11 @@ import by.dziomin.trade.dto.product.ProductDTO;
 
 import java.math.BigDecimal;
 
+/**
+ * DTO to disoley sales item
+ *
+ * @author - Pavel Dziomin
+ */
 public class SalesItemDTO extends BaseDTO {
     private ProductDTO product;
     private Integer count;

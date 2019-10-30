@@ -1,12 +1,17 @@
 package by.dziomin.trade.command;
 
+/**
+ * Command factory
+ *
+ * @author - Pavel Dziomin
+ */
 public final class CommandFactory {
     private static CommandFactory instance;
 
-    private CommandFactory(){
+    private CommandFactory() {
     }
 
-    public static CommandFactory getInstance(){
+    public static CommandFactory getInstance() {
         if (instance == null) {
             instance = new CommandFactory();
         }

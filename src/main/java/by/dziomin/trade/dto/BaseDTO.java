@@ -1,5 +1,10 @@
 package by.dziomin.trade.dto;
 
+/**
+ * Base dto
+ *
+ * @author - Pavel Dziomin
+ */
 public class BaseDTO {
     private Long id;
 

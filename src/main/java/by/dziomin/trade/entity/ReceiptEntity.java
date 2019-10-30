@@ -10,7 +10,7 @@ import java.util.List;
  * @author - Pavel Dziomin
  */
 public class ReceiptEntity extends BaseEntity {
-    private BigDecimal amount;
+    private BigDecimal totalPrice;
     private LocalDateTime date;
     private UserEntity user;
     private List<SalesItem> salesItems;
@@ -20,17 +20,17 @@ public class ReceiptEntity extends BaseEntity {
      *
      * @return total gross amount
      */
-    public BigDecimal getAmount() {
-        return amount;
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
     }
 
     /**
      * Set total gross amount
      *
-     * @param amount total gross amount
+     * @param totalPrice total gross amount
      */
-    public void setAmount(final BigDecimal amount) {
-        this.amount = amount;
+    public void setTotalPrice(final BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     /**
@@ -96,7 +96,7 @@ public class ReceiptEntity extends BaseEntity {
 
         ReceiptEntity receipt = (ReceiptEntity) o;
 
-        if (getAmount() != null ? !getAmount().equals(receipt.getAmount()) : receipt.getAmount() != null)
+        if (getTotalPrice() != null ? !getTotalPrice().equals(receipt.getTotalPrice()) : receipt.getTotalPrice() != null)
             return false;
         if (getDate() != null ? !getDate().equals(receipt.getDate()) : receipt.getDate() != null)
             return false;
@@ -105,7 +105,7 @@ public class ReceiptEntity extends BaseEntity {
 
     @Override
     public int hashCode() {
-        int result = getAmount() != null ? getAmount().hashCode() : 0;
+        int result = getTotalPrice() != null ? getTotalPrice().hashCode() : 0;
         result = 31 * result + (getId() != null ? getId().hashCode() : 0);
         result = 31 * result + (getDate() != null ? getDate().hashCode() : 0);
         result = 31 * result + (getUser() != null ? getUser().hashCode() : 0);

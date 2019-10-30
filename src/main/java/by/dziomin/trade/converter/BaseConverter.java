@@ -6,6 +6,12 @@ import by.dziomin.trade.entity.BaseEntity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Base converter
+ *
+ * @param <T> type of entity
+ * @param <D> type of dto
+ */
 public abstract class BaseConverter<T extends BaseEntity, D extends BaseDTO> implements Converter<T, D> {
 
     @Override

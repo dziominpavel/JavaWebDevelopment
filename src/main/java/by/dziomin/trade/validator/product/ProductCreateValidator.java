@@ -10,6 +10,16 @@ import by.dziomin.trade.validator.Validator;
 
 import java.math.BigDecimal;
 
+import static by.dziomin.trade.util.ErrorMessages.BARCODE_EXIST;
+import static by.dziomin.trade.util.ErrorMessages.COUNT_INVALID;
+import static by.dziomin.trade.util.ErrorMessages.NAME_IS_EMPTY;
+import static by.dziomin.trade.util.ErrorMessages.PRICE_INVALID;
+
+/**
+ * Validator for product create
+ *
+ * @author - Pavel Dziomin
+ */
 public class ProductCreateValidator implements Validator<ProductCreateDTO> {
 
     private static ProductCreateValidator instance;
@@ -27,22 +37,22 @@ public class ProductCreateValidator implements Validator<ProductCreateDTO> {
     @Override
     public void validate(final ProductCreateDTO dto) throws ValidationException, ServiceException {
         if (dto.getName() == null || dto.getName().isEmpty()) {
-            throw new ValidationException("NAME_IS_EMPTY");
+            throw new ValidationException(NAME_IS_EMPTY);
         }
 
         if (dto.getCount() == null || dto.getCount() < 0) {
-            throw new ValidationException("COUNT_INVALID");
+            throw new ValidationException(COUNT_INVALID);
         }
 
         if (dto.getPrice() == null || dto.getPrice().compareTo(BigDecimal.ZERO) < 1) {
-            throw new ValidationException("PRICE_INVALID");
+            throw new ValidationException(PRICE_INVALID);
         }
 
         ProductService service =
                 ServiceFactory.getService(ProductService.class);
         ProductEntity existing = service.getProductByBarcode(dto.getBarcode());
         if (existing != null) {
-            throw new ValidationException("BARCODE_EXIST");
+            throw new ValidationException(BARCODE_EXIST);
         }
     }
 }

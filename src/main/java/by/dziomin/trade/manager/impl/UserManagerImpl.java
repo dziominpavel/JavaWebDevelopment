@@ -16,6 +16,17 @@ import by.dziomin.trade.validator.ValidationException;
 
 import java.util.List;
 
+import static by.dziomin.trade.util.ErrorMessages.NO_PERMISSIONS_TO_UPDATE_USER;
+import static by.dziomin.trade.util.ErrorMessages.SIGN_IN_FAILED;
+import static by.dziomin.trade.util.ErrorMessages.USER_CREATE_FAILED;
+import static by.dziomin.trade.util.ErrorMessages.USER_NOT_FOUND;
+import static by.dziomin.trade.util.ErrorMessages.USER_ROLE_UNDEFINED;
+
+/**
+ * Manager for users
+ *
+ * @author - Pavel Dziomin
+ */
 public class UserManagerImpl extends BaseManager implements UserManager {
 
     private static UserManager instance;
@@ -37,7 +48,7 @@ public class UserManagerImpl extends BaseManager implements UserManager {
         if (user != null && user.getPassword().equals(password)) {
             return convert(user, SessionUserDTO.class);
         } else {
-            throw new ValidationException("SIGN_IN_FAILED");
+            throw new ValidationException(SIGN_IN_FAILED);
         }
     }
 
@@ -52,7 +63,7 @@ public class UserManagerImpl extends BaseManager implements UserManager {
         if (created != null) {
             return convert(created, SessionUserDTO.class);
         } else {
-            throw new ServiceException("USER_CREATE_FAILED");
+            throw new ServiceException(USER_CREATE_FAILED);
         }
     }
 
@@ -68,7 +79,7 @@ public class UserManagerImpl extends BaseManager implements UserManager {
         UserService service = ServiceFactory.getService(UserService.class);
         Role userRole = service.getUserRole(login);
         if (userRole == null) {
-            throw new ServiceException("USER_ROLE_UNDEFINED");
+            throw new ServiceException(USER_ROLE_UNDEFINED);
         }
         return userRole;
     }
@@ -80,19 +91,19 @@ public class UserManagerImpl extends BaseManager implements UserManager {
         UserService service = ServiceFactory.getService(UserService.class);
         UserEntity existingUser = service.getUserById(userDTO.getId());
         if (existingUser == null) {
-            throw new ServiceException("USER_NOT_FOUND");
+            throw new ServiceException(USER_NOT_FOUND);
         }
 
         UserEntity currentUserEntity =
                 service.getUserByLogin(currentUser.getLogin());
         if (currentUserEntity == null) {
-            throw new ServiceException("USER_NOT_FOUND");
+            throw new ServiceException(USER_NOT_FOUND);
         }
 
         //only admin can update other users
         if (currentUserEntity.getRole() != Role.ADMIN
                 && !currentUserEntity.getId().equals(existingUser.getId())) {
-            throw new ServiceException("NO_PERMISSIONS_TO_UPDATE_USER");
+            throw new ServiceException(NO_PERMISSIONS_TO_UPDATE_USER);
         }
 
         //role can be updated only by admin
@@ -120,7 +131,7 @@ public class UserManagerImpl extends BaseManager implements UserManager {
         UserService service = ServiceFactory.getService(UserService.class);
         UserEntity userEntity = service.getUserById(userId);
         if (userEntity == null) {
-            throw new ValidationException("USER_NOT_FOUND");
+            throw new ValidationException(USER_NOT_FOUND);
         }
         return convert(userEntity, UserDTO.class);
     }

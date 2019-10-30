@@ -1,5 +1,8 @@
 package by.dziomin.trade.connection;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.Array;
 import java.sql.Blob;
 import java.sql.CallableStatement;
@@ -24,19 +27,26 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import static by.dziomin.trade.util.ErrorMessages.CONNECTION_NOT_CREATED;
+import static by.dziomin.trade.util.ErrorMessages.INVALID_CONNECTION;
+
+/**
+ * Connection pool to hold db connections
+ *
+ * @author - Pavel Dziomin
+ */
 public class ConnectionPool {
 
+    private static final Lock LOCK = new ReentrantLock();
     private static ConnectionPool instance;
-
     private static String dbUserName;
     private static String dbPassword;
     private static String dbUrl;
     private static String dbDriver;
     private static Integer dbMaxConnections;
     private static Integer dbIsvalidTimeout;
-
     private static BlockingQueue<ProxyConnection> queue;
-    private static final Lock LOCK = new ReentrantLock();
+    private Logger logger = LogManager.getLogger();
 
     private ConnectionPool() {
     }
@@ -48,7 +58,7 @@ public class ConnectionPool {
         return instance;
     }
 
-    private static void init(){
+    private static void init() {
         LOCK.lock();
         try {
             if (instance == null) {
@@ -61,7 +71,7 @@ public class ConnectionPool {
         }
     }
 
-    private static void initDbConfig(){
+    private static void initDbConfig() {
         DbConfigManager configManager = DbConfigManager.getInstance();
         dbUserName = configManager.getProperty("db.username");
         dbPassword = configManager.getProperty("db.password");
@@ -71,29 +81,34 @@ public class ConnectionPool {
         dbIsvalidTimeout = Integer.parseInt(configManager.getProperty("db.timeout.isvalid"));
     }
 
-    private static void initPool(){
+    private static void initPool() {
         queue = new ArrayBlockingQueue<>(dbMaxConnections);
         for (int i = 0; i < dbMaxConnections; i++) {
-            queue.add(createConnection()); //todo offer?
+            queue.add(createConnection());
         }
     }
 
-    private static ProxyConnection createConnection(){
+    private static ProxyConnection createConnection() {
         try {
             Class.forName(dbDriver);
             Connection connection = DriverManager.getConnection(dbUrl, dbUserName, dbPassword);
             connection.setAutoCommit(true);
             return new ProxyConnection(connection);
-        } catch (SQLException | ClassNotFoundException ex) {
-            throw new ConnectionException("Connection not created.", ex);
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new ConnectionException(CONNECTION_NOT_CREATED, e);
         }
     }
 
-    public ProxyConnection getConnection(){
+    /**
+     * get connection method.
+     *
+     * @return ProxyConnection
+     */
+    public ProxyConnection getConnection() {
         try {
-            ProxyConnection connection = queue.take(); //todo pool?
+            ProxyConnection connection = queue.take();
             if (connection == null || !connection.isValid(dbIsvalidTimeout)) {
-                throw new ConnectionException("Invalid connection"); //todo
+                throw new ConnectionException(INVALID_CONNECTION);
             }
             return connection;
         } catch (Exception e) {
@@ -104,9 +119,10 @@ public class ConnectionPool {
     private void returnConnection(ProxyConnection connection) {
         try {
             if (connection == null || !connection.isValid(dbIsvalidTimeout)) {
-                throw new ConnectionException("Invalid connection"); //todo
+                throw new ConnectionException(INVALID_CONNECTION);
             }
-            queue.add(connection); //todo offer?
+            connection.setAutoCommit(true);
+            queue.add(connection);
         } catch (SQLException e) {
             throw new ConnectionException(e);
         }
@@ -120,17 +136,23 @@ public class ConnectionPool {
                     connection.reallyClose();
                 }
             } catch (InterruptedException | SQLException e) {
-                e.printStackTrace(); //todo logging
+                logger.debug(e.getMessage());
             }
         }
     }
 
 
-    public static class ProxyConnection implements Connection {
+    /**
+     * Proxy class for connection to do not close connection but return it to
+     * connection pool
+     *
+     * @author - Pavel Dziomin
+     */
+    public final static class ProxyConnection implements Connection {
         private final Connection connection;
 
-        private ProxyConnection(final Connection connection) {
-            this.connection = connection;
+        private ProxyConnection(final Connection newConnection) {
+            connection = newConnection;
         }
 
         private void reallyClose() throws SQLException {
@@ -158,13 +180,13 @@ public class ConnectionPool {
         }
 
         @Override
-        public void setAutoCommit(final boolean autoCommit) throws SQLException {
-            connection.setAutoCommit(autoCommit);
+        public boolean getAutoCommit() throws SQLException {
+            return connection.getAutoCommit();
         }
 
         @Override
-        public boolean getAutoCommit() throws SQLException {
-            return connection.getAutoCommit();
+        public void setAutoCommit(final boolean autoCommit) throws SQLException {
+            connection.setAutoCommit(autoCommit);
         }
 
         @Override
@@ -177,6 +199,9 @@ public class ConnectionPool {
             connection.rollback();
         }
 
+        /**
+         * Return connection to connection pool
+         */
         @Override
         public void close() {
             ConnectionPool.getInstance().returnConnection(this);
@@ -193,18 +218,13 @@ public class ConnectionPool {
         }
 
         @Override
-        public void setReadOnly(final boolean readOnly) throws SQLException {
-            connection.setReadOnly(readOnly);
-        }
-
-        @Override
         public boolean isReadOnly() throws SQLException {
             return connection.isReadOnly();
         }
 
         @Override
-        public void setCatalog(final String catalog) throws SQLException {
-            connection.setCatalog(catalog);
+        public void setReadOnly(final boolean readOnly) throws SQLException {
+            connection.setReadOnly(readOnly);
         }
 
         @Override
@@ -213,13 +233,18 @@ public class ConnectionPool {
         }
 
         @Override
-        public void setTransactionIsolation(final int level) throws SQLException {
-            connection.setTransactionIsolation(level);
+        public void setCatalog(final String catalog) throws SQLException {
+            connection.setCatalog(catalog);
         }
 
         @Override
         public int getTransactionIsolation() throws SQLException {
             return connection.getTransactionIsolation();
+        }
+
+        @Override
+        public void setTransactionIsolation(final int level) throws SQLException {
+            connection.setTransactionIsolation(level);
         }
 
         @Override
@@ -258,13 +283,13 @@ public class ConnectionPool {
         }
 
         @Override
-        public void setHoldability(final int holdability) throws SQLException {
-            connection.setHoldability(holdability);
+        public int getHoldability() throws SQLException {
+            return connection.getHoldability();
         }
 
         @Override
-        public int getHoldability() throws SQLException {
-            return connection.getHoldability();
+        public void setHoldability(final int holdability) throws SQLException {
+            connection.setHoldability(holdability);
         }
 
         @Override
@@ -346,12 +371,7 @@ public class ConnectionPool {
 
         @Override
         public void setClientInfo(final String name, final String value) throws SQLClientInfoException {
-connection.setClientInfo(name, value);
-        }
-
-        @Override
-        public void setClientInfo(final Properties properties) throws SQLClientInfoException {
-connection.setClientInfo(properties);
+            connection.setClientInfo(name, value);
         }
 
         @Override
@@ -365,6 +385,11 @@ connection.setClientInfo(properties);
         }
 
         @Override
+        public void setClientInfo(final Properties properties) throws SQLClientInfoException {
+            connection.setClientInfo(properties);
+        }
+
+        @Override
         public Array createArrayOf(final String typeName, final Object[] elements) throws SQLException {
             return connection.createArrayOf(typeName, elements);
         }
@@ -375,23 +400,23 @@ connection.setClientInfo(properties);
         }
 
         @Override
-        public void setSchema(final String schema) throws SQLException {
-connection.setSchema(schema);
-        }
-
-        @Override
         public String getSchema() throws SQLException {
             return connection.getSchema();
         }
 
         @Override
+        public void setSchema(final String schema) throws SQLException {
+            connection.setSchema(schema);
+        }
+
+        @Override
         public void abort(final Executor executor) throws SQLException {
-connection.abort(executor);
+            connection.abort(executor);
         }
 
         @Override
         public void setNetworkTimeout(final Executor executor, final int milliseconds) throws SQLException {
-connection.setNetworkTimeout(executor, milliseconds);
+            connection.setNetworkTimeout(executor, milliseconds);
         }
 
         @Override

@@ -30,16 +30,22 @@ public class ReceiptDaoImplTest {
     }
 
     @Test
-    public void getReceiptList() throws DaoException {
+    public void getReceiptListTest() throws DaoException {
         List<ReceiptEntity> result = receiptDao.getAll();
         assertNotNull(result);
         assertEquals(1, result.size());
     }
 
     @Test
-    public void getReceiptById() throws DaoException {
+    public void getReceiptByIdTest() throws DaoException {
         ReceiptEntity result = receiptDao.getById(1L);
         assertNotNull(result);
-//        assertEquals(250, result.getAmount(), 1);
     }
+
+    @Test
+    public void createTest() throws DaoException {
+        ReceiptEntity result = receiptDao.getById(1L);
+        assertNotNull(result);
+    }
+
 }

@@ -12,7 +12,17 @@ import by.dziomin.trade.service.AbstractService;
 import by.dziomin.trade.service.ProductService;
 import by.dziomin.trade.service.ServiceException;
 
+import java.sql.SQLException;
 import java.util.List;
+
+import static by.dziomin.trade.util.ErrorMessages.GET_ALL_USERS_ERROR;
+import static by.dziomin.trade.util.ErrorMessages.GET_PRODUCT_BY_BARCODE_ERROR;
+import static by.dziomin.trade.util.ErrorMessages.GET_PRODUCT_BY_ID_ERROR;
+import static by.dziomin.trade.util.ErrorMessages.PRODUCT_CREATE_ERROR;
+import static by.dziomin.trade.util.ErrorMessages.PRODUCT_DATA_ERROR;
+import static by.dziomin.trade.util.ErrorMessages.PRODUCT_NOT_FOUND;
+import static by.dziomin.trade.util.ErrorMessages.PRODUCT_UPDATE_ERROR;
+import static by.dziomin.trade.util.ErrorMessages.SEARCH_PRODUCT_ERROR;
 
 /**
  * Implementation of Product Service
@@ -48,7 +58,7 @@ public class ProductServiceImpl extends AbstractService implements ProductServic
             return productList;
         } catch (DaoException e) {
 
-            throw new ServiceException("get all users error", e);
+            throw new ServiceException(GET_ALL_USERS_ERROR, e);
         }
     }
 
@@ -63,7 +73,7 @@ public class ProductServiceImpl extends AbstractService implements ProductServic
             product.setMeasure(measure);
             return product;
         } catch (DaoException e) {
-            throw new ServiceException("get product by id error", e);
+            throw new ServiceException(GET_PRODUCT_BY_ID_ERROR, e);
         }
     }
 
@@ -80,13 +90,14 @@ public class ProductServiceImpl extends AbstractService implements ProductServic
             }
             return product;
         } catch (DaoException e) {
-            throw new ServiceException("get product by barcode error", e);
+            throw new ServiceException(GET_PRODUCT_BY_BARCODE_ERROR, e);
         }
     }
 
     @Override
     public void updateProduct(final ProductEntity product) throws ServiceException {
         try (ConnectionPool.ProxyConnection connection = getConnection()) {
+            connection.setAutoCommit(false);
             ProductDao productDao = new ProductDaoImpl(connection);
             MeasureDao measureDao = new MeasureDaoImpl(connection);
 
@@ -96,17 +107,20 @@ public class ProductServiceImpl extends AbstractService implements ProductServic
                 //create measure if not exist
                 measureDao.create(product.getMeasure());
                 measure = measureDao.getByName(product.getMeasure().getName());
+                //throw new SQLException("Test transaction");
             }
             product.setMeasure(measure);
             productDao.update(product);
-        } catch (DaoException e) {
-            throw new ServiceException("Product update error", e);
+            connection.commit();
+        } catch (DaoException | SQLException e) {
+            throw new ServiceException(PRODUCT_UPDATE_ERROR, e);
         }
     }
 
     @Override
     public void createProduct(final ProductEntity product) throws ServiceException {
         try (ConnectionPool.ProxyConnection connection = getConnection()) {
+            connection.setAutoCommit(false);
             ProductDao productDao = new ProductDaoImpl(connection);
             MeasureDao measureDao = new MeasureDaoImpl(connection);
 
@@ -119,8 +133,9 @@ public class ProductServiceImpl extends AbstractService implements ProductServic
             }
             product.setMeasure(measure);
             productDao.create(product);
-        } catch (DaoException e) {
-            throw new ServiceException("Product create error", e);
+            connection.commit();
+        } catch (DaoException | SQLException e) {
+            throw new ServiceException(PRODUCT_CREATE_ERROR, e);
         }
     }
 
@@ -130,11 +145,29 @@ public class ProductServiceImpl extends AbstractService implements ProductServic
             ProductDao productDao = new ProductDaoImpl(connection);
             ProductEntity product = productDao.getById(productId);
             if (product == null) {
-                throw new ServiceException("PRODUCT_NOT_FOUND");
+                throw new ServiceException(PRODUCT_NOT_FOUND);
             }
             productDao.delete(productId);
         } catch (DaoException e) {
-            throw new ServiceException("Product delete error", e);
+            throw new ServiceException(PRODUCT_DATA_ERROR, e);
+        }
+    }
+
+    @Override
+    public List<ProductEntity> searchProducts(final String text) throws ServiceException {
+        try (ConnectionPool.ProxyConnection connection = getConnection()) {
+
+            ProductDao productDao = new ProductDaoImpl(connection);
+            MeasureDao measureDao = new MeasureDaoImpl(connection);
+            List<ProductEntity> productList = productDao.search(text);
+            for (ProductEntity product : productList) {
+                MeasureEntity measure =
+                        measureDao.getById(product.getMeasure().getId());
+                product.setMeasure(measure);
+            }
+            return productList;
+        } catch (DaoException e) {
+            throw new ServiceException(SEARCH_PRODUCT_ERROR, e);
         }
     }
 }

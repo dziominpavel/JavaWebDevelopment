@@ -4,6 +4,11 @@ import by.dziomin.trade.converter.BaseConverter;
 import by.dziomin.trade.dto.user.SessionUserDTO;
 import by.dziomin.trade.entity.UserEntity;
 
+/**
+ * Converter for UserEntity and SessionUserDTO
+ *
+ * @author - Pavel Dziomin
+ */
 public class SessionUserConverter extends BaseConverter<UserEntity, SessionUserDTO> {
 
     private static SessionUserConverter instance;

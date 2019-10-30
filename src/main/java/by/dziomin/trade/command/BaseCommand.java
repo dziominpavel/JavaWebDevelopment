@@ -11,10 +11,22 @@ import java.util.Collections;
 import java.util.List;
 
 import static by.dziomin.trade.command.AppUrls.ACCESS_DENIED_PAGE;
+import static by.dziomin.trade.util.ErrorMessages.COMMAND_ACCESS_DENIED;
 
+/**
+ * Base class for commands
+ *
+ * @author - Pavel Dziomin
+ */
 public abstract class BaseCommand implements Command {
 
-    protected abstract String executeCheckedCommand(final HttpServletRequest request);
+    /**
+     * Execute command after required roles was checked
+     *
+     * @param request request
+     * @return redirect page
+     */
+    protected abstract String executeCheckedCommand(HttpServletRequest request);
 
     @Override
     public final String execute(final HttpServletRequest request) {
@@ -36,17 +48,22 @@ public abstract class BaseCommand implements Command {
         return executeCheckedCommand(request);
     }
 
-    private void checkPermissions(Role userRole) throws ServiceException {
+    /**
+     * Get required roles for command
+     *
+     * @return list of roles
+     */
+    protected List<Role> getRequiredRoles() {
+        return Collections.emptyList();
+    }
+
+    private void checkPermissions(final Role userRole) throws ServiceException {
         if (getRequiredRoles().isEmpty()) {
             return;
         }
 
         if (userRole == null || !getRequiredRoles().contains(userRole)) {
-            throw new ServiceException("COMMAND_ACCESS_DENIED");
+            throw new ServiceException(COMMAND_ACCESS_DENIED);
         }
-    }
-
-    protected List<Role> getRequiredRoles() {
-        return Collections.emptyList();
     }
 }

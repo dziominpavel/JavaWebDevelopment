@@ -14,8 +14,8 @@
           href="${pageContext.request.contextPath}/css/style.css"/>
     <script src="../../js/main.js"></script>
 
-    <fmt:message key="locale.pagination.next" var="next"/>
-    <fmt:message key="locale.pagination.previous" var="previous"/>
+    <fmt:message key="pagination.next" var="next"/>
+    <fmt:message key="pagination.previous" var="previous"/>
 
 </head>
 <body>
@@ -24,10 +24,11 @@
         <form action="app">
             <input type="hidden" name="command" value="${pagination}">
             <input type="hidden" name="page" value="${requestScope.page - 1}">
+            <input type="hidden" name="searchText" value="${sessionScope.searchText}">
             <input class="page-number-blue" type="submit" value="${previous}">
         </form>
     </c:if>
-    <c:if test="${requestScope.page > requestScope.pagesCount}">
+    <c:if test="${requestScope.page > 1 && requestScope.page > requestScope.pagesCount}">
         ${requestScope.page = requestScope.pagesCount}
     </c:if>
     <c:forEach begin="1" end="${requestScope.pagesCount}" var="i">
@@ -41,6 +42,7 @@
                 <form action="app">
                     <input type="hidden" name="command" value="${pagination}">
                     <input type="hidden" name="page" value="${i}">
+                    <input type="hidden" name="searchText" value="${sessionScope.searchText}">
                     <input class="page-number-blue" type="submit" value=${i}>
                 </form>
             </c:otherwise>
@@ -50,6 +52,7 @@
         <form action="app">
             <input type="hidden" name="command" value="${pagination}">
             <input type="hidden" name="page" value="${requestScope.page + 1}">
+            <input type="hidden" name="searchText" value="${sessionScope.searchText}">
             <input class="page-number-blue" type="submit" value="${next}">
         </form>
     </c:if>

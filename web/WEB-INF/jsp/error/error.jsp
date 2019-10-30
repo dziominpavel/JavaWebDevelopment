@@ -1,3 +1,3 @@
 <div>
-    <h3>Error page</h3>
+    <h3><fmt:message key="ERROR.ERROR_PAGE"/></h3>
 </div>

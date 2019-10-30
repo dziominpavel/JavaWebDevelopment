@@ -7,6 +7,11 @@ import by.dziomin.trade.manager.impl.UserManagerImpl;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Manager factory
+ *
+ * @author - Pavel Dziomin
+ */
 public final class ManagerFactory {
 
     private static Map<Class, Manager> managerMap;

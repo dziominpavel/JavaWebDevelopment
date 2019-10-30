@@ -4,6 +4,11 @@ import by.dziomin.trade.dto.BaseDTO;
 
 import java.io.Serializable;
 
+/**
+ * DTO to display user
+ *
+ * @author - Pavel Dziomin
+ */
 public class UserDTO extends BaseDTO implements Serializable {
     private String login;
     private String name;

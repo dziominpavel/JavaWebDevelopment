@@ -1,5 +1,6 @@
 package by.dziomin.trade.dao.impl;
 
+import by.dziomin.trade.dao.DaoException;
 import by.dziomin.trade.dao.SalesItemDao;
 import by.dziomin.trade.entity.ProductEntity;
 import by.dziomin.trade.entity.ReceiptEntity;
@@ -7,8 +8,11 @@ import by.dziomin.trade.entity.SalesItem;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * DAO implementation for sales items
@@ -26,6 +30,9 @@ public class SalesItemDaoImpl extends BaseDaoImpl<SalesItem> implements SalesIte
     private static final String SQL_DELETE = "DELETE FROM SALESITEM WHERE id = ?";
     private static final String SQL_UPDATE = "UPDATE SALESITEM SET receipt_id= ?," +
             " product_id = ?, count = ?, sum = ? WHERE id = ?";
+    private static final String SQL_SELECT_BY_RECEIPT_ID = "SELECT " +
+            "receipt_id,product_id, count, sum FROM SALESITEM WHERE " +
+            "receipt_id = ?";
 
     /**
      * Constructor
@@ -73,6 +80,23 @@ public class SalesItemDaoImpl extends BaseDaoImpl<SalesItem> implements SalesIte
         return new Object[]{entity.getReceipt().getId(),
                 entity.getProduct().getId(), entity.getCount(),
                 entity.getPrice(), entity.getId()};
+    }
+
+    @Override
+    public List<SalesItem> getByReceiptId(final Long receiptId) throws DaoException {
+        try (PreparedStatement statement =
+                     getConnection().prepareStatement(SQL_SELECT_BY_RECEIPT_ID)) {
+            setParameters(statement, receiptId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                List<SalesItem> resultList = new ArrayList<>();
+                while (resultSet.next()) {
+                    resultList.add(mapQueryResult(resultSet));
+                }
+                return resultList;
+            }
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
     }
 
     @Override
